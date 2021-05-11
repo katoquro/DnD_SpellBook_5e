@@ -45,7 +45,7 @@
 			>
 			</searchfield>
 		</div>
-		<div class='mediaWidth'>				
+		<div class='mediaWidth'>
 			<custom-select
 				id="ClassSelect"
 				ref="ClassSelect"
@@ -56,7 +56,7 @@
 			>
 			</custom-select>
 		</div>
-		<div class='mediaWidth' v-show='aSubClassList.length>1'>				
+		<div class='mediaWidth' v-show='aSubClassList.length>1'>
 			<custom-select
 				id="SubClassSelect"
 				ref="SubClassSelect"
@@ -66,7 +66,7 @@
 			>
 			</custom-select>
 		</div>
-		<div class='mediaWidth' v-show='aSubSubClassList.length>1'>				
+		<div class='mediaWidth' v-show='aSubSubClassList.length>1'>
 			<custom-select
 				id="SubSubClassSelect"
 				ref="SubSubClassSelect"
@@ -77,7 +77,7 @@
 			</custom-select>
 		</div>
 
-		
+
 		<div class='mediaWidth' v-show='aSubClassList.length>1'>
 			<check-button
 				id="RitualCheckbox"
@@ -89,7 +89,7 @@
 			</check-button>
 		</div>
 
-		<div class='mediaWidth'>	
+		<div class='mediaWidth'>
 			<label class='filterLabel'>Уровень с/по</label>
 			<div class="row">
 				<div class="cell">
@@ -100,8 +100,8 @@
 						:items="aLevelList"
 						@iclick="onLevelStartChange($event)"
 					>
-					</custom-select>	
-				</div>		
+					</custom-select>
+				</div>
 				<div class="cell">
 					<custom-select
 						id="LevelSelectEnd"
@@ -111,10 +111,10 @@
 						@iclick="onLevelEndChange($event)"
 					>
 					</custom-select>
-				</div>	
+				</div>
 			</div>
 		</div>
-		
+
 		<div class='mediaWidth'>
 			<combobox
 				id="SchoolCombobox"
@@ -160,50 +160,50 @@
 			>
 			</check-button>
 		</div>
-			
-			<div class='mediaWidth'>	
+
+			<div class='mediaWidth'>
 				<label class='filterLabel'>Ширина карточек</label>
 				<div class="flexParent">
-	
-						<button 
+
+						<button
 							class='bt flexChild'
 							title='Уменьшить ширину карточек'
 							@click='makeCardWidthLess'
 							>
 							<i class="fa fa-caret-right" aria-hidden="true"></i> <i class="fa fa-caret-left" aria-hidden="true"></i>
 						</button>
-					
-						<button 
+
+						<button
 							class='bt flexChild'
 							title='Сбросить ширину карточек'
 							@click='makeCardWidthNorm'
 							>
 							<i class="fa fa-square-o" aria-hidden="true"></i>
 						</button>
-						
-						<button 
+
+						<button
 							class='bt flexChild'
 							title='Увеличить ширину карточек'
 							@click='makeCardWidthMore'
 							>
 							<i class="fa fa-caret-left" aria-hidden="true"></i> <i class="fa fa-caret-right" aria-hidden="true"></i>
 						</button>
-					
+
 				</div>
 			</div>
-			
+
 			<div class='mediaWidth'>
 				<div class="flexParent">
 					<button
 						class="bt flexChild"
-						style="    padding: 0.6em; margin: 0;"						
+						style="    padding: 0.6em; margin: 0;"
 						@click="autosizeAllText"
 						>
 						Подстроить текст
 					</button>
 				</div>
 			</div>
-			
+
 			<div class='mediaWidth'>
 				<custom-select
 					id="SortSelect"
@@ -215,7 +215,7 @@
 				>
 				</custom-select>
 			</div>
-			
+
 			<div class='mediaWidth'>
 				<custom-select
 					id="LangSelect"
@@ -266,13 +266,13 @@
 			>
 			</check-button>
 		</div>
-		
-			
+
+
 		<div class='mediaWidth' v-show="aHiddenItemsList.length>0">
 			<label class="filterLabel">Скрытые заклинания ({{aHiddenItemsList.length}})</label>
 			<div id="HiddenItems">
 				<a href='#' class='bReturnUnvisible' @click.stop="unhideAll">Вернуть все обратно</a>
-				<hiddenitem 
+				<hiddenitem
 					v-for="item in aHiddenItemsList"
 					:key="item.id"
 					:id="item.id"
@@ -284,9 +284,9 @@
 			</custom-select>
 			</div>
 		</div>
-		
+
 	</div>
-	
+
 	<div class='p_cont' ref="cardContainer">
 		<div id='lockedItemsArea' v-show="aLockedItemsList.length>0 && bCardsAreVisible"  v-cloak>
 			<div class='flex_row noprint'>
@@ -372,7 +372,7 @@
 			>
 			</card>
 		</div>
-		
+
 		<div id='info_text'>
 			<h1>Заклинания D&D5</h2>
 			<h2>
@@ -454,7 +454,7 @@
 				<a style="color: #0288D1"  href="https://github.com/Etignis/DnD_SpellList_eng_rus" target="_blanc">Страница проекта на GitHub.</a>
 			</p>
 		</div>
-    
+
 		<div class='row spellContainer'>
 		</div>
 	</div>
@@ -469,16 +469,14 @@
 </div>
 
 	<script type='text/javascript' src="js/vue.js" defer></script>
-  <script type='text/javascript' src='js/jquery-1.11.3.min.js' defer></script>  
+  <script type='text/javascript' src='js/jquery-1.11.3.min.js' defer></script>
   <script type='text/javascript' src='../_js/jquery.mobile.custom.min.js' defer></script>
   <script type='text/javascript' src='spells/schoolList.js' defer></script>
   <script type='text/javascript' src='spells/sourceList.js?v=0.43' defer></script>
   <script type='text/javascript' src='spells/allSpells.js?v=0.62' defer></script>
   <script type='text/javascript' src='spells/ClassSpells.js?v=0.53' defer></script>
-  <!-- <script type='text/javascript' src='js/magic.js?v=2.2.9' defer></script> -->
   <script type='text/javascript' src='js/controller.js?v=0.49' defer></script>
   <script type='text/javascript' src="js/FileSaver.min.js"></script>
-  <!-- <script type='text/javascript' src='js/update.js' defer></script> -->
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function (d, w, c) {
