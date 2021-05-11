@@ -1,0 +1,25 @@
+{
+  "name": "dnd-spellbook-5e",
+  "version": "0.1.0",
+  "description": "SpellBook For DnD 5e with RU translation",
+  "private": true,
+  "repository": "git@github.com:katoquro/DnD_SpellList_eng_rus.git",
+  "contributors": [
+    "Etignis <etignis@gmail.com>",
+    "Andrew Malyhin <katoquro@gmail.com>"
+  ],
+  "license": "CC BY-NC-SA 3.0",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack serve --mode development"
+  },
+  "devDependencies": {
+    "css-loader": "^5.2.4",
+    "less": "^4.1.1",
+    "less-loader": "^8.1.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}

@@ -9,7 +9,7 @@
     top: 16px;
     .border-rad(@w/2);
     .box-shadow(0, 2px, 2px, 2px, rgba(0,0,0,.1));
-    
+
     /*/
     @w2: @w/2;
     @b: 4px;
@@ -21,8 +21,8 @@
     &:after{
         content: "";
         position: absolute;
-        left: @w/2 - @w2/2 - @b;
-        top:  @w/2 - @w2/2 - @b;
+        left: @w/2  - @b;
+        top:  @w/2  - @b;
         width: @w2;
         height: @w2;
         border: @b solid #8DB6F3;
@@ -36,11 +36,11 @@
     }
     /**/
     @keyframes spin {
-    from {
-        transform:rotate(0deg);
+      from {
+          transform:rotate(0deg);
+      }
+      to {
+          transform:rotate(360deg);
+      }
     }
-    to {
-        transform:rotate(360deg);
-    }
-}
 }
