@@ -1,6 +1,8 @@
 import './style/style.less'
 import './fonts/font-awesome.min.css'
 
+import 'vue-tsx-support/enable-check'
+
 import saveAs from 'file-saver'
 import $ from 'jquery'
 import Vue from 'vue'
@@ -9,6 +11,8 @@ import { allSpells } from './data/allSpells'
 import { classSpells } from './data/ClassSpells'
 import { sourceList } from './data/sourceList'
 import { oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from './data/schoolList'
+
+import SearchField from './components/SearchField.tsx'
 
 let fCtrlIsPressed = false
 
@@ -75,58 +79,6 @@ Vue.component('modalWin', {
     <span class="bCloseInfoWin" @click="close">×</span>
     <div class="mod_win_content" v-html="content">
     </div>
-  </div>
-</div>`
-})
-
-Vue.component('searchfield', {
-  props: {
-    id: {
-      type: String,
-      default: ''
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    value: {
-      type: String,
-      default: ''
-    },
-    ios: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data: function () {
-    return {}
-  },
-  methods: {
-    input: function (oEvent) {
-      this.$emit('input', oEvent.target.value)
-    },
-    clear: function () {
-      this.$emit('input', '')
-    },
-    random: function () {
-      this.$emit('searchrndom')
-    }
-  },
-  computed: {
-    innerId: function () {
-      return 'sf_' + this.id
-    }
-  },
-
-  template: `<div :id="id">
-  <label class='filterLabel' :for="innerId">{{title}}</label>
-  <div style="display: flex">
-    <div class="customInput">
-      <textarea v-if="ios" :id="innerId"  @input="input" rows=1 style="width:100%; height: 3rem; font-size:110%">{{value}}</textarea>
-      <input v-else :id="innerId" type="text" :value='value' @input="input">
-      <span class="cross" @click="clear"></span>
-    </div>
-    <a href="#random" class="bt flexChild" id="bRandom" title="Случайное заклинание" @click.stop="random">🎲</a>
   </div>
 </div>`
 })
@@ -715,36 +667,11 @@ Vue.component('card', {
       </div>`
 })
 
-Vue.component('hiddenitem', {
-  props: {
-    id: {
-      type: String,
-      default: ''
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    tooltip: {
-      type: String,
-      default: ''
-    }
-  },
-  data: function () {
-    return {}
-  },
-  methods: {
-    unhide: function (oEvent) {
-      this.$emit('unhide', oEvent)
-    }
-  },
-  computed: {},
-
-  template: '<a href=\'#\' @click.stop="unhide">{{title}} ({{tooltip}})</a>'
-})
-
 const app = new Vue({
   el: '#app',
+  components: {
+    searchfield: SearchField
+  },
   data: {
     aSources: sourceList,
     aSchools: schoolList,

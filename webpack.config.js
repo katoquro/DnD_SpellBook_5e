@@ -1,11 +1,12 @@
 const path = require('path')
 const ESLintPlugin = require('eslint-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = {
   mode: 'production',
-  entry: './src/index.js',
+  entry: './src/index.jsx',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -17,6 +18,20 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.(js|jsx|tsx|vue)?$/,
+        exclude: /src\/data/,
+        use: {
+          loader: 'babel-loader'
+        }
+      },
+      {
+        test: /\.(ts)x?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader'
+        }
+      },
       {
         test: /\.(css|less)$/i,
         use: [
@@ -32,7 +47,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
         type: 'asset/resource',
       },
       {
@@ -43,12 +58,17 @@ module.exports = {
   },
   resolve: {
     // hack to use version with bundled template compiler
-    alias: { vue: 'vue/dist/vue.esm.js' }
+    alias: { vue: 'vue/dist/vue.esm.js' },
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
   },
   plugins: [
     new ESLintPlugin({
       lintDirtyModulesOnly: true,
       failOnError: false,
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      minify: false
     }),
     new StylelintPlugin({
       files: '**/*.(less|css)',

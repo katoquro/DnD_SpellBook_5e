@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "es5",
+      "es2015"
+    ],
+    "target": "es5",
+    "strict": true,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "jsx": "preserve",
+    "jsxFactory": "VueTsxSupport"
+  },
+  "include": [
+    "node_modules/vue-tsx-support/enable-check.d.ts",
+    "src"
+  ]
+}
