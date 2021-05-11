@@ -40,10 +40,13 @@ module.exports = {
     ],
   },
   plugins: [
-    // new ESLintPlugin({}),
-    // new StylelintPlugin({
-    //   files: '**/*.(less|css)',
-    //   context: './src/style',
-    // }),
+    new ESLintPlugin({
+      lintDirtyModulesOnly: true
+    }),
+    new StylelintPlugin({
+      files: '**/*.(less|css)',
+      context: './src/style',
+      lintDirtyModulesOnly: true
+    }),
   ]
 }
