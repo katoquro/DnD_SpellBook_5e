@@ -1,4 +1,6 @@
-const path = require('path');
+const path = require('path')
+const ESLintPlugin = require('eslint-webpack-plugin')
+const StylelintPlugin = require('stylelint-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -17,19 +19,13 @@ module.exports = {
         test: /\.(css|less)$/i,
         use: [
           {
-            loader: "style-loader",
+            loader: 'style-loader',
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
           },
           {
-            loader: "less-loader",
-            // options: {
-            //   lessOptions: {
-            //     strictMath: false,
-            //     strictUnits: false,
-            //   },
-            // },
+            loader: 'less-loader',
           },
         ],
       },
@@ -43,4 +39,11 @@ module.exports = {
       },
     ],
   },
-};
+  plugins: [
+    // new ESLintPlugin({}),
+    // new StylelintPlugin({
+    //   files: '**/*.(less|css)',
+    //   context: './src/style',
+    // }),
+  ]
+}
