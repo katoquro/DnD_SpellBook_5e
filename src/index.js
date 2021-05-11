@@ -1,6 +1,15 @@
 import './style/style.less'
 import './fonts/font-awesome.min.css'
 
+import saveAs from 'file-saver'
+import $ from 'jquery'
+import Vue from 'vue'
+
+import { allSpells } from './data/allSpells'
+import { classSpells } from './data/ClassSpells'
+import { sourceList } from './data/sourceList'
+import { oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from './data/schoolList'
+
 let fCtrlIsPressed = false
 
 function randd (min, max) {
@@ -8,10 +17,7 @@ function randd (min, max) {
 }
 
 function isDebug () {
-  if (window.location.href.toLowerCase().indexOf('debug=true') > -1) {
-    return true
-  }
-  return false
+  return window.location.href.toLowerCase().indexOf('debug=true') > -1
 }
 
 function isIos () {
@@ -878,7 +884,7 @@ const app = new Vue({
 
   computed: {
     sOtherLang: function () {
-      return (this.sLang == 'ru') ? 'en' : 'ru'
+      return (this.sLang === 'ru') ? 'en' : 'ru'
     },
     aSrcList: function () {
       const a = []
@@ -887,7 +893,7 @@ const app = new Vue({
           a.push({
             key: key,
             title: this.aSources[key].text.en.title + '<br>' + this.aSources[key].text.ru.title,
-            subtitle: this.aSources[key].official == true ? '' : 'Homebrew /Самопал',
+            subtitle: this.aSources[key].official === true ? '' : 'Homebrew /Самопал',
             official: this.aSources[key].official,
             checked: this.aSources[key].checked
           })
@@ -1158,7 +1164,8 @@ const app = new Vue({
 
       return aFiltered.map(function (oItem) {
         try {
-          const sSrc = oItem.en.source.split(',').map(item => this.aSources[item.trim()].text[this.sLang].title)
+          const sSrc = oItem.en.source.split(',')
+            .map(item => this.aSources[item.trim()].text[this.sLang].title)
             .join(', ')
           const o = {
             id: oItem.en.name,
@@ -1477,10 +1484,10 @@ const app = new Vue({
         }
       }, 1)
       /* /
-            this.$refs.itemCard.forEach(function(oCard){
-                oCard.autosizeText();
-            });
-            /**/
+                  this.$refs.itemCard.forEach(function(oCard){
+                      oCard.autosizeText();
+                  });
+                  /**/
     },
 
     onSchoolsToggled: function (bStat) {
@@ -1849,10 +1856,10 @@ const app = new Vue({
         // this._completeDB(this.aItems = oDB.allSpells);
 
         /* /
-                this.aSources = oDB.sourceList;
-                this.aSchools = oDB.schoolList;
-                this.aLanguages = oDB.oLanguages;
-                /**/
+                        this.aSources = oDB.sourceList;
+                        this.aSchools = oDB.schoolList;
+                        this.aLanguages = oDB.oLanguages;
+                        /**/
         this.aItems = oDB.allSpells
 
         const oUploader = this.$refs.fileUploader
@@ -1906,14 +1913,14 @@ $(document).keydown(function (event) {
   // A pressed
   if (event.which == '65' && fCtrlIsPressed) {
     /* /
-        if($(".spellCard.selected").length == $(".spellCard").length) {
-            // deselect all
-            $(".spellCard").removeClass("selected");
-        } else {
-            // select all
-            $(".spellCard").addClass("selected");
-        }
-        /**/
+            if($(".spellCard.selected").length == $(".spellCard").length) {
+                // deselect all
+                $(".spellCard").removeClass("selected");
+            } else {
+                // select all
+                $(".spellCard").addClass("selected");
+            }
+            /**/
     app.selectAll()
     return false
   }

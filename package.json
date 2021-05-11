@@ -32,5 +32,10 @@
     "webpack": "^5.36.2",
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "file-saver": "^2.0.5",
+    "jquery": "^3.6.0",
+    "vue": "^2.5.22"
   }
 }

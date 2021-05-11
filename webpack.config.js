@@ -1,8 +1,10 @@
 const path = require('path')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
+  mode: 'production',
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
@@ -39,14 +41,24 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    // hack to use version with bundled template compiler
+    alias: { vue: 'vue/dist/vue.esm.js' }
+  },
   plugins: [
     new ESLintPlugin({
-      lintDirtyModulesOnly: true
+      lintDirtyModulesOnly: true,
+      failOnError: false,
     }),
     new StylelintPlugin({
       files: '**/*.(less|css)',
       context: './src/style',
-      lintDirtyModulesOnly: true
+      lintDirtyModulesOnly: true,
+      failOnError: false,
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
     }),
   ]
 }
