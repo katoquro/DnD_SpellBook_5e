@@ -15,6 +15,7 @@ import Card from './components/Card.tsx'
 import CustomSelect from './components/CustomSelect.tsx'
 import Combobox from './components/Combobox.tsx'
 import Hiddenitem from './components/Hiddenitem.tsx'
+import CheckButton from './components/CheckButton.tsx'
 
 let fCtrlIsPressed = false
 
@@ -85,48 +86,6 @@ Vue.component('ModalWin', {
 </div>`
 })
 
-Vue.component('CheckButton', {
-  props: {
-    id: {
-      type: String,
-      default: ''
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    tooltip: {
-      type: String,
-      default: ''
-    },
-    checked: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data: function () {
-    return {}
-  },
-  computed: {
-    innerId: function () {
-      return 'chb_' + this.id
-    },
-    value: function () {
-      return this.checked ? 'checked=\'checked\'' : ''
-    }
-  },
-  methods: {
-    press: function (oEvent) {
-      this.$emit('press')
-    }
-  },
-
-  template: `<div :id="id" class="customCheckbox" @click.stop="press" :title="tooltip">
-  <input type="checkbox" :id="innerId" :checked="checked">
-  <span class="label">{{title}}</span>
-</div>`
-})
-
 const app = new Vue({
   el: '#app',
   components: {
@@ -134,7 +93,8 @@ const app = new Vue({
     card: Card,
     'custom-select': CustomSelect,
     combobox: Combobox,
-    hiddenitem: Hiddenitem
+    hiddenitem: Hiddenitem,
+    'check-button': CheckButton
   },
   data: {
     aSources: sourceList,
