@@ -249,7 +249,7 @@ const app = new Vue({
       return (aFiltered.length > 0) ? aFiltered.map(item => item.key) : this.aSrcList.map(item => item.key)
     },
 
-    aSchoolList: function () {
+    aSchoolList () {
       const a = []
       let i = 0
       for (const key in this.aSchools) {
@@ -425,7 +425,7 @@ const app = new Vue({
 
     aClassSpells: function () {
       let aSpells = []
-      if (this.sClass != '') {
+      if (this.sClass !== '') {
         if (this.bAllClassSpells) {
           aSpells = aSpells.concat(this.oClassSpells[this.sClass].spells)
 
@@ -469,15 +469,15 @@ const app = new Vue({
                     // this.aSrcSelected.indexOf(oItem.en.source)>-1 && // old filter for sources
                     this.aSchoolSelected.indexOf(oItem.en.school.toLowerCase().trim()) > -1 /**/ &&
                     (
-                      this.aCastingTimeSelected.length == 0 ||
+                      this.aCastingTimeSelected.length === 0 ||
                         this.aCastingTimeSelected.indexOf(oItem.en.castingTime.toLowerCase().trim()) > -1
                     ) &&
                     (
                       oItem.en.name.toLowerCase().indexOf(this.sNameInput) > -1 ||
-                        oItem.ru.name.toLowerCase().indexOf(this.sNameInput) > -1 ||
-                        oItem.ru.nic && oItem.ru.nic.toLowerCase().indexOf(this.sNameInput) > -1
+                      oItem.ru.name.toLowerCase().indexOf(this.sNameInput) > -1 ||
+                      (oItem.ru.nic && oItem.ru.nic.toLowerCase().indexOf(this.sNameInput) > -1)
                     ) &&
-                    (this.bRitualOnly && oItem.en.ritual || !this.bRitualOnly) &&
+                    ((this.bRitualOnly && oItem.en.ritual) || !this.bRitualOnly) &&
                     this.aHiddenItems.indexOf(oItem.en.name) < 0/**/ &&
                     this.nLevelStart <= this.nLevelEnd &&
                     this.nLevelStart <= Number(oItem.en.level) &&
@@ -525,10 +525,10 @@ const app = new Vue({
           }
           return o
         } catch (err) {
-          debugger
+          console.log(err)
         }
       }.bind(this)).sort(function (a, b) {
-        if (this.sSort == 'alpha') {
+        if (this.sSort === 'alpha') {
           if (a.name.toLowerCase().trim() < b.name.toLowerCase().trim()) {
             return -1
           }
@@ -588,7 +588,7 @@ const app = new Vue({
         }
         return o
       }.bind(this)).sort(function (a, b) {
-        if (this.sSort == 'alpha') {
+        if (this.sSort === 'alpha') {
           if (a.name.toLowerCase().trim() < b.name.toLowerCase().trim()) {
             return -1
           }
@@ -650,7 +650,7 @@ const app = new Vue({
     collectCastingTime: function () {
       const oTmp = {}
       // this.aCastingTime={};
-      this.aItems.forEach(el => oTmp[el.en.castingTime] = el.ru.castingTime)
+      this.aItems.forEach(el => { oTmp[el.en.castingTime] = el.ru.castingTime })
 
       for (const key in oTmp) {
         this.aCastingTime[key] = {
@@ -952,20 +952,20 @@ const app = new Vue({
         aHash.push('q=' + this.sSearch.trim())
       }
 
-      if (this.aSrcSelected.length != this.aSrcList.length) {
+      if (this.aSrcSelected.length !== this.aSrcList.length) {
         aHash.push('src=' + this.aSrcSelected.join(','))
       }
-      if (this.aSchoolSelected.length != this.aSchoolList.length) {
+      if (this.aSchoolSelected.length !== this.aSchoolList.length) {
         aHash.push('school=' + this.aSchoolSelected.join(','))
       }
       // let aCastingTimeSelected = this.aCastingTimeSelected();
-      if (this.aCastingTimeSelected.length != this.aCastingTime.length && this.aCastingTimeSelected.length) {
+      if (this.aCastingTimeSelected.length !== this.aCastingTime.length && this.aCastingTimeSelected.length) {
         aHash.push('castTime=' + this.aCastingTimeSelected.join(','))
       }
-      if (this.sLang != 'ru') {
+      if (this.sLang !== 'ru') {
         aHash.push('lang=' + this.sLang)
       }
-      if (this.sClass != '') {
+      if (this.sClass !== '') {
         aHash.push('class=' + this.sClass)
       }
       if (this.nLevelStart > 0) {
@@ -974,10 +974,10 @@ const app = new Vue({
       if (this.nLevelEnd < 9) {
         aHash.push('le=' + this.nLevelEnd)
       }
-      if (this.sView != 'card') {
+      if (this.sView !== 'card') {
         aHash.push('view=' + this.sView)
       }
-      if (this.sSort != 'levelAlpha') {
+      if (this.sSort !== 'levelAlpha') {
         aHash.push('sort=' + this.sSort)
       }
 
@@ -1088,14 +1088,14 @@ const app = new Vue({
     },
 
     setConfig: function (prop, val) {
-      if (prop && val != undefined && this.oConfig) {
+      if (prop && val !== undefined && this.oConfig) {
         this.oConfig[prop] = val
         localStorage.setItem('feat_config', JSON.stringify(this.oConfig))
       }
     },
     getConfig: function (prop) {
       this.oConfig = JSON.parse(localStorage.getItem('feat_config')) || {}
-      if (prop != undefined) {
+      if (prop !== undefined) {
         return localStorage.getItem('feat_config') ? this.oConfig[prop] : null
       }
       return ''
@@ -1118,12 +1118,12 @@ const app = new Vue({
       }
 
       const bTmpSchoolsOpend = this.getConfig('schoolsOpend')
-      if (bTmpSchoolsOpend != undefined) {
+      if (bTmpSchoolsOpend !== undefined) {
         this.bSchoolsOpend = bTmpSchoolsOpend
       }
 
       const bTMPSourcesOpend = this.getConfig('sourcesOpend')
-      if (bTMPSourcesOpend != undefined) {
+      if (bTMPSourcesOpend !== undefined) {
         this.bSourcesOpend = bTMPSourcesOpend
       }
     },
@@ -1142,7 +1142,6 @@ const app = new Vue({
       saveAs(blob, filename + '.dtn')
     },
     uploadDB: function () {
-      const oUploader = this.$refs.fileUploader
       document.getElementById('fileUploader').click()
     },
     fileSelected: function (oEvent) {
@@ -1185,7 +1184,6 @@ const app = new Vue({
                         /**/
         this.aItems = oDB.allSpells
 
-        const oUploader = this.$refs.fileUploader
         document.getElementById('fileUploader').value = ''
         alert('Вроде как загружено')
       } catch (err) {
@@ -1202,7 +1200,7 @@ const app = new Vue({
     },
     cancelCard: function (oData) {
       const sId = oData.id
-      const oItem = this.aItems.find(el => el.en.name.toLowerCase().replace(/\s+/, '') == sId.toLowerCase()
+      const oItem = this.aItems.find(el => el.en.name.toLowerCase().replace(/\s+/, '') === sId.toLowerCase()
         .replace(/\s+/, ''))
       if (oItem) {
         const sText = oItem[this.sLang].text + '  '
@@ -1216,7 +1214,7 @@ const app = new Vue({
       const sId = oData.id
       const sText = oData.text
 
-      const oItem = this.aItems.find(el => el.en.name.toLowerCase().replace(/\s+/, '') == sId.toLowerCase()
+      const oItem = this.aItems.find(el => el.en.name.toLowerCase().replace(/\s+/, '') === sId.toLowerCase()
         .replace(/\s+/, ''))
       if (oItem) {
         oItem[this.sLang].text = sText
@@ -1229,14 +1227,14 @@ const app = new Vue({
 
 $(document).keydown(function (event) {
   // CTRL pressed
-  if (event.which == '17') {
+  if (event.which === 17) {
     fCtrlIsPressed = true
   }
 
   // A pressed
-  if (event.which == '65' && fCtrlIsPressed) {
+  if (event.which === 65 && fCtrlIsPressed) {
     /* /
-            if($(".spellCard.selected").length == $(".spellCard").length) {
+            if($(".spellCard.selected").length === $(".spellCard").length) {
                 // deselect all
                 $(".spellCard").removeClass("selected");
             } else {
