@@ -1,8 +1,6 @@
 import './style/style.less'
 import './fonts/font-awesome.min.css'
 
-import 'vue-tsx-support/enable-check'
-
 import saveAs from 'file-saver'
 import $ from 'jquery'
 import Vue from 'vue'
@@ -13,6 +11,7 @@ import { sourceList } from './data/sourceList'
 import { oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from './data/schoolList'
 
 import SearchField from './components/SearchField.tsx'
+import Card from './components/Card.tsx'
 
 let fCtrlIsPressed = false
 
@@ -53,7 +52,7 @@ function isIos () {
   return false
 }
 
-Vue.component('modalWin', {
+Vue.component('ModalWin', {
   props: {
     title: {
       type: String,
@@ -67,12 +66,12 @@ Vue.component('modalWin', {
   data: function () {
     return {}
   },
+  computed: {},
   methods: {
     close: function () {
       this.$emit('close')
     }
   },
-  computed: {},
 
   template: `<div class="mod_win_wrapper" style='background: rgba(0, 0, 0, 0.7);' @click="close" @scroll.stop>
   <div class="mod_win">
@@ -83,7 +82,7 @@ Vue.component('modalWin', {
 </div>`
 })
 
-Vue.component('check-button', {
+Vue.component('CheckButton', {
   props: {
     id: {
       type: String,
@@ -105,17 +104,17 @@ Vue.component('check-button', {
   data: function () {
     return {}
   },
-  methods: {
-    press: function (oEvent) {
-      this.$emit('press')
-    }
-  },
   computed: {
     innerId: function () {
       return 'chb_' + this.id
     },
     value: function () {
       return this.checked ? 'checked=\'checked\'' : ''
+    }
+  },
+  methods: {
+    press: function (oEvent) {
+      this.$emit('press')
     }
   },
 
@@ -125,7 +124,7 @@ Vue.component('check-button', {
 </div>`
 })
 
-Vue.component('hiddenitem', {
+Vue.component('Hiddenitem', {
   props: {
     id: {
       type: String,
@@ -143,17 +142,17 @@ Vue.component('hiddenitem', {
   data: function () {
     return {}
   },
+  computed: {},
   methods: {
     unhide: function (oEvent) {
       this.$emit('unhide', oEvent)
     }
   },
-  computed: {},
 
   template: '<a href=\'#\' @click.stop="unhide">{{title}} ({{tooltip}})</a>'
 })
 
-Vue.component('comboboxItem', {
+Vue.component('ComboboxItem', {
   props: {
     val: {
       type: String,
@@ -175,11 +174,6 @@ Vue.component('comboboxItem', {
   data: function () {
     return {}
   },
-  methods: {
-    labelClick: function (oEvent) {
-      this.$emit('lclick', this.val)
-    }
-  },
   computed: {
     id: function () {
       return 'ch_' + this.val
@@ -192,13 +186,18 @@ Vue.component('comboboxItem', {
   created: function () {
 
   },
+  methods: {
+    labelClick: function (oEvent) {
+      this.$emit('lclick', this.val)
+    }
+  },
   template: `<div>
   <input type="checkbox" :value="val" :id="id" :checked="checked">
   <label data-hierarchy="root" v-html="label" @click="labelClick"></label>
 </div>`
 })
 
-Vue.component('combobox', {
+Vue.component('Combobox', {
   props: {
     value: {
       type: String,
@@ -231,6 +230,12 @@ Vue.component('combobox', {
       return (this.open != null) ? this.open : this.opened || false
     }
   },
+  mounted: function () {
+    if (!this.isOpen) {
+      const el = $('#' + this.id).find('.combo_box_content')
+      el.hide()
+    }
+  },
   methods: {
     toggle: function (oEvent, bStat) {
       this.open = (bStat != undefined) ? bStat : !this.open
@@ -247,12 +252,6 @@ Vue.component('combobox', {
     },
     itemclick: function (oEvent) {
       this.$emit('iclick', oEvent)
-    }
-  },
-  mounted: function () {
-    if (!this.isOpen) {
-      const el = $('#' + this.id).find('.combo_box_content')
-      el.hide()
     }
   },
   template: `<div :id="id" class="combo_box" :data-text="title" >
@@ -279,7 +278,7 @@ Vue.component('combobox', {
 </div>`
 })
 
-Vue.component('custom-select', {
+Vue.component('CustomSelect', {
   props: {
     selected: {
       type: String,
@@ -312,6 +311,12 @@ Vue.component('custom-select', {
       return (this.open != null) ? this.open : this.bOpen || false
     }
   },
+  mounted: function () {
+    if (!this.isOpen) {
+      const el = $('#' + this.id).find('.combo_box_content')
+      el.hide()
+    }
+  },
   methods: {
     toggle: function () {
       this.open = !this.open
@@ -325,12 +330,6 @@ Vue.component('custom-select', {
     itemclick: function (sKey) {
       this.toggle()
       this.$emit('iclick', sKey)
-    }
-  },
-  mounted: function () {
-    if (!this.isOpen) {
-      const el = $('#' + this.id).find('.combo_box_content')
-      el.hide()
     }
   },
   template: `<div :id="id">
@@ -350,327 +349,11 @@ Vue.component('custom-select', {
 </div>`
 })
 
-Vue.component('card', {
-  props: {
-    name: {
-      type: String,
-      default: ''
-    },
-    tooltip: {
-      type: String,
-      default: ''
-    },
-    id: {
-      type: String,
-      default: ''
-    },
-    castingTimeTitle: {
-      type: String,
-      default: 'Casting time'
-    },
-    castingTime: {
-      type: String,
-      default: ''
-    },
-    rangeTitle: {
-      type: String,
-      default: 'Range'
-    },
-    range: {
-      type: String,
-      default: ''
-    },
-    componentsTitle: {
-      type: String,
-      default: 'Components'
-    },
-    components: {
-      type: String,
-      default: ''
-    },
-    durationTitle: {
-      type: String,
-      default: 'Duration'
-    },
-    duration: {
-      type: String,
-      default: ''
-    },
-    materials: {
-      type: String,
-      default: ''
-    },
-    text: {
-      type: String,
-      default: ''
-    },
-    className: {
-      type: String,
-      default: ''
-    },
-    level: {
-      type: String,
-      default: ''
-    },
-    school: {
-      type: String,
-      default: ''
-    },
-    src: {
-      type: String,
-      default: ''
-    },
-    source: {
-      type: String,
-      default: ''
-    },
-    ritual: {
-      type: String,
-      default: ''
-    },
-    color: {
-      type: String,
-      default: ''
-    },
-    view: {
-      type: String,
-      default: 'card'
-    },
-    selected: {
-      type: Boolean,
-      default: false
-    },
-    locked: {
-      type: Boolean,
-      default: false
-    },
-    type: {
-      type: String,
-      default: ''
-    },
-    pre: {
-      type: String,
-      default: ''
-    },
-    editable: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data: function () {
-    return {
-      // mainClass: "cardContainer",
-      viewClass: 'cardView',
-      textSize: '',
-      cardWidth: ''
-    }
-  },
-  computed: {
-    mainClass: function () {
-      return (this.view == 'card') ? 'cardContainer' : 'textCardContainer'
-    },
-    srcTitle: function () {
-      return 'Источник: ' + this.source
-    },
-    materialsLine: function () {
-      return this.materials ? '(' + this.materials + ')' : ''
-    },
-    cardView: function () {
-      return (this.view == 'card')
-    },
-    typeClass: function () {
-      let sClass = this.color.toLowerCase()
-      switch (sClass) {
-        case 'skill proficiency':
-          sClass = 'skill'
-          break
-        case 'tool proficiency':
-          sClass = 'tool'
-          break
-        case 'world-specific':
-          sClass = 'world'
-          break
-      }
-      return sClass
-    },
-    selectedClass: function () {
-      return this.selected ? 'selected' : ''
-    },
-    colorClass: function () {
-      return this.color ? this.color : ''
-    },
-    preparedText: function () {
-      return this.text ? this.text.split(/<br>/g).map(el => '<p>' + el + '</p>').join('') : ''
-    },
-    ItemCard: function () {
-      return 'spellCard'
-    },
-    prerequisite: function () {
-      return this.pre.length > 0 ? '<span title=\'Требования необходимые для возможности получения заклинания\'>[' + this.pre + ']</span>' : ''
-    },
-    ritualMark: function () {
-      return this.ritual ? '(' + this.ritual + ') ' : ''
-    },
-
-    textSizeStyle: function () {
-      return this.textSize ? 'font-size: ' + this.textSize + 'px' : ''
-    },
-    cardWidthStyle: function () {
-      return (this.cardWidth > 0 && this.cardView) ? 'width: ' + this.cardWidth + 'px' : ''
-    },
-
-    editableButtons: function () {
-      return this.editable ? '' : 'display: none'
-    }
-  },
-  mounted: function () {
-    const oText = this.$refs.itemText
-    const styleText = window.getComputedStyle(oText, null).getPropertyValue('font-size')
-    this.textSize = parseFloat(styleText)
-
-    const oContainer = this.$refs.cardContainer
-    const styleContainer = window.getComputedStyle(oContainer, null).getPropertyValue('width')
-    this.cardWidth = parseFloat(styleContainer)
-  },
-  methods: {
-    lock: function (oEvent) {
-      this.$emit('lock', oEvent)
-    },
-    unlock: function (oEvent) {
-      this.$emit('unlock', oEvent)
-    },
-    hide: function (oEvent) {
-      this.$emit('hide', oEvent)
-    },
-    select: function (oEvent) {
-      this.$emit('select', oEvent)
-      return false
-    },
-
-    onTextMin: function () {
-      this.textSize--
-    },
-    onTextMax: function () {
-      this.textSize++
-    },
-
-    onTextCancel: function () {
-      this.$emit('cancel', { id: this.id })
-    },
-    onTextSave: function (oEvent) {
-      const oEl = this.$refs.itemText
-      const sText = oEl.innerHTML
-      this.$emit('input', {
-        id: this.id,
-        text: sText
-      })
-    },
-
-    autosizeText: function () {
-      const oEl = this.$refs.itemText
-      const style = window.getComputedStyle(oEl, null).getPropertyValue('scrollWidth')
-
-      if (this.textSize > 7 && oEl.scrollHeight > oEl.offsetHeight) {
-        this.textSize -= 0.3
-        return true
-      } else {
-        return false
-      }
-    },
-    onCardWidthMax: function () {
-      this.cardWidth += 10
-    },
-    onCardWidthMin: function () {
-      this.cardWidth -= 10
-    },
-    setCardWidth: function (nWidth) {
-      this.cardWidth = nWidth
-    }
-  },
-
-  template: `<div :class="[mainClass, viewClass, colorClass]" @click.ctrl="select" v-on:dblclick.stop="select" ref="cardContainer" :style="cardWidthStyle">
-        <div :class='[ItemCard, selectedClass]' v-if="cardView" >
-          <div class="content">
-            <span v-show="locked" class="bUnlockItem" title="Открепить обратно" @click.stop="unlock"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-            <span v-show="!locked" class="bLockItem" title="Закорепить заклинание (не будут действовать фильтры)" @click.stop="lock"><i class="fa fa-lock" aria-hidden="true"></i></span>
-            <span class="bHideItem" title="Скрыть заклинание (будет внизу панели фильтров)" @click.stop="hide"><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
-            <h1 :title="tooltip" :contenteditable="editable">{{name}} {{ritualMark}}</h1>
-            <div class="row">
-              <div class="cell castingTime" :contenteditable="editable">
-                <b>{{castingTimeTitle}}</b>
-                <span>{{castingTime}}</span>
-              </div>
-              <div class="cell range" :contenteditable="editable">
-                <b>{{rangeTitle}}</b>
-                <span>{{range}}</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="cell components" :contenteditable="editable">
-                <b>{{componentsTitle}}</b>
-                <span>{{components}}</span>
-              </div>
-              <div class="cell duration" :contenteditable="editable">
-                <b>{{durationTitle}}</b>
-                <span>{{duration}}</span>
-              </div>
-            </div>
-            <div class="materials" :contenteditable="editable">{{materials}}</div>
-            <div class="text" v-html="preparedText" :style="textSizeStyle" ref="itemText" :contenteditable="editable">
-            </div>
-
-            <div class="sizeButtonsContainer noprint">
-              <span class="textMin itemButton" title="Уменьшить размер текста" @click.stop='onTextMin'>–</span>
-
-              <span class="textCancel itemButton" title="Отменить" @click.stop='onTextCancel' :style="editableButtons">✖</span>
-              <span class="textSave itemButton" title="Сохранить" @click.stop='onTextSave' :style="editableButtons">✔</span>
-
-              <span class="textMax itemButton" title="Увеличить размер текста" @click.stop='onTextMax'>+</span>
-            </div>
-            <b class="class">{{className}}</b>
-            <b class="school">{{level}}, {{school}} <span :title="srcTitle">({{src}})</span></b>
-          </div>
-        </div>
-
-        <div class="inner" v-if="!cardView">
-          <span v-show="locked" class="bUnlockItem noprint" title="Открепить обратно" @click.stop="unlock"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-          <span v-show="!locked" class="bLockItem noprint" title="Закорепить заклинание (не будут действовать фильтры)" @click.stop="lock"><i class="fa fa-lock" aria-hidden="true"></i></span>
-          <span class="bHideItem noprint" title="Скрыть заклинание (будет внизу панели фильтров)" @click.stop="hide"><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
-          <div class="flex">
-            <div class="flex column primal">
-              <h1 :title="tooltip" :contenteditable="editable">{{name}}</h1>
-              <div class="second_name" :contenteditable="editable">[{{tooltip}}]</div>
-              <div class="school_level" :contenteditable="editable">{{level}}, {{school}} {{ritualMark}}</div>
-            </div>
-            <div class="flex secondal">
-              <div class="column thirdal">
-                <div class="cvasi_row"><div class="subtitle" :contenteditable="editable">{{castingTimeTitle}}</div> <div>{{castingTime}}</div></div>
-                <div class="cvasi_row"><div class="subtitle" :contenteditable="editable">{{rangeTitle}}</div> <div>{{range}}</div></div>
-              </div>
-              <div class="column thirdal">
-                <div class="cvasi_row"><div class="subtitle" :contenteditable="editable">{{componentsTitle}}</div> <div>{{components}} {{materials?"*":""}}</div></div>
-                <div class="cvasi_row"><div class="subtitle" :contenteditable="editable">{{durationTitle}}</div> <div>{{duration}}</div></div>
-              </div>
-            </div>
-          </div>
-          <div class="sizeButtonsContainer noprint">
-
-              <span></span>
-              <span class="textCancel noprint itemButton" title="Отменить" @click.stop='onTextCancel' :style="editableButtons" >✖</span>
-              <span class="textSave noprint itemButton" title="Сохранить" @click.stop='onTextSave' :style="editableButtons" >✔</span>
-              <span></span>
-          </div>
-          <div class="text" v-html="preparedText" :contenteditable="editable" ref="itemText"></div>
-          <div class="material_components" :contenteditable="editable">{{materialsLine}}</div>
-          <div class="source" :title="srcTitle">({{src}})</div>
-        </div>
-      </div>`
-})
-
 const app = new Vue({
   el: '#app',
   components: {
-    searchfield: SearchField
+    searchfield: SearchField,
+    card: Card
   },
   data: {
     aSources: sourceList,
