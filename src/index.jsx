@@ -14,6 +14,7 @@ import SearchField from './components/SearchField.tsx'
 import Card from './components/Card.tsx'
 import CustomSelect from './components/CustomSelect.tsx'
 import Combobox from './components/Combobox.tsx'
+import Hiddenitem from './components/Hiddenitem.tsx'
 
 let fCtrlIsPressed = false
 
@@ -126,41 +127,14 @@ Vue.component('CheckButton', {
 </div>`
 })
 
-Vue.component('Hiddenitem', {
-  props: {
-    id: {
-      type: String,
-      default: ''
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    tooltip: {
-      type: String,
-      default: ''
-    }
-  },
-  data: function () {
-    return {}
-  },
-  computed: {},
-  methods: {
-    unhide: function (oEvent) {
-      this.$emit('unhide', oEvent)
-    }
-  },
-
-  template: '<a href=\'#\' @click.stop="unhide">{{title}} ({{tooltip}})</a>'
-})
-
 const app = new Vue({
   el: '#app',
   components: {
     searchfield: SearchField,
     card: Card,
     'custom-select': CustomSelect,
-    combobox: Combobox
+    combobox: Combobox,
+    hiddenitem: Hiddenitem
   },
   data: {
     aSources: sourceList,
