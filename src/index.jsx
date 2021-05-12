@@ -16,7 +16,7 @@ import CustomSelect from './components/CustomSelect.tsx'
 import Combobox from './components/Combobox.tsx'
 import Hiddenitem from './components/Hiddenitem.tsx'
 import CheckButton from './components/CheckButton.tsx'
-import ModalWin from './components/ModalWin'
+import Modal from './components/Modal.tsx'
 
 let fCtrlIsPressed = false
 
@@ -66,7 +66,7 @@ const app = new Vue({
     combobox: Combobox,
     hiddenitem: Hiddenitem,
     'check-button': CheckButton,
-    'modal-win': ModalWin
+    modal: Modal,
   },
   data: {
     aSources: sourceList,
@@ -198,7 +198,6 @@ const app = new Vue({
     bEditMode: false,
 
     bModalWinShow: false,
-    sModalWinCont: '',
 
     bDebug: false,
 
@@ -626,7 +625,6 @@ const app = new Vue({
   mounted: function () {
     this.loadConfigData()
     this.collectCastingTime()
-    this.sModalWinCont = $('#info_text').html()
 
     const bInfoIsRead = this.getConfig('infoIsRead')
     if (bInfoIsRead) {
@@ -1068,7 +1066,7 @@ const app = new Vue({
     showInfo: function () {
       this.bModalWinShow = true
     },
-    closeModWin: function () {
+    closeModWin () {
       this.bModalWinShow = false
     },
     print: function () {

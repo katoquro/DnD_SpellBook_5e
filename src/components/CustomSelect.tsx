@@ -1,7 +1,6 @@
 import { VNode } from 'vue'
 import { component, modifiers as m } from 'vue-tsx-support'
 
-// @ts-ignore
 import $ from 'jquery'
 
 export default component({

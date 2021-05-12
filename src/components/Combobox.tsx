@@ -1,5 +1,6 @@
 import { VNode } from 'vue'
 import { component } from 'vue-tsx-support'
+
 import $ from 'jquery'
 
 import ComboboxItem from './ComboboxItem'
