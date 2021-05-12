@@ -13,6 +13,7 @@ import { oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from './data
 import SearchField from './components/SearchField.tsx'
 import Card from './components/Card.tsx'
 import CustomSelect from './components/CustomSelect.tsx'
+import Combobox from './components/Combobox.tsx'
 
 let fCtrlIsPressed = false
 
@@ -153,138 +154,13 @@ Vue.component('Hiddenitem', {
   template: '<a href=\'#\' @click.stop="unhide">{{title}} ({{tooltip}})</a>'
 })
 
-Vue.component('ComboboxItem', {
-  props: {
-    val: {
-      type: String,
-      default: '0'
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    subtitle: {
-      type: String,
-      default: ''
-    },
-    checked: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data: function () {
-    return {}
-  },
-  computed: {
-    id: function () {
-      return 'ch_' + this.val
-    },
-    label: function () {
-      const subtitle = this.subtitle ? '<span class=\'subtitle\'>' + this.subtitle + '</span>' : ''
-      return this.title + subtitle
-    }
-  },
-  created: function () {
-
-  },
-  methods: {
-    labelClick: function (oEvent) {
-      this.$emit('lclick', this.val)
-    }
-  },
-  template: `<div>
-  <input type="checkbox" :value="val" :id="id" :checked="checked">
-  <label data-hierarchy="root" v-html="label" @click="labelClick"></label>
-</div>`
-})
-
-Vue.component('Combobox', {
-  props: {
-    value: {
-      type: String,
-      default: '0'
-    },
-    id: {
-      type: String,
-      default: ''
-    },
-    title: {
-      type: String,
-      default: '#7986CB'
-    },
-    items: {
-      type: Array,
-      default: []
-    },
-    opened: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data: function () {
-    return {
-      open: null
-    }
-  },
-  computed: {
-    isOpen: function () {
-      return (this.open != null) ? this.open : this.opened || false
-    }
-  },
-  mounted: function () {
-    if (!this.isOpen) {
-      const el = $('#' + this.id).find('.combo_box_content')
-      el.hide()
-    }
-  },
-  methods: {
-    toggle: function (oEvent, bStat) {
-      this.open = (bStat != undefined) ? bStat : !this.open
-      const el = $('#' + this.id).find('.combo_box_content')
-      if (this.open) {
-        el.slideDown(400, function () {
-          this.$emit('opened', true)
-        }.bind(this))
-      } else {
-        el.slideUp(400, function () {
-          this.$emit('opened', false)
-        }.bind(this))
-      }
-    },
-    itemclick: function (oEvent) {
-      this.$emit('iclick', oEvent)
-    }
-  },
-  template: `<div :id="id" class="combo_box" :data-text="title" >
-  <div class="combo_box_title" @click="toggle">{{title}}</div>
-    <div class="combo_box_content">
-      <comboboxItem v-for="item in items"
-        :key="item.key"
-        :val="item.key"
-        :checked="item.checked"
-        :title="item.title"
-        :subtitle="item.subtitle"
-        @lclick="itemclick"
-      >
-      </comboboxItem>
-    </div>
-  <div class="combo_box_arrow" @click="toggle">
-    <span class="arr_down" v-show="!isOpen">
-      <i class="fa fa-arrow-down"></i>
-    </span>
-    <span class="arr_up" v-show="isOpen">
-      <i class="fa fa-arrow-up"></i>
-    </span>
-  </div>
-</div>`
-})
-
 const app = new Vue({
   el: '#app',
   components: {
     searchfield: SearchField,
     card: Card,
-    'custom-select': CustomSelect
+    'custom-select': CustomSelect,
+    combobox: Combobox
   },
   data: {
     aSources: sourceList,
