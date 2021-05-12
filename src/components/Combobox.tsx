@@ -45,8 +45,8 @@ export default component({
     }
   },
   methods: {
-    toggle (oEvent: MouseEvent, bStat : undefined|boolean = undefined) {
-      this.open = (bStat !== undefined) ? bStat : !this.open
+    toggle () {
+      this.open = !this.open
       const el = $('#' + this.id).find('.combo_box_content')
       if (this.open) {
         el.slideDown(400, () => {
