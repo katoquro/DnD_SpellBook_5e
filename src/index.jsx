@@ -16,6 +16,7 @@ import CustomSelect from './components/CustomSelect.tsx'
 import Combobox from './components/Combobox.tsx'
 import Hiddenitem from './components/Hiddenitem.tsx'
 import CheckButton from './components/CheckButton.tsx'
+import ModalWin from './components/ModalWin'
 
 let fCtrlIsPressed = false
 
@@ -56,36 +57,6 @@ function isIos () {
   return false
 }
 
-Vue.component('ModalWin', {
-  props: {
-    title: {
-      type: String,
-      default: ''
-    },
-    content: {
-      type: String,
-      default: ''
-    }
-  },
-  data: function () {
-    return {}
-  },
-  computed: {},
-  methods: {
-    close: function () {
-      this.$emit('close')
-    }
-  },
-
-  template: `<div class="mod_win_wrapper" style='background: rgba(0, 0, 0, 0.7);' @click="close" @scroll.stop>
-  <div class="mod_win">
-    <span class="bCloseInfoWin" @click="close">×</span>
-    <div class="mod_win_content" v-html="content">
-    </div>
-  </div>
-</div>`
-})
-
 const app = new Vue({
   el: '#app',
   components: {
@@ -94,7 +65,8 @@ const app = new Vue({
     'custom-select': CustomSelect,
     combobox: Combobox,
     hiddenitem: Hiddenitem,
-    'check-button': CheckButton
+    'check-button': CheckButton,
+    'modal-win': ModalWin
   },
   data: {
     aSources: sourceList,
