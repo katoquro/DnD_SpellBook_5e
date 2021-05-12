@@ -12,6 +12,7 @@ import { oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from './data
 
 import SearchField from './components/SearchField.tsx'
 import Card from './components/Card.tsx'
+import CustomSelect from './components/CustomSelect.tsx'
 
 let fCtrlIsPressed = false
 
@@ -278,82 +279,12 @@ Vue.component('Combobox', {
 </div>`
 })
 
-Vue.component('CustomSelect', {
-  props: {
-    selected: {
-      type: String,
-      default: ''
-    },
-    id: {
-      type: String,
-      default: ''
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    items: {
-      type: Array,
-      default: []
-    },
-    bOpen: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data: function () {
-    return {
-      open: null
-    }
-  },
-  computed: {
-    isOpen: function () {
-      return (this.open != null) ? this.open : this.bOpen || false
-    }
-  },
-  mounted: function () {
-    if (!this.isOpen) {
-      const el = $('#' + this.id).find('.combo_box_content')
-      el.hide()
-    }
-  },
-  methods: {
-    toggle: function () {
-      this.open = !this.open
-      const el = $('#' + this.id).find('.list')
-      if (this.open) {
-        el.slideDown(200)
-      } else {
-        el.slideUp(300)
-      }
-    },
-    itemclick: function (sKey) {
-      this.toggle()
-      this.$emit('iclick', sKey)
-    }
-  },
-  template: `<div :id="id">
-  <label class='filterLabel' v-if="title.length>0">{{title}}</label>
-  <div  class="customSelect" @click="toggle">
-    <div class="label">{{selected}}</div>
-    <ul class="list" style="display: none;">
-      <li
-        v-for="item in items"
-        :key="item.key"
-        class="option"
-        v-html="item.title"
-        @click.stop="itemclick(item.key)"
-        ></li>
-    </ul>
-  </div>
-</div>`
-})
-
 const app = new Vue({
   el: '#app',
   components: {
     searchfield: SearchField,
-    card: Card
+    card: Card,
+    'custom-select': CustomSelect
   },
   data: {
     aSources: sourceList,
