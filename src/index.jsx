@@ -1198,6 +1198,17 @@ const app = new Vue({
 
       return false
     }
+  },
+  render (h) {
+    return <div class='wrap'>
+       <FilterBar/>
+       <CenterContent/>
+       <Modal
+           closeFunc={this.closeModWin}
+           show={this.bModalWinShow}
+           onClick={this.showInfo}
+       />
+     </div>
   }
 })
 
