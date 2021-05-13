@@ -95,10 +95,6 @@ export default component({
       type: Boolean,
       default: false
     },
-    type: {
-      type: String,
-      default: ''
-    },
     pre: {
       type: String,
       default: ''

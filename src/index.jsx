@@ -9,14 +9,10 @@ import { allSpells } from './data/allSpells'
 import { classSpells } from './data/ClassSpells'
 import { sourceList } from './data/sourceList'
 import { oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from './data/schoolList'
-
-import SearchField from './components/SearchField.tsx'
-import Card from './components/Card.tsx'
-import CustomSelect from './components/CustomSelect.tsx'
-import Combobox from './components/Combobox.tsx'
-import Hiddenitem from './components/Hiddenitem.tsx'
-import CheckButton from './components/CheckButton.tsx'
-import ModalWin from './components/ModalWin'
+import Card from './components/Card'
+import Modal from './components/Modal'
+import FilterBar from './components/FilterBar'
+import CenterContent from './components/CenterContent'
 
 let fCtrlIsPressed = false
 
@@ -60,13 +56,10 @@ function isIos () {
 const app = new Vue({
   el: '#app',
   components: {
-    searchfield: SearchField,
+    'filter-bar': FilterBar,
+    'center-content': CenterContent,
     card: Card,
-    'custom-select': CustomSelect,
-    combobox: Combobox,
-    hiddenitem: Hiddenitem,
-    'check-button': CheckButton,
-    'modal-win': ModalWin
+    modal: Modal,
   },
   data: {
     aSources: sourceList,
@@ -198,7 +191,6 @@ const app = new Vue({
     bEditMode: false,
 
     bModalWinShow: false,
-    sModalWinCont: '',
 
     bDebug: false,
 
@@ -474,8 +466,8 @@ const app = new Vue({
                     ) &&
                     (
                       oItem.en.name.toLowerCase().indexOf(this.sNameInput) > -1 ||
-                      oItem.ru.name.toLowerCase().indexOf(this.sNameInput) > -1 ||
-                      (oItem.ru.nic && oItem.ru.nic.toLowerCase().indexOf(this.sNameInput) > -1)
+                        oItem.ru.name.toLowerCase().indexOf(this.sNameInput) > -1 ||
+                        (oItem.ru.nic && oItem.ru.nic.toLowerCase().indexOf(this.sNameInput) > -1)
                     ) &&
                     ((this.bRitualOnly && oItem.en.ritual) || !this.bRitualOnly) &&
                     this.aHiddenItems.indexOf(oItem.en.name) < 0/**/ &&
@@ -626,7 +618,6 @@ const app = new Vue({
   mounted: function () {
     this.loadConfigData()
     this.collectCastingTime()
-    this.sModalWinCont = $('#info_text').html()
 
     const bInfoIsRead = this.getConfig('infoIsRead')
     if (bInfoIsRead) {
@@ -635,9 +626,6 @@ const app = new Vue({
     }
 
     this.getHash()
-
-    this.$refs.SchoolCombobox.toggle(null, this.bSchoolsOpend)
-    this.$refs.SourceCombobox.toggle(null, this.bSourcesOpend)
 
     this.updateHash()
 
@@ -650,7 +638,9 @@ const app = new Vue({
     collectCastingTime: function () {
       const oTmp = {}
       // this.aCastingTime={};
-      this.aItems.forEach(el => { oTmp[el.en.castingTime] = el.ru.castingTime })
+      this.aItems.forEach(el => {
+        oTmp[el.en.castingTime] = el.ru.castingTime
+      })
 
       for (const key in oTmp) {
         this.aCastingTime[key] = {
@@ -667,10 +657,6 @@ const app = new Vue({
         }
       }
     },
-    // aCastingTimeSelected: function(){
-    // let aFiltered = this.aCastingTimeList.filter(item => item.checked);
-    // return (aFiltered.length>0)? aFiltered.map(item => item.key.toLowerCase()) : [];/*this.aCastingTimeList.map(item => item.key.toLowerCase());*/
-    // },
     onClassChange: function (sKey) {
       this.showAllItems()
 
@@ -806,11 +792,6 @@ const app = new Vue({
           clearInterval(oTimer)
         }
       }, 1)
-      /* /
-                  this.$refs.itemCard.forEach(function(oCard){
-                      oCard.autosizeText();
-                  });
-                  /**/
     },
 
     onSchoolsToggled: function (bStat) {
@@ -1068,7 +1049,7 @@ const app = new Vue({
     showInfo: function () {
       this.bModalWinShow = true
     },
-    closeModWin: function () {
+    closeModWin () {
       this.bModalWinShow = false
     },
     print: function () {
@@ -1177,11 +1158,6 @@ const app = new Vue({
         this._completeDB(this.aLockedItems, oDB.lockedItems)
         // this._completeDB(this.aItems = oDB.allSpells);
 
-        /* /
-                        this.aSources = oDB.sourceList;
-                        this.aSchools = oDB.schoolList;
-                        this.aLanguages = oDB.oLanguages;
-                        /**/
         this.aItems = oDB.allSpells
 
         document.getElementById('fileUploader').value = ''
@@ -1222,6 +1198,17 @@ const app = new Vue({
 
       return false
     }
+  },
+  render (h) {
+    return <div class='wrap'>
+       <FilterBar/>
+       <CenterContent/>
+       <Modal
+           closeFunc={this.closeModWin}
+           show={this.bModalWinShow}
+           onClick={this.showInfo}
+       />
+     </div>
   }
 })
 
@@ -1233,15 +1220,6 @@ $(document).keydown(function (event) {
 
   // A pressed
   if (event.which === 65 && fCtrlIsPressed) {
-    /* /
-            if($(".spellCard.selected").length === $(".spellCard").length) {
-                // deselect all
-                $(".spellCard").removeClass("selected");
-            } else {
-                // select all
-                $(".spellCard").addClass("selected");
-            }
-            /**/
     app.selectAll()
     return false
   }

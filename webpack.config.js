@@ -19,7 +19,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx|tsx|vue)?$/,
+        test: /\.(js|jsx|tsx)?$/,
         exclude: /src\/data/,
         use: {
           loader: 'babel-loader'
@@ -57,8 +57,6 @@ module.exports = {
     ],
   },
   resolve: {
-    // hack to use version with bundled template compiler
-    alias: { vue: 'vue/dist/vue.esm.js' },
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
   },
   plugins: [
