@@ -12,6 +12,7 @@ import { oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from './data
 import Card from './components/Card'
 import Modal from './components/Modal'
 import FilterBar from './components/FilterBar'
+import CenterContent from './components/CenterContent'
 
 let fCtrlIsPressed = false
 
@@ -56,8 +57,9 @@ const app = new Vue({
   el: '#app',
   components: {
     'filter-bar': FilterBar,
+    'center-content': CenterContent,
     card: Card,
-    modal: Modal
+    modal: Modal,
   },
   data: {
     aSources: sourceList,

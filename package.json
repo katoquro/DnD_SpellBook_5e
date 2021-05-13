@@ -12,7 +12,8 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack serve --mode development",
-    "help": "webpack --help"
+    "help": "webpack --help",
+    "analyze": "webpack --profile --json > stats.json"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
