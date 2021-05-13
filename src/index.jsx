@@ -5,7 +5,7 @@ import saveAs from 'file-saver'
 import $ from 'jquery'
 import Vue from 'vue'
 
-import { allSpells } from './data/allSpells'
+import allSpells from './data/SpellDb'
 import { classSpells } from './data/ClassSpells'
 import { sourceList } from './data/sourceList'
 import { oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from './data/schoolList'

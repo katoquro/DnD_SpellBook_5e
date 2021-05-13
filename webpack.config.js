@@ -6,9 +6,19 @@ const webpack = require('webpack')
 
 module.exports = {
   mode: 'production',
-  entry: './src/index.jsx',
+  entry: {
+    vendor: ['jquery', 'file-saver', 'vue', 'vue-styled-components'],
+    spellDb: {
+      import: './src/data/SpellDb.ts',
+      dependOn: ['vendor']
+    },
+    app: {
+      import: './src/index.jsx',
+      dependOn: ['vendor', 'spellDb']
+    }
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[contenthash].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
@@ -66,7 +76,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      minify: false
+      buildDate: new Date().toISOString()
     }),
     new StylelintPlugin({
       files: '**/*.(less|css)',
