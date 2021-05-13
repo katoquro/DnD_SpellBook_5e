@@ -11,7 +11,8 @@ export default component({
     const vue: any = this.$parent
     return <div class='p_side'>
             <div class="mediaWidth flexParent">
-                <a href="/" class="bt flexChild" title="На главную страницу"><i class="fa fa-home" /></a>
+                <a href="https://github.com/katoquro/DnD_SpellBook_5e"
+                    class="bt flexChild" title="Проект на Github"><i class="fa fa-github" /></a>
                 <a href="#" class="bt flexChild" id="bInfo" title="Справка" onClick={vue.showInfo}><i
                     class="fa fa-question-circle" /></a>
                 <a href="#" class="bt flexChild" id="bPrint" title="Распечатать" onClick={vue.print}><i
