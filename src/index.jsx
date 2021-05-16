@@ -1,8 +1,8 @@
+import 'reset-css/less/reset.less'
 import './style/style.less'
 import './fonts/font-awesome.min.css'
 
 import saveAs from 'file-saver'
-import $ from 'jquery'
 import Vue from 'vue'
 
 import allSpells from './data/SpellDb'
@@ -13,8 +13,6 @@ import Card from './components/Card'
 import Modal from './components/Modal'
 import FilterBar from './components/FilterBar'
 import CenterContent from './components/CenterContent'
-
-let fCtrlIsPressed = false
 
 function randd (min, max) {
   return Math.floor(arguments.length > 1 ? (max - min + 1) * Math.random() + min : (min + 1) * Math.random())
@@ -621,7 +619,6 @@ const app = new Vue({
 
     const bInfoIsRead = this.getConfig('infoIsRead')
     if (bInfoIsRead) {
-      this.hideInfo()
       this.showCards()
     }
 
@@ -802,10 +799,6 @@ const app = new Vue({
     },
     onCastingTimeToggled: function (bStat) {
       this.setConfig('castingTimeOpend', bStat)
-    },
-
-    hideInfo () {
-      $('#info_text').hide()
     },
 
     lockCard: function (oCard) {
@@ -1063,7 +1056,6 @@ const app = new Vue({
 
     showAllItems: function () {
       this.closeModWin()
-      this.hideInfo()
       this.showCards()
       this.setConfig('infoIsRead', true)
     },
@@ -1212,19 +1204,25 @@ const app = new Vue({
   }
 })
 
-$(document).keydown(function (event) {
-  // CTRL pressed
+let fCtrlIsPressed = false
+
+window.addEventListener('keydown', function (event) {
+  // CTRL
   if (event.which === 17) {
     fCtrlIsPressed = true
   }
 
-  // A pressed
+  // A letter
   if (event.which === 65 && fCtrlIsPressed) {
     app.selectAll()
+    event.preventDefault()
     return false
   }
 })
 
-$(document).keyup(function () {
-  fCtrlIsPressed = false
+window.addEventListener('keyup', function (event) {
+  // CTRL
+  if (event.which === 17) {
+    fCtrlIsPressed = false
+  }
 })

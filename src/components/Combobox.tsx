@@ -1,8 +1,6 @@
 import { VNode } from 'vue'
 import { component } from 'vue-tsx-support'
 
-import $ from 'jquery'
-
 import ComboboxItem from './ComboboxItem'
 
 export default component({
@@ -40,22 +38,18 @@ export default component({
   },
   mounted () {
     if (!this.isOpen) {
-      const el = $('#' + this.id).find('.combo_box_content')
-      el.hide()
+      (this.$refs.slideArea as HTMLElement).style.maxHeight = '0px'
     }
   },
   methods: {
     toggle () {
       this.open = !this.open
-      const el = $('#' + this.id).find('.combo_box_content')
+      const slideArea = this.$refs.slideArea
+
       if (this.open) {
-        el.slideDown(400, () => {
-          this.$emit('opened', true)
-        })
+        (slideArea as HTMLElement).style.maxHeight = '1000px'
       } else {
-        el.slideUp(400, () => {
-          this.$emit('opened', false)
-        })
+        (slideArea as HTMLElement).style.maxHeight = '0px'
       }
     },
     itemclick (oEvent:string): void {
@@ -65,6 +59,7 @@ export default component({
   render (h): VNode {
     return <div id={this.id} class="combo_box" data-text={this.title} >
       <div class="combo_box_title" onClick={this.toggle}>{this.title}</div>
+       <div ref="slideArea" style={{ maxHeight: '1000px', transition: 'max-height 300ms', overflow: 'hidden' }}>
         <div class="combo_box_content">
           {this.items.map((item: any) =>
           <ComboboxItem
@@ -74,10 +69,11 @@ export default component({
               title={item.title}
               subtitle={item.subtitle}
 
-              on-lclick={this.itemclick}
+              v-on:lclick={this.itemclick}
               />
           )}
         </div>
+       </div>
       <div class="combo_box_arrow" onClick={this.toggle}>
         {this.isOpen
           ? (<span class="arr_up" ><i class="fa fa-arrow-up"/></span>)

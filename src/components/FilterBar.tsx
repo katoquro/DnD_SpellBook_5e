@@ -155,6 +155,7 @@ export default component({
                         title='Уменьшить ширину карточек'
                         onClick={vue.makeCardWidthLess}>
                         <i class="fa fa-caret-right" aria-hidden="true" />
+                        &nbsp;
                         <i class="fa fa-caret-left" aria-hidden="true" />
                     </button>
 
@@ -170,6 +171,7 @@ export default component({
                         title='Увеличить ширину карточек'
                         onClick={vue.makeCardWidthMore}>
                         <i class="fa fa-caret-left" aria-hidden="true" />
+                        &nbsp;
                         <i class="fa fa-caret-right" aria-hidden="true" />
                     </button>
 

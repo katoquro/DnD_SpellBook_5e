@@ -2,12 +2,11 @@ const path = require('path')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
-const webpack = require('webpack')
 
 module.exports = {
   mode: 'production',
   entry: {
-    vendor: ['jquery', 'file-saver', 'vue', 'vue-styled-components'],
+    vendor: ['file-saver', 'vue', 'vue-styled-components'],
     spellDb: {
       import: './src/data/SpellDb.ts',
       dependOn: ['vendor']
@@ -83,10 +82,6 @@ module.exports = {
       context: './src/style',
       lintDirtyModulesOnly: true,
       failOnError: false,
-    }),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
     }),
   ]
 }

@@ -22,15 +22,10 @@
   &:active {
     background: @m-gray - #111;
   }
-  // &:focus{
-  //     .label{
-  //         box-shadow: 0 0 5px 0 red;
-  //     }
-  // }
+
   .label {
-    padding-right: 2.2em !important;
+    padding: 0.5em 2.2em 0.5em 0.2em;
     position: relative;
-    padding: 0.5em 0.2em;
     margin: 0 0;
 
     &::before {
@@ -53,17 +48,9 @@
   }
 
   .list {
-    @arr_w: .5em;
-
-    display: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: 33;
     background: @l-gray;
     border-radius: 0 0 0.2em 0.2em;
     border: 1px solid @l-gray - #222;
-    margin: 0 0.2em;
     padding: 0.2em 0;
     box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.3);
     margin-top: 0.25em;
