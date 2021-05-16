@@ -2,6 +2,8 @@ import { VNode } from 'vue'
 import { component } from 'vue-tsx-support'
 
 import ComboboxItem from './ComboboxItem'
+import FaIcon from './FaIcon'
+import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons'
 
 export default component({
   props: {
@@ -76,8 +78,8 @@ export default component({
        </div>
       <div class="combo_box_arrow" onClick={this.toggle}>
         {this.isOpen
-          ? (<span class="arr_up" ><i class="fa fa-arrow-up"/></span>)
-          : (<span class="arr_down" ><i class="fa fa-arrow-down"/></span>)
+          ? (<span class="arr_up" ><FaIcon icon={faArrowUp}/></span>)
+          : (<span class="arr_down" ><FaIcon icon={faArrowDown}/></span>)
         }
       </div>
     </div>

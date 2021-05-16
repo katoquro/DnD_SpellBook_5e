@@ -1,18 +1,14 @@
-import 'reset-css/less/reset.less'
-import './style/style.less'
-import './fonts/font-awesome.min.css'
+import { component } from 'vue-tsx-support'
+import { sourceList } from '../data/sourceList'
+import { oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from '../data/schoolList'
+import { allSpells } from '../data/allSpells'
+import { classSpells } from '../data/ClassSpells'
+import FilterBar from './FilterBar'
+import CenterContent from './CenterContent'
+import Modal from './Modal'
 
 import saveAs from 'file-saver'
-import Vue from 'vue'
-
-import allSpells from './data/SpellDb'
-import { classSpells } from './data/ClassSpells'
-import { sourceList } from './data/sourceList'
-import { oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from './data/schoolList'
-import Card from './components/Card'
-import Modal from './components/Modal'
-import FilterBar from './components/FilterBar'
-import CenterContent from './components/CenterContent'
+import { GLOBAL_LISTENER } from '../GlobalListener'
 
 function randd (min, max) {
   return Math.floor(arguments.length > 1 ? (max - min + 1) * Math.random() + min : (min + 1) * Math.random())
@@ -51,148 +47,143 @@ function isIos () {
   return false
 }
 
-const app = new Vue({
-  el: '#app',
-  components: {
-    'filter-bar': FilterBar,
-    'center-content': CenterContent,
-    card: Card,
-    modal: Modal,
-  },
-  data: {
-    aSources: sourceList,
-    aSchools: schoolList,
-    aCastingTime: {
-      '1 action': {
-        checked: false,
-        visible: true,
-        text: {
-          en: { title: '1 action' },
-          ru: { title: '1 действие' }
+export default component({
+  data: function () {
+    return {
+      aSources: sourceList,
+      aSchools: schoolList,
+      aCastingTime: {
+        '1 action': {
+          checked: false,
+          visible: true,
+          text: {
+            en: { title: '1 action' },
+            ru: { title: '1 действие' }
+          }
+        },
+        '1 minute': {
+          checked: false,
+          visible: true,
+          text: {
+            en: { title: '1 minute' },
+            ru: { title: '1 минута' }
+          }
+        },
+        '1 bonus action': {
+          checked: false,
+          visible: true,
+          text: {
+            en: { title: '1 bonus action' },
+            ru: { title: '1 бонусное действие' }
+          }
+        },
+        '1 reaction': {
+          checked: false,
+          visible: true,
+          text: {
+            en: { title: '1 reaction' },
+            ru: { title: '1 реакция' }
+          }
+        },
+        '1 hour': {
+          checked: false,
+          visible: true,
+          text: {
+            en: { title: '1 hour' },
+            ru: { title: '1 час' }
+          }
+        },
+        '10 minutes': {
+          checked: false,
+          visible: true,
+          text: {
+            en: { title: '10 minutes' },
+            ru: { title: '10 минут' }
+          }
+        },
+        '12 hours': {
+          checked: false,
+          visible: true,
+          text: {
+            en: { title: '12 hours' },
+            ru: { title: '12 hours' }
+          }
+        },
+        '1 action or 8 hours': {
+          checked: false,
+          visible: true,
+          text: {
+            en: { title: '1 action or 8 hours' },
+            ru: { title: '1 действие или 8 часов' }
+          }
+        },
+        '8 hours': {
+          checked: false,
+          visible: true,
+          text: {
+            en: { title: '8 hours' },
+            ru: { title: '8 часов' }
+          }
+        },
+        '24 hours': {
+          checked: false,
+          visible: true,
+          text: {
+            en: { title: '24 hours' },
+            ru: { title: '24 часа' }
+          }
+        },
+        '1 reaction, which you take when a humanoid you can see within 60 feet of you dies': {
+          checked: false,
+          visible: true,
+          text: {
+            en: { title: '1 reaction, which you take when a humanoid you can see within 60 feet of you dies' },
+            ru: { title: '1 реакция' }
+          }
         }
       },
-      '1 minute': {
-        checked: false,
-        visible: true,
-        text: {
-          en: { title: '1 minute' },
-          ru: { title: '1 минута' }
-        }
-      },
-      '1 bonus action': {
-        checked: false,
-        visible: true,
-        text: {
-          en: { title: '1 bonus action' },
-          ru: { title: '1 бонусное действие' }
-        }
-      },
-      '1 reaction': {
-        checked: false,
-        visible: true,
-        text: {
-          en: { title: '1 reaction' },
-          ru: { title: '1 реакция' }
-        }
-      },
-      '1 hour': {
-        checked: false,
-        visible: true,
-        text: {
-          en: { title: '1 hour' },
-          ru: { title: '1 час' }
-        }
-      },
-      '10 minutes': {
-        checked: false,
-        visible: true,
-        text: {
-          en: { title: '10 minutes' },
-          ru: { title: '10 минут' }
-        }
-      },
-      '12 hours': {
-        checked: false,
-        visible: true,
-        text: {
-          en: { title: '12 hours' },
-          ru: { title: '12 hours' }
-        }
-      },
-      '1 action or 8 hours': {
-        checked: false,
-        visible: true,
-        text: {
-          en: { title: '1 action or 8 hours' },
-          ru: { title: '1 действие или 8 часов' }
-        }
-      },
-      '8 hours': {
-        checked: false,
-        visible: true,
-        text: {
-          en: { title: '8 hours' },
-          ru: { title: '8 часов' }
-        }
-      },
-      '24 hours': {
-        checked: false,
-        visible: true,
-        text: {
-          en: { title: '24 hours' },
-          ru: { title: '24 часа' }
-        }
-      },
-      '1 reaction, which you take when a humanoid you can see within 60 feet of you dies': {
-        checked: false,
-        visible: true,
-        text: {
-          en: { title: '1 reaction, which you take when a humanoid you can see within 60 feet of you dies' },
-          ru: { title: '1 реакция' }
-        }
-      }
-    },
-    aLanguages: oLanguages,
-    aViews: oView,
-    aSort: oSort,
-    aItems: allSpells,
-    oClassSpells: classSpells,
-    sLang: 'ru',
-    sView: 'card',
-    sSort: 'levelAlpha',
-    sClass: '',
-    sSubClass: '',
-    sSubSubClass: '',
-    sSearch: '',
-    aLevels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    sLevelStartSelected: '0',
-    sLevelEndSelected: '9',
-    nLevelStart: 0,
-    nLevelEnd: 9,
+      aLanguages: oLanguages,
+      aViews: oView,
+      aSort: oSort,
+      aItems: allSpells,
+      oClassSpells: classSpells,
+      sLang: 'ru',
+      sView: 'card',
+      sSort: 'levelAlpha',
+      sClass: '',
+      sSubClass: '',
+      sSubSubClass: '',
+      sSearch: '',
+      aLevels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      sLevelStartSelected: '0',
+      sLevelEndSelected: '9',
+      nLevelStart: 0,
+      nLevelEnd: 9,
 
-    aHiddenItems: [],
-    aLockedItems: [],
-    aSelectedItems: [],
-    aSelectedLockedItems: [],
-    sTextSizeDefault: '',
-    sCardwidth: '',
-    sCardWidthDefault: '2.5in',
+      aHiddenItems: [],
+      aLockedItems: [],
+      aSelectedItems: [],
+      aSelectedLockedItems: [],
+      sTextSizeDefault: '',
+      sCardwidth: '',
+      sCardWidthDefault: '2.5in',
 
-    oConfig: {},
-    bSchoolsOpend: false,
-    bSourcesOpend: false,
-    bCastingTimeOpend: false,
-    bCardsAreVisible: false,
-    bAppIsReady: false,
-    bRitualOnly: false,
-    bAllClassSpells: false,
-    bEditMode: false,
+      oConfig: {},
+      bSchoolsOpend: false,
+      bSourcesOpend: false,
+      bCastingTimeOpend: false,
+      bCardsAreVisible: false,
+      bAppIsReady: false,
+      bRitualOnly: false,
+      bAllClassSpells: false,
+      bEditMode: false,
 
-    bModalWinShow: false,
+      bModalWinShow: false,
 
-    bDebug: false,
+      bDebug: false,
 
-    bIos: false
+      bIos: false
+    }
   },
 
   computed: {
@@ -891,18 +882,17 @@ const app = new Vue({
     },
 
     makeCardWidthLess: function () {
-      let aCards = this.$refs.itemCard
+      let aCards = this.$refs.CenterContent.$data.cache.map((it) => it.componentInstance)
       if (this.aSelectedLockedItems.length > 0 || this.aSelectedItems.length > 0) {
         aCards = aCards.filter(el => this.aSelectedLockedItems.indexOf(el.id) > -1 || this.aSelectedItems.indexOf(el.id) > -1)
       }
-      // aSelectedLockedItems
-      // aSelectedItems
       aCards.forEach(function (oCard) {
         oCard.onCardWidthMin()
       })
     },
     makeCardWidthMore: function () {
-      let aCards = this.$refs.itemCard
+      let aCards = this.$refs.CenterContent.$data.cache.map((it) => it.componentInstance)
+
       if (this.aSelectedLockedItems.length > 0 || this.aSelectedItems.length > 0) {
         aCards = aCards.filter(el => this.aSelectedLockedItems.indexOf(el.id) > -1 || this.aSelectedItems.indexOf(el.id) > -1)
       }
@@ -911,7 +901,7 @@ const app = new Vue({
       })
     },
     makeCardWidthNorm: function () {
-      let aCards = this.$refs.itemCard
+      let aCards = this.$refs.CenterContent.$data.cache.map((it) => it.componentInstance)
       if (this.aSelectedLockedItems.length > 0 || this.aSelectedItems.length > 0) {
         aCards = aCards.filter(el => this.aSelectedLockedItems.indexOf(el.id) > -1 || this.aSelectedItems.indexOf(el.id) > -1)
       }
@@ -1128,7 +1118,7 @@ const app = new Vue({
       reader.onload = (function (theFile) {
         return function (e) {
           const sText = e.target.result
-          this.parceLocalFile(sText)
+          this.parseLocalFile(sText)
         }.bind(this)
       }.bind(this))(files[0])
 
@@ -1140,7 +1130,7 @@ const app = new Vue({
         oMainDB[key] = oFileDB[key]
       }
     },
-    parceLocalFile: function (sText) {
+    parseLocalFile: function (sText) {
       try {
         const oDB = JSON.parse(sText)
 
@@ -1161,10 +1151,7 @@ const app = new Vue({
     },
 
     onEditModePress: function () {
-      // this.showAllItems();
-
       this.bEditMode = !this.bEditMode
-      // this.updateHash();
     },
     cancelCard: function (oData) {
       const sId = oData.id
@@ -1189,40 +1176,19 @@ const app = new Vue({
       }
 
       return false
-    }
+    },
   },
   render (h) {
-    return <div class='wrap'>
-       <FilterBar/>
-       <CenterContent/>
-       <Modal
-           closeFunc={this.closeModWin}
-           show={this.bModalWinShow}
-           onClick={this.showInfo}
-       />
-     </div>
-  }
-})
+    GLOBAL_LISTENER.CtrlA(this.selectAll)
 
-let fCtrlIsPressed = false
-
-window.addEventListener('keydown', function (event) {
-  // CTRL
-  if (event.which === 17) {
-    fCtrlIsPressed = true
-  }
-
-  // A letter
-  if (event.which === 65 && fCtrlIsPressed) {
-    app.selectAll()
-    event.preventDefault()
-    return false
-  }
-})
-
-window.addEventListener('keyup', function (event) {
-  // CTRL
-  if (event.which === 17) {
-    fCtrlIsPressed = false
+    return <div class='wrap' >
+            <FilterBar/>
+            <CenterContent ref="CenterContent"/>
+            <Modal
+                closeFunc={this.closeModWin}
+                show={this.bModalWinShow}
+                onClick={this.showInfo}
+            />
+        </div>
   }
 })

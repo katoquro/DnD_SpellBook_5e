@@ -8,14 +8,61 @@
 
     <link rel="shortcut icon" href="<%= require('./img/favicon.ico') %>" />
 
-    <meta property="og:image" content="<%= require('./img/bg2.jpg') %>" />
     <meta property="og:image" content="<%= require('./img/og.jpg') %>" />
     <meta property="og:title" content="Заклинания D&D 5 редакция" />
     <meta property="og:description" content="Карточки заклинаний на русском и английском языках" />
+
+    <link rel="stylesheet" href="<%= require('./style/reset.css') %>" />
+
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+
+        .bg-image {
+            background-image: url('<%= require('./img/bg1.jpg') %>');
+
+            position: fixed;
+
+            /* Full height */
+            height: 100%;
+            width: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .loading-text {
+            color: #ebebeb;
+            font-weight: bold;
+            border: 3px solid #ebebeb;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            width: 80%;
+            padding: 20px;
+            text-align: center;
+            font-size: 30pt;
+            font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-shadow: -2px -2px #4c4c4c;
+        }
+
+    </style>
 </head>
 <body data-build-date="<%= htmlWebpackPlugin.options.buildDate %>">
+<div class="bg-image noprint" aria-hidden="true"></div>
 
-<div id='app'></div>
+<div id="VueApp">
+    <div class="loading-text">
+        Spells Loading...
+        <br />
+        Загрузка заклинаний...
+    </div>
+</div>
 
 </body>
 </html>

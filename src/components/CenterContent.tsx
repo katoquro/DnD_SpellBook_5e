@@ -3,7 +3,14 @@ import { component } from 'vue-tsx-support'
 import Card from './Card'
 
 export default component({
+  methods: {
+    getCardRefs ():VNode[] {
+      return this.$data.cache
+    },
+  },
   render (h): VNode {
+    const cache: VNode[] = []
+
     const vue: any = this.$parent
 
     const pinnedCards = vue.aLockedItemsList.map((item: any) => {
@@ -41,6 +48,8 @@ export default component({
             />
     })
 
+    cache.push(...pinnedCards)
+
     const filteredCards = vue.aItemsList.map((item: any) => {
       return <Card
                 ref="itemCard"
@@ -77,6 +86,10 @@ export default component({
                 v-on:input={vue.saveCard}
             />
     })
+
+    cache.push(...filteredCards)
+
+    this.$data.cache = cache
 
     const lockedArea = vue.aLockedItemsList.length > 0 && vue.bCardsAreVisible
       ? <div id='lockedItemsArea'>

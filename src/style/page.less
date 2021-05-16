@@ -95,7 +95,7 @@
   cursor: pointer;
 }
 
-#infoWin{
+#infoWin {
 
 }
 
@@ -171,11 +171,11 @@
   align-items: center;
   align-content: stretch;
 
-  .left{
+  .left {
 
   }
 
-  .right{
+  .right {
 
   }
 
@@ -245,8 +245,8 @@
     padding: 0.3em;
     display: flex;
     position: absolute;
-    width: 95%;
-    max-width: 50em;
+    width: 60%;
+    max-width: 1000px;
     min-height: 15em;
     max-height: 95%;
     overflow-y: hidden;
@@ -264,7 +264,8 @@
   .mod_win_content {
     padding: 0.5em;
     overflow-y: scroll;
-    .scrollbars(0.2em, @m-gray, @l-gray); }
+    .scrollbars(0.2em, @m-gray, @l-gray);
+  }
 
   .bCloseInfoWin {
     position: absolute;
@@ -282,10 +283,20 @@
 }
 
 @media screen and (min-width: @m_w_1) {
-  body {
-    background: url('../img/bg2.jpg') center center no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+
+  .bg-image {
+    animation: changeBg 1500ms;
+    animation-fill-mode: forwards;
+    filter: blur(1.5px);
+    -webkit-filter: blur(1.5px);
+  }
+
+  @keyframes changeBg {
+    0% {
+    }
+    100% {
+      background-image: url("../img/bg2.jpg") ;
+    }
   }
 
   .page {

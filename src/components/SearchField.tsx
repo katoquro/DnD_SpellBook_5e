@@ -1,5 +1,7 @@
 import { VNode } from 'vue'
 import * as tsx from 'vue-tsx-support'
+import FaIcon from './FaIcon'
+import { faDiceD20 } from '@fortawesome/free-solid-svg-icons'
 
 export default tsx.component({
   props: {
@@ -65,7 +67,7 @@ export default tsx.component({
                     href="#random"
                     class="bt flexChild"
                     title="Случайное заклинание"
-                    onClick={this.random}>🎲</a>
+                    onClick={this.random}><FaIcon icon={faDiceD20}/></a>
             </div>
         </div>
   }

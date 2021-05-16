@@ -1,5 +1,7 @@
 import { VNode } from 'vue'
 import { component, modifiers as m } from 'vue-tsx-support'
+import FaIcon from './FaIcon'
+import { faEyeSlash, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons'
 
 export default component({
   props: {
@@ -221,10 +223,10 @@ export default component({
           <div class={`${this.ItemCard} ${this.selectedClass}`} >
             <div class="content">
               { this.locked
-                ? (<span class="bUnlockItem" title="Открепить обратно" onClick={m.stop(this.unlock)}><i class="fa fa-unlock-alt" aria-hidden="true"/></span>)
-                : (<span class="bLockItem" title="Закрепить заклинание (не будут действовать фильтры)" onClick={m.stop(this.lock)}><i class="fa fa-lock" aria-hidden="true"/></span>)
+                ? (<span class="bUnlockItem" title="Открепить обратно" onClick={m.stop(this.unlock)}><FaIcon icon={faUnlock} aria-hidden="true"/></span>)
+                : (<span class="bLockItem" title="Закрепить заклинание (не будут действовать фильтры)" onClick={m.stop(this.lock)}><FaIcon icon={faLock} aria-hidden="true"/></span>)
               }
-              <span class="bHideItem" title="Скрыть заклинание (будет внизу панели фильтров)" onClick={m.stop(this.hide)}><i class="fa fa-eye-slash" aria-hidden="true"/></span>
+              <span class="bHideItem" title="Скрыть заклинание (будет внизу панели фильтров)" onClick={m.stop(this.hide)}><FaIcon icon={faEyeSlash} aria-hidden="true"/></span>
               <h1 title={this.tooltip} contenteditable={this.editable}>{this.name} {this.ritualMark}</h1>
               <div class="row">
                 <div class="cell castingTime" contenteditable={this.editable}>
@@ -266,12 +268,13 @@ export default component({
         : (
           <div class="inner">
             {this.locked
-              ? (<span class="bUnlockItem noprint" title="Открепить обратно" onClick={m.stop(this.unlock)}><i
-                    class="fa fa-unlock-alt" aria-hidden="true" /></span>)
+              ? (<span class="bUnlockItem noprint" title="Открепить обратно" onClick={m.stop(this.unlock)}>
+                  <FaIcon icon={faUnlock} aria-hidden="true" />
+                </span>)
               : (<span class="bLockItem noprint" title="Закрепить заклинание (не будут действовать фильтры)"
-                    onClick={m.stop(this.lock)}><i class="fa fa-lock" aria-hidden="true" /></span>)
+                    onClick={m.stop(this.lock)}><FaIcon icon={faLock} aria-hidden="true" /></span>)
             }
-            <span class="bHideItem noprint" title="Скрыть заклинание (будет внизу панели фильтров)" onClick={m.stop(this.hide)}><i class="fa fa-eye-slash" aria-hidden="true"/></span>
+            <span class="bHideItem noprint" title="Скрыть заклинание (будет внизу панели фильтров)" onClick={m.stop(this.hide)}><FaIcon icon={faEyeSlash} aria-hidden="true"/></span>
             <div class="flex">
               <div class="flex column primal">
                 <h1 title={this.tooltip} contenteditable={this.editable}>{this.name}</h1>

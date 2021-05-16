@@ -69,7 +69,7 @@ export default component({
                 transition: 'max-height 400ms ease-out',
                 overflow: 'hidden',
 
-                position: 'abspolute',
+                position: 'absolute',
                 left: 0,
                 right: 0,
                 zIndex: 33

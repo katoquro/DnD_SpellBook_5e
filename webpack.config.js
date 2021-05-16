@@ -12,13 +12,16 @@ module.exports = {
       dependOn: ['vendor']
     },
     app: {
-      import: './src/index.jsx',
+      import: './src/index.tsx',
       dependOn: ['vendor', 'spellDb']
     }
   },
   output: {
     filename: '[name].[contenthash].bundle.js',
     path: path.resolve(__dirname, 'dist'),
+  },
+  optimization: {
+    usedExports: true,
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
@@ -42,7 +45,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(css|less)$/i,
+        test: /\.(less)$/i,
         use: [
           {
             loader: 'style-loader',
@@ -56,11 +59,11 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+        test: /\.(css)$/i,
         type: 'asset/resource',
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
         type: 'asset/resource',
       },
     ],
@@ -77,11 +80,11 @@ module.exports = {
       template: './src/index.html',
       buildDate: new Date().toISOString()
     }),
-    new StylelintPlugin({
-      files: '**/*.(less|css)',
-      context: './src/style',
-      lintDirtyModulesOnly: true,
-      failOnError: false,
-    }),
+    // new StylelintPlugin({
+    //   files: '**/*.(less|css)',
+    //   context: './src/style',
+    //   lintDirtyModulesOnly: true,
+    //   failOnError: false,
+    // }),
   ]
 }

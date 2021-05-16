@@ -5,19 +5,25 @@ import CustomSelect from './CustomSelect'
 import Hiddenitem from './Hiddenitem'
 import CheckButton from './CheckButton'
 import Combobox from './Combobox'
+import FaIcon from './FaIcon'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons'
+import { faCompressArrowsAlt, faExpand, faExpandArrowsAlt, faPrint } from '@fortawesome/free-solid-svg-icons'
 
 export default component({
   render (h): VNode {
     const vue: any = this.$parent
     return <div class='p_side'>
             <div class="mediaWidth flexParent">
-                <a href="https://github.com/katoquro/DnD_SpellBook_5e"
-                    class="bt flexChild" title="Проект на Github"><i class="fa fa-github" /></a>
-                <a href="#" class="bt flexChild" id="bInfo" title="Справка" onClick={vue.showInfo}><i
-                    class="fa fa-question-circle" /></a>
-                <a href="#" class="bt flexChild" id="bPrint" title="Распечатать" onClick={vue.print}><i
-                    class="fa fa-print"
-                    aria-hidden="true" /></a>
+                <a href="https://github.com/katoquro/DnD_SpellBook_5e"class="bt flexChild" title="Проект на Github">
+                    <FaIcon icon={faGithub}/>
+                </a>
+                <a href="#" class="bt flexChild" id="bInfo" title="Справка" onClick={vue.showInfo}>
+                    <FaIcon icon={faQuestionCircle}/>
+                </a>
+                <a href="#" class="bt flexChild" id="bPrint" title="Распечатать" onClick={vue.print}>
+                    <FaIcon icon={faPrint} aria-hidden="true"/>
+                </a>
             </div>
             <div class='mediaWidth'>
                 <SearchField
@@ -154,25 +160,21 @@ export default component({
                         class='bt flexChild'
                         title='Уменьшить ширину карточек'
                         onClick={vue.makeCardWidthLess}>
-                        <i class="fa fa-caret-right" aria-hidden="true" />
-                        &nbsp;
-                        <i class="fa fa-caret-left" aria-hidden="true" />
+                        <FaIcon icon={faCompressArrowsAlt}/>
                     </button>
 
                     <button
                         class='bt flexChild'
                         title='Сбросить ширину карточек'
                         onClick={vue.makeCardWidthNorm}>
-                        <i class="fa fa-square-o" aria-hidden="true" />
+                        <FaIcon icon={faExpand}/>
                     </button>
 
                     <button
                         class='bt flexChild'
                         title='Увеличить ширину карточек'
                         onClick={vue.makeCardWidthMore}>
-                        <i class="fa fa-caret-left" aria-hidden="true" />
-                        &nbsp;
-                        <i class="fa fa-caret-right" aria-hidden="true" />
+                        <FaIcon icon={faExpandArrowsAlt}/>
                     </button>
 
                 </div>
@@ -182,7 +184,7 @@ export default component({
                 <div class="flexParent">
                     <button
                         class="bt flexChild"
-                        style="    padding: 0.6em; margin: 0;"
+                        style="padding: 0.6em; margin: 0;"
                         onClick={vue.autosizeAllText}
                     >
                         Подстроить текст
