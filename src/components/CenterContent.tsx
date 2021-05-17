@@ -11,7 +11,7 @@ export default component({
   render (h): VNode {
     const cache: VNode[] = []
 
-    const vue: any = this.$parent
+    const vue: any = this.$parent.$parent
 
     const pinnedCards = vue.aLockedItemsList.map((item: any) => {
       return <Card

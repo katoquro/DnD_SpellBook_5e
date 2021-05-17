@@ -12,7 +12,7 @@ import { faCompressArrowsAlt, faExpand, faExpandArrowsAlt, faPrint } from '@fort
 
 export default component({
   render (h): VNode {
-    const vue: any = this.$parent
+    const vue: any = this.$parent.$parent
     return <div class='p_side'>
             <div class="mediaWidth flexParent">
                 <a href="https://github.com/katoquro/DnD_SpellBook_5e"class="bt flexChild" title="Проект на Github">

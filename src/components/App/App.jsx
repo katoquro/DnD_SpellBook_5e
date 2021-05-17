@@ -1,14 +1,16 @@
 import { component } from 'vue-tsx-support'
-import { sourceList } from '../data/sourceList'
-import { oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from '../data/schoolList'
-import { allSpells } from '../data/allSpells'
-import { classSpells } from '../data/ClassSpells'
-import FilterBar from './FilterBar'
-import CenterContent from './CenterContent'
-import Modal from './Modal'
+import { sourceList } from '../../data/sourceList'
+import { oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from '../../data/schoolList'
+import { allSpells } from '../../data/allSpells'
+import { classSpells } from '../../data/ClassSpells'
+import FilterBar from '../FilterBar'
+import CenterContent from '../CenterContent'
+import Modal from '../Modal'
 
 import saveAs from 'file-saver'
-import { GLOBAL_LISTENER } from '../GlobalListener'
+import { GLOBAL_LISTENER } from '../../GlobalListener'
+import { AppStyled } from './styled'
+import AppInfoModalContent from '../AppInfoModalContent'
 
 function randd (min, max) {
   return Math.floor(arguments.length > 1 ? (max - min + 1) * Math.random() + min : (min + 1) * Math.random())
@@ -1181,14 +1183,15 @@ export default component({
   render (h) {
     GLOBAL_LISTENER.CtrlA(this.selectAll)
 
-    return <div class='wrap' >
-            <FilterBar/>
-            <CenterContent ref="CenterContent"/>
-            <Modal
-                closeFunc={this.closeModWin}
-                show={this.bModalWinShow}
-                onClick={this.showInfo}
-            />
-        </div>
+    return <AppStyled>
+      <FilterBar />
+      <CenterContent ref="CenterContent" />
+      <Modal
+          closeFunc={this.closeModWin}
+          show={this.bModalWinShow}
+          onClick={this.showInfo}>
+        <AppInfoModalContent/>
+      </Modal>
+    </AppStyled>
   }
 })
