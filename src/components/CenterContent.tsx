@@ -1,6 +1,7 @@
 import { VNode } from 'vue'
 import { component } from 'vue-tsx-support'
 import Card from './Card'
+import { Store } from './App/App'
 
 export default component({
   methods: {
@@ -8,12 +9,14 @@ export default component({
       return this.$data.cache
     },
   },
+
   render (h): VNode {
     const cache: VNode[] = []
 
-    const vue: any = this.$parent.$parent
+    // todo rename
+    const store: any = Store
 
-    const pinnedCards = vue.aLockedItemsList.map((item: any) => {
+    const pinnedCards = store.aLockedItemsList().map((item: any) => {
       return <Card
                 ref="itemCard"
                 key={item.name}
@@ -37,20 +40,20 @@ export default component({
                 rangeTitle={item.rangeTitle}
                 componentsTitle={item.componentsTitle}
                 color={item.color}
-                view={vue.sView}
+                view={store.state.sView}
                 selected={item.selected}
                 locked={item.locked}
                 pre={item.pre}
                 editable={item.editable}
-                v-on:unlock={() => vue.unlockCard(item)}
-                v-on:hide={() => vue.hideCard(item)}
-                v-on:select={() => vue.selectLockedCard(item)}
+                v-on:unlock={() => store.unlockCard(item)}
+                v-on:hide={() => store.hideCard(item)}
+                v-on:select={() => store.selectLockedCard(item)}
             />
     })
 
     cache.push(...pinnedCards)
 
-    const filteredCards = vue.aItemsList.map((item: any) => {
+    const filteredCards = store.aItemsList().map((item: any) => {
       return <Card
                 ref="itemCard"
                 key={item.name}
@@ -74,16 +77,16 @@ export default component({
                 rangeTitle={item.rangeTitle}
                 componentsTitle={item.componentsTitle}
                 color={item.color}
-                view={vue.sView}
+                view={store.state.sView}
                 selected={item.selected}
                 locked={false}
                 pre={item.pre}
                 editable={item.editable}
-                v-on:lock={() => vue.lockCard(item)}
-                v-on:hide={() => vue.hideCard(item)}
-                v-on:select={() => vue.selectCard(item)}
-                v-on:cancel={vue.cancelCard}
-                v-on:input={vue.saveCard}
+                v-on:lock={() => store.lockCard(item)}
+                v-on:hide={() => store.hideCard(item)}
+                v-on:select={() => store.selectCard(item)}
+                v-on:cancel={store.cancelCard.bind(store)}
+                v-on:input={store.saveCard.bind(store)}
             />
     })
 
@@ -91,26 +94,27 @@ export default component({
 
     this.$data.cache = cache
 
-    const lockedArea = vue.aLockedItemsList.length > 0 && vue.bCardsAreVisible
+    const lockedArea = store.aLockedItemsList().length > 0 && store.state.bCardsAreVisible
       ? <div id='lockedItemsArea'>
                 <div class='flex_row noprint'>
-                    <span class='topHeader'>Закрепленные заклинания ({vue.aLockedItemsList.length})</span>
-                    <span class='bUnlockAll' onClick={vue.unlockAll}>Открепить все</span>
+                    <span class='topHeader'>Закрепленные заклинания ({store.aLockedItemsList().length})</span>
+                    <span class='bUnlockAll' onClick={store.unlockAll.bind(store)}>Открепить все</span>
                 </div>
                 <div class='content row'>
                     {pinnedCards}
                 </div>
                 <div class='flex_row noprint'>
-                    <span class='bottomHeader'>Каталог заклинаний ({vue.aItemsList.length})</span>
+                    <span class='bottomHeader'>Каталог заклинаний ({store.aItemsList().length})</span>
                 </div>
             </div>
       : null
 
     return <div class='p_cont' ref="cardContainer">
         {lockedArea}
-        <div class="row spellContainer" data-itemcount={vue.aItemsList.length}>
-        <span class='itemCounter noprint' v-show="aLockedItemsList.length<1"
-            title='Количество элементов'>{vue.aItemsList.length}</span>
+        <div class="row spellContainer" data-itemcount={store.aItemsList().length}>
+            <span class='itemCounter noprint'
+                title='Количество элементов'>{store.aItemsList().length}
+            </span>
             {filteredCards}
         </div>
     </div>
