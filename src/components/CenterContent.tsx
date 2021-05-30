@@ -3,6 +3,7 @@ import { component } from 'vue-tsx-support'
 import Card from './Card'
 import { Store } from './App/App'
 import Spell from './Spell/Spell'
+import { SpellContainerStyled } from '@app/components/common-styled'
 
 export default component({
   methods: {
@@ -110,18 +111,21 @@ export default component({
       </div>
       : null
 
-    return <div class='p_cont' ref="cardContainer">
-      {lockedArea}
+    return (
+      <div class='p_cont' ref="cardContainer">
+        {lockedArea}
 
-      <div class="row spellContainer" data-itemcount={store.aItemsList().length}>
-        <span class='itemCounter noprint'
-          title='Количество элементов'>{store.aItemsList().length}
-        </span>
-        <div style={{ display: 'flex' }}>
+        <SpellContainerStyled spaced={'card' !== Store.state.sView}>
           {store.aItemsList().map((item: any) => <Spell id={item.id} />)}
+        </SpellContainerStyled>
+
+        <div class="row spellContainer" data-itemcount={store.aItemsList().length}>
+          <span class='itemCounter noprint'
+            title='Количество элементов'>{store.aItemsList().length}
+          </span>
+          {filteredCards}
         </div>
-        {filteredCards}
       </div>
-    </div>
+    )
   }
 })

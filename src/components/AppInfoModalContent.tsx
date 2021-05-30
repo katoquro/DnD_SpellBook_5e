@@ -1,6 +1,6 @@
 import { VNode } from 'vue'
 import { component } from 'vue-tsx-support'
-import { InfoTextStyled } from './styled'
+import { InfoTextStyled } from './common-styled'
 import FaIcon from './FaIcon'
 import { faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons'
 

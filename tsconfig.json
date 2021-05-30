@@ -20,7 +20,13 @@
     "isolatedModules": true,
     "noEmit": false,
     "jsx": "preserve",
-    "jsxFactory": "VueTsxSupport"
+    "jsxFactory": "VueTsxSupport",
+    "baseUrl": "./",
+    "paths": {
+      "@app/*": [
+        "src/*"
+      ]
+    }
   },
   "include": [
     "node_modules/vue-tsx-support/enable-check.d.ts",

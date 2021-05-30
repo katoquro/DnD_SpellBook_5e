@@ -224,7 +224,6 @@ export default component({
                     v-on:iclick={vue.onViewChange.bind(vue)}
                 />
             </div>
-            <hr />
             <div class='mediaWidth'>
                 <button class="btn"
                     title="Скачать базу данных в формате JSON"

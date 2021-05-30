@@ -29,6 +29,10 @@ export const uiL10n: Record<string, Record<UiLang, string>> = {
     en: 'Source',
     ru: 'Источник'
   },
+  spell__materials: {
+    en: 'Materials',
+    ru: 'Реагенты'
+  },
   spell__hide_btn: {
     en: 'Hide Spell (can be found at the bottom of filter panel)',
     ru: 'Спрятать Заклинание (спрятанные заклинания находятся внизу панели фильтров)'
