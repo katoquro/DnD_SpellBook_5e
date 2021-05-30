@@ -17,6 +17,10 @@
     "vue"
   ],
   "rules": {
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "yoda": ["warn", "always", {
+      "onlyEquality": true
+    }],
+    "no-useless-constructor": "off"
   }
 }

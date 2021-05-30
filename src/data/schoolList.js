@@ -211,7 +211,7 @@ export const oDict = {
       title: 'Casting Time'
     },
     ru: {
-      title: 'Время накладывания'
+      title: 'Время сотворения'
     }
 
   },

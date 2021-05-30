@@ -135,9 +135,6 @@ export default component({
     preparedText: function () {
       return this.text ? this.text.split(/<br>/g).map(el => '<p>' + el + '</p>').join('') : ''
     },
-    ItemCard: function () {
-      return 'spellCard'
-    },
     ritualMark: function () {
       return this.ritual ? '(' + this.ritual + ') ' : ''
     },
@@ -220,7 +217,7 @@ export default component({
     return <div class={`${this.mainClass} ${this.viewClass} ${this.colorClass}`} onClick={m.ctrl(this.select)} onDblclick={m.stop(this.select)} ref="cardContainer" style={this.cardWidthStyle}>
       {this.cardView
         ? (
-          <div class={`${this.ItemCard} ${this.selectedClass}`} >
+          <div class={`spellCard ${this.selectedClass}`} >
             <div class="content">
               { this.locked
                 ? (<span class="bUnlockItem" title="Открепить обратно" onClick={m.stop(this.unlock)}><FaIcon icon={faUnlock} aria-hidden="true"/></span>)

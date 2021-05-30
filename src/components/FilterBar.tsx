@@ -244,7 +244,7 @@ export default component({
             <div class='mediaWidth'>
                 <CheckButton
                     id="EditorCheckbox"
-                    title="Редактирование"
+                    title="(В разработке) Редактирование"
                     tooltip="Переход в режим редактирования"
                     checked={vue.state.bEditMode}
                     v-on:press={vue.onEditModePress.bind(vue)} />

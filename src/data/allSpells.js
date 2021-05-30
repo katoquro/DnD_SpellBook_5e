@@ -1,5 +1,6 @@
 export const allSpells = [
   {
+    ru_of: {},
     en: {
       name: 'Acid Splash',
       level: '0',
@@ -11249,6 +11250,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '60 feet',
       components: 'V',
+      materials: '',
       duration: 'Concentration, up to 1 minute',
       text: 'You establish a telepathic link with one beast you touch that is friendly to you or charmed by you. The spell fails if the beasts Intelligence score is 4 or higher. Until the spell ends, the link is active while you and the beast are within line of sight of each other. Through the link, the beast can understand your telepathic messages to it, and it can telepathically communicate simple emotions and concepts back to you. While the link is active, the beast gains advantage on attack rolls against any creature within 5 feet of you that you can see.',
       source: 'XGTE'
@@ -11296,6 +11298,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '120 feet',
       components: 'V, S',
+      materials: '',
       duration: 'Instantaneous',
       text: 'You hurl an undulating, warbling mass of chaotic energy at one creature in range. Make a ranged spell attack against the target. On a hit, the target takes 2d8 + 1d6 damage. Choose one of the dSs. The number rolled on that die determines the attacks damage type, as shown below.<br><table>  <tr>  <th>d8</th>  <th>Damage Type</th>  </tr>  <tr>  <td>1</td>  <td>Acid</td>  </tr>  <tr>  <td>2</td>  <td>Cold</td>  </tr>  <tr>  <td>3</td>  <td>Fire</td>  </tr>  <tr>  <td>4</td>  <td>Force</td>  </tr>  <tr>  <td>5</td>  <td>Lightning</td>  </tr>  <tr>  <td>6</td>  <td>Poison</td>  </tr>  <tr>  <td>7</td>  <td>Psychic</td>  </tr>  <tr>  <td>8</td>  <td>Thunder</td>  </tr> </table> <br> <br>If you roll the same number on both d85, the chaotic energy leaps from the target to a different creature of your choice within 30 feet of it. Make a new attack roll against the new target, and make a new damage roll, which could cause the chaotic energy to leap again. <br>A creature can be targeted only once by each casting of this spell. <br><b>At Higher Levels.</b> When you cast this spell using a spell slot of 2nd level or higher, each target takes 1d6 extra damage of the type rolled for each slot level above 1st.',
       source: 'XGTE'
@@ -11319,6 +11322,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '30 feet',
       components: 'V, S',
+      materials: '',
       duration: '1 hour',
       text: 'You attempt to charm a creature you can see within range. It must make a Wisdom saving throw, and it does so with advantage if you or your companions are fighting it. If it fails the saving throw, it is charmed by you until the spell ends or until you or your companions do anything harmful to it. The charmed creature is friendly to you. When the spell ends, the creature knows it was charmed by you. <br><b>At Higher Levels.</b> When you cast this spell using a spell slot of 5th level or higher, you can target one additional creature for each slot level above 4th. The creatures must be within 30 feet of each other when you target them.',
       source: 'XGTE'
@@ -11365,6 +11369,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: 'Self',
       components: 'V, S',
+      materials: '',
       duration: '1 hour',
       text: 'Seven star-like motes of light appear and orbit your head until the spell ends. You can use a bonus action to send one of the motes streaking toward one creature or object within 120 feet of you. When you do so, make a ranged spell attack. On a hit. the target takes 4d12 radiant damage. Whether you hit or miss, the mote is expended. The spell ends early if you expend the last mote.<br> If you have four or more motes remaining, they shed bright light in a 30-foot radius and dim light for an additional 30 feet. Ifyou have one to three motes remaining, they shed dim light in a 30—foot radius. <br><b>At Higher Levels.</b> When you cast this spell using a spell slot of 8th level or higher, the number of motes created increases by two for each slot level above 7th.',
       source: 'XGTE'
@@ -11388,6 +11393,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '60 feet',
       components: 'V, S',
+      materials: '',
       duration: 'Concentration, up to 1 hour',
       text: "Threads of dark power leap from your fingers to pierce up to five Small or Medium corpses you can see within range. Each corpse immediately stands up and becomes undead. You decide whether it is a <a href='https://tentaculus.ru/monsters/index.html#q=zombie&size=M'>zombie</a> or a <a href='https://tentaculus.ru/monsters/index.html#q=skeleton&size=M'>skeleton</a> , and it gains a bonus to its attack and damage rolls equal to your spellcasting ability modifier. You can use a bonus action to mentally command the creatures you make with this spell, issuing the same command to all of them. To receive the command, a creature must be within 60 feet of you. You decide what action the creatures will take and where they will move during their next turn, or you can issue a general command, such as to guard a chamber or passageway against your foes. lf you issue no commands, the creatures do nothing except defend themselves against hostile creatures. Once given an order, the creatures continue to follow it until their task is complete. The creatures are under your control until the spell ends, after which they become inanimate once more. At Higher Levels. When you cast this spell using a spell slot‘ of 6th level or higher, you animate up to two additional corpses for each slot level above 5th.",
       source: 'XGTE'
@@ -11482,6 +11488,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '120 fee',
       components: 'V, S',
+      materials: '',
       duration: 'Concentration, up to 1 minute',
       text: "You reach into the mind of one creature you can see and force it to make an Intelligence saving throw. A creature automatically succeeds if it is immune to being frightened. On a failed save, the target loses the ability to distinguish friend from foe, regarding all creatures it can see as enemies until the spell ends. Each time the target takes damage, it can repeat the saving throw, ending the effect on itself on a success. <br> Whenever the affected creature chooses another creature as a target, it must choose the target at random from among the creatures it can see within range of the attack, spell, or other ability it's using. If an enemy provokes an opportunity attack from the affected creature, the creature must make that attack if it is able to.",
       source: 'XGTE'
@@ -11504,6 +11511,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '60 feet',
       components: 'V, S',
+      materials: '',
       duration: 'Concentration, Up to 1 minute',
       text: "tendril of inky darkness reaches out from you, touching a creature you can see within range to drain life from it. The target must make a Dexterity saving throw. On a successful save, the target takes 2d8 necrotic damage, and the spell ends. On a failed save, the target takes 4d8 necrotic damage, and until the spell ends, you can use your action on each of your turns to automatically deal 4d8 necrotic damage to the target. The spell ends ifyou use your action to do anything else, ifthe target is ever outside the spell's range, or if the target has total cover from you. <br>Whenever the spell deals damage to a target, you re gain hit points equal to half the amount of necrotic damage the target takes. <br><b>At Higher Levels.<b> When you cast this spell using a spell slot of 6th level or higher, the damage increases by MB for each slot level above 5th.",
       source: 'XGTE'
@@ -11526,6 +11534,7 @@ export const allSpells = [
       castingTime: '1 bonus action',
       range: 'Self',
       components: 'V',
+      materials: '',
       duration: 'Concentration, up to 1 minute',
       text: 'You teleport up to 60 feet to an unoccupied space youcan see. On each of your turns before the spell ends, youcan use a bonus action to teleport in this way again.',
       source: 'XGTE'
@@ -11549,6 +11558,7 @@ export const allSpells = [
       castingTime: '10 minutes',
       range: '30 feet',
       components: 'V, S',
+      materials: '',
       duration: 'Instantaneous',
       text: "You summon a spirit that assumes the form of a loyal,majestic mount. Appearing in an unoccupied spacewithin range, the spirit takes on a form you choose: agriffon, a pegasus, a peryton, a dire wolf, a rhinoceros,or a saber—toothed tiger. The creature has the statisticsprovided in the Monster Manual for the chosen form,though it is a celestial, a fey, or a fiend (your choice)instead of its normal creature type. Additionally, if ithas an Intelligence score of 5 or lower, its Intelligencebecomes 6, and it gains the ability to understand onelanguage of your choice that you speak.<br>You control the mount in combat. While the mount iswithin 1 mile of you, you can communicate with it te1e~pathically. While mounted on it, you can make any spellyou cast that targets only you also target the mount.<br>The mount disappears temporarily when it drops to 0hit points or when you dismiss it as an action. Castingthis spell again re—summons the bonded mount, with allits hit points restored and any conditions removed.<br>You can't have more than one mount bonded by thisspell or find steed at the same time. As an action, youcan release a mount from its bond, causing it to disappearpermanently.<br>Whenever the mount disappears, it leaves behind anyobjects it was wearing or carrying.",
       source: 'XGTE'
@@ -11572,6 +11582,7 @@ export const allSpells = [
       castingTime: '1 bonus action',
       range: 'Self',
       components: 'V',
+      materials: '',
       duration: 'Concentration, up to 1 minute',
       text: 'A nature spirit answers your call and transforms youinto a powerful guardian. The transformation lasts untilthe spell ends. You choose one of the following forms toassume: Primal Beast or Great Tree.<br>Primal Beast. Bestial fur covers your body, yourfacial features become feral, and you gain the followingbenefits:- Your walking speed increases by 10 feet.- You gain darkvision with a range of 120 feet.- You make Strength—based attack rolls with advantage.- Your melee weapon attacks deal an extra 1d6 forcedamage on a hit.<br>Great Tree. Your skin appears barky, leaves sproutfrom your hair, and you gain the following benefits:. You gain 10 temporary hit points.- You make Constitution saving throws with advantage.- You make Dexterity- and Wisdom-based attack rollswith advantage.- While you are on the ground, the ground within 15feet of you is difficult terrain for your enemies.',
       source: 'XGTE'
@@ -11596,6 +11607,7 @@ export const allSpells = [
       level: 2,
       school: 'Conjuration',
       components: 'V, S',
+      materials: '',
       duration: 'Concentration, up to 1 minute',
       source: 'XGTE'
     },
@@ -11618,6 +11630,7 @@ export const allSpells = [
       level: '5',
       range: 'Touch',
       components: 'V, S',
+      materials: '',
       duration: 'Concentration, up to 1 hour',
       text: "You imbue a weapon you touch with holy power. Untilthe spell ends, the weapon emits bright light in a 30—foot radius and dim light for an additional 30 feet. Inaddition, weapon attacks made with it deal an extra 2d8radiant damage on a hit. If the weapon isn't already amagic weapon, it becomes one for the duration.<br>As a bonus action on your turn, you can dismiss thisspell and cause the weapon to emit a burst of radiance.<br>Each creature of your choice that you can see within 30feet ofyou must make a Constitution saving throw. On afailed save, a creature takes 4d8 radiant damage, and itis blinded for 1 minute. On a successful save, a creaturetakes half as much damage and isn't blinded. At theend of each Ofits turns, a blinded creature can make a<br>Constitution saving throw, ending the effect on itselfona success.",
       source: 'XGTE'
@@ -11641,6 +11654,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '120 feet',
       components: '8',
+      materials: '',
       duration: 'Concentration, up to 1 minute',
       text: "By gathering threads of shadow material from the Shad~owfell, you create a Huge shadowy dragon in an unoc~lasts for the spell's duration and occupies its space, as ifit were a creature.can see it must succeed on a Wisdom saving throw orbecome frightened of it for 1 minute. If a frightened creatureends its turn in a location where it doesn't have lineending the effect on itself on a success.up to 60 feet. At any point during its movement, youcan cause it to exhale a blast of energy in a 60-foot coneoriginating from its space. When you create the dragon,choose a damage type: acid, cold, fire, lightning, necrotic,or poison. Each creature in the cone must makean Intelligence saving throw, taking '7d6 damage of thechosen damage type on a failed save, or half as muchdamage on a successful one.used to create it, but attacks miss it automatically. it succeedson all saving throws, and it is immune to all damageand conditions. A creature that uses an action toby succeeding on an Intelligence (Investigation) checkagainst your spell save DC. If a creature discerns thehas advantage on saving throws against its breath.",
       source: 'XGTE'
@@ -11739,6 +11753,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '30 feet',
       components: 'V, S',
+      materials: '',
       duration: 'Instantaneous',
       text: "You sacrifice some of your health to mend another crea—ture's injuries. You take 4d8 necrotic damage, and onecreature of your choice that you can see within range regainsa number of hit points equal to twice the necroticdamage you take.<b>At Higher Levels.</b> When you cast this spell using aspell slot of 4th level or higher, the damage increases by1d8 for each slot level above 3rd.",
       source: 'XGTE'
@@ -11787,6 +11802,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '120 feet',
       components: 'V',
+      materials: '',
       duration: 'Concentration, up to 1 hour',
       text: "You transform up to ten creatures of your choice thatyou can see within range. An unwilling target must suc—ceed on a Wisdom saving throw to resist the transforma—tion. An unwilling shapechanger automatically succeedson the save.<br>Each target assumes a beast form of your choice, andyou can choose the same form or different ones for eachtarget. The new form can be any beast you have seenwhose challenge rating is equal to or less than the target's(or half the target's level, if the target doesn't have achallenge rating). The target's game statistics, includingmental ability scores, are replaced by the statistics ofthe chosen beast, but the target retains its hit points,alignment, and personality.<br>Each target gains a number of temporary hit pointsequal to the hit points of its new form. These temporaryhit points can't be replaced by temporary hit points fromanother source. A target reverts to its normal form whenit has no more temporary hit points or it dies. If the spellends before then, the creature loses all its temporary hitpoints and reverts to its normal form.<br>The creature is limited in the actions it can perform bythe nature of its new form. It can't speak, cast spells, ordo anything else that requires hands or speech.<br>The target's gear melds into the new form. The targetcan't activate, use, wield, or otherwise benefit from anyof its equipment.",
       source: 'XGTE'
@@ -11811,6 +11827,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '60 feet',
       components: 'S',
+      materials: '',
       duration: 'Concentration, up to 1 minute',
       text: "You attempt to bind a creature within an illusory cellthat only it perceives. One creature you can see withinrange must make an Intelligence saving throw. Thetarget succeeds automatically if it is immune to beingcharmed. On a successful save, the target takes 5d10psychic damage, and the spell ends. On a failed save,the target takes 5d10 psychic damage, and you makethe area immediately around the target's space appeardangerous to it in some way. You might cause the targetto perceive itself as being surrounded by fire, floatingrazors, or hideous maws filled with dripping teeth.hear anything beyond it and is restrained for the spell'sa melee attack through it, or reaches any part of its bodythrough it, the target takes 10d10 psychic damage, andthe spell ends.",
       source: 'XGTE'
@@ -11860,6 +11877,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '60 feet',
       components: '8',
+      materials: '',
       duration: 'Concentration, up to 1 hour',
       text: "You reach into the mind of one creature you can seewithin range. The target must make a Wisdom savingthrow, taking 3d8 psychic damage on a failed save, orhalf as much damage on a successful one. On a failedsave, you also always know the target's location until thespell ends, but only while the two of you are on the sameplane of existence. While you have this knowledge, thetarget can't become hidden from you, and if it's invisible,it gains no benefit from that condition against you.<b>At Higher Levels.</b> When you cast this spell using aspell slot of 3rd level or higher, the damage increases by1d6 for each slot level above 2nd.",
       source: 'XGTE'
@@ -11908,6 +11926,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '60 feet',
       components: 'V',
+      materials: '',
       duration: 'Instantaneous',
       text: 'You speak a word of power that causes waves of intensepain to assail one creature you can see within range.<br>If the target has 100 hit points or fewer, it is subjectto crippling pain. Otherwise, the spell has no effecton it. A target is also unaffected if it is immune to beingcharmed.<br>While the target is affected by crippling pain, anyspeed it has can be no higher than 10 feet. The targetalso has disadvantage on attack rolls, ability checks, andsaving throws, other than Constitution saving throws.<br>Finally, if the target tries to cast a spell, it must first suc—ceed on a Constitution saving throw, or the casting failsand the spell is wasted.<br>A target suffering this pain can make a Constitutionsaving throw at the end of each of its turns. On a suc—cessful save, the pain ends.',
       source: 'XGTE'
@@ -11931,6 +11950,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: 'Self',
       components: 'S',
+      materials: '',
       duration: 'Instantaneous',
       text: "You channel primal magic to cause your teeth or fin—gernails to sharpen, ready to deliver a corrosive attack.<br>Make a melee spell attack against one creature within 5feet ofyou. On a hit, the target takes ll acid damage.<br>After you make the attack, your teeth or fingernails returnto normal.<br>The spell's damage increases by 1d10 when you reach5th level (2d10), 11th level (3d10), and 17th level (4d10).",
       source: 'XGTE'
@@ -11954,6 +11974,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '90 feet',
       components: 'S',
+      materials: '',
       duration: 'Instantaneous',
       text: "You unleash the power of your mind to blast the intellectof up to ten creatures of your choice that you can seewithin range. Creatures that have an Intelligence scoreof 2 or lower are unaffected.<br>Each target must make an Intelligence saving throw.<br>On a failed save, a target takes 14d6 psychic damageand is stunned. On a successful save, a target takes halfas much damage and isn't stunned. If a target is killedby this damage, its head explodes, assuming it has one.<br>A stunned target can make an Intelligence savingthrow at the end of each of its turns. On a successfulsave, the stunning effect ends.",
       source: 'XGTE'
@@ -11978,6 +11999,7 @@ export const allSpells = [
       level: '6',
       school: 'Conjuration',
       components: 'V',
+      materials: '',
       duration: 'Instantaneous',
       source: 'XGTE'
     },
@@ -11988,6 +12010,7 @@ export const allSpells = [
       castingTime: '1 действие',
       range: '30 футов',
       components: 'В',
+      materials: '',
       duration: 'мгновенная',
       text: 'Воздух начинает дрожать вокруг пяти существ по вашему выбору, которых вы можете видеть в пределахдистанции. Несогласное существо должно преуспетьв спасброске Мудрости, чтобы противостоять этомузаклинанию. Вы телепортируете каждую затронутуюцель в незанятое пространство, которое вы можетевидеть в пределах 120 футов от вас. Это пространство должно быть на земле или на полу.'
     }
@@ -12000,6 +12023,7 @@ export const allSpells = [
       castingTime: '1 bonus action',
       range: 'Self',
       components: 'V, 8',
+      materials: '',
       duration: 'Concentration, up to 1 minute',
       text: 'You weave together threads of shadow to create a swordof solidified gloom in your hand. This magic sword lastsuntil the spell ends. It counts as a simple melee weaponwith which you are proficient. It deals 2d8 psychicdamage on a hit and has the finesse, light, and thrownproperties (range 20/60). In addition, when you use thesword to attack a target that is in dim light or darkness,you make the attack roll with advantage.<br>If you drop the weapon or throw it, it dissipates at theend of the turn. Thereafter, while the spell persists, youcan use a bonus action to cause the sword to reappearin your hand.<b>At Higher Levels.</b> When you cast this spell using a3rd- or 4th—level spell slot, the damage increases to 3:18.<br>When you cast it using a 5th— or 6th-level spell slot, thedamage increases to 4d8. When you cast it using a spellslot of 7th level or higher, the damage increases to 5d8.',
       source: 'XGTE'
@@ -12011,6 +12035,7 @@ export const allSpells = [
       castingTime: '1 бонусное действие',
       range: 'на себя',
       components: 'В, С',
+      materials: '',
       duration: 'Концентрация, вплоть до 1 минуты',
       text: 'Вы сплетаете воедино нити тени, чтобы создать вваших руках меч затвердевшего мрака. Этот волшебный меч существует до тех пор, пока заклинаниеактивно. Он считается простым оружием ближнегобоя, которым вы владеете. Он наносит урон психической энергией 2к8 при попадании и обладает свойствами фехтовальное, лёгкое и метательное (дистанция 20/60). Кроме того, когда вы используете меч дляатаки цели, которая находится в тусклом освещенииили темноте, вы совершаете бросок атаки с преимуществом.<br>Если вы роняете оружие или метаете его, оно рассеивается в конце хода.<br>После этого, пока заклинание активно, вы можетеиспользовать бонусное действие, чтобы снова вызвать меч в вашу руку.<br>На более высоких уровнях. Когда вы сотворяете это заклинание, используя ячейку заклинания 3или 4 уровня, урон увеличивается до 3к8. Когда высотворяете его с помощью ячейки заклинания 5 или6 уровня, урон увеличивается до 4к8. Когда вы сотворяете его с помощью ячейки заклинания 7 уровняили выше, урон увеличивается до 5к8.'
     }
@@ -12048,6 +12073,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '120 feet',
       components: 'V, 8',
+      materials: '',
       duration: 'Concentration, up to 10 minutes',
       text: "Dim, greenish light spreads within a 30—foot-radiussphere centered on a point you choose within range.<br>The light spreads around corners, and it lasts until thespell ends.<br>When a creature moves into the spell's area for thefirst time on a turn or starts its turn there, that creaturemust succeed on a Constitution saving throw or take4d10 radiant damage, and it suffers one level of exhaus—tion and emits a dim, greenish light in a 5-foot radius.<br>This light makes it impossible for the creature to benefitfrom being invisible. The light and any levels of exhaus—tion caused by this spell go away when the spell ends.",
       source: 'XGTE'
@@ -12059,6 +12085,7 @@ export const allSpells = [
       castingTime: '1 действие',
       range: '120 футов',
       components: 'В, С',
+      materials: '',
       duration: 'Концентрация, вплоть до 10 минут',
       text: 'Из точки, выбранной вами в пределах дистанции,распространяется сфера тусклого зеленоватого светас радиусом 30 футов. Свет огибает углы и существуетдо тех пор, пока заклинание не закончится.<br>Если существо впервые за раунд входит в областьзаклинания или начинает в ней свой ход, оно должнопреуспеть в спасброске Телосложения, иначе получает урон излучением 4к10. Оно также получаетодин уровень истощения и само начинает испускатьтусклый зеленоватый свет в радиусе 5 футов. Этотсвет делает невозможным получение преимуществот невидимости. Свет и любые уровни истощения,вызванные этим заклинанием, проходят, когда заклинание оканчивается.'
     }
@@ -12071,6 +12098,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: 'Touch',
       components: 'V, S',
+      materials: '',
       duration: 'Concentration',
       text: "Your magic deepens a creature's understanding of itsown talent. You touch one willing creature and give itexpertise in one skill of your choice; until the spell ends,the creature doubles its proficiency bonus for abilitychecks it makes that use the chosen skill.<br>You must choose a skill in which the target is proficientand that isn't already benefiting from an effect,such as Expertise, that doubles its proficiency bonus.",
       source: 'XGTE'
@@ -12219,6 +12247,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '120 feet',
       components: 'V, 8',
+      materials: '',
       duration: 'Instantaneous',
       text: "You choose a point within range and cause psychic energyto explode there. Each creature in a 20—foot—radiussphere centered on that point must make an Intelligencesaving throw. A creature with an Intelligence score of2 or lower can't be affected by this spell. A target takes8d6 psychic damage on a failed save, or half as muchdamage on a successful one.<br>After a failed save, a target has muddled thoughts for1 minute. During that time, it rolls a d6 and subtractsthe number rolled from all its attack rolls and abilitychecks, as well as its Constitution saving throws tomaintain concentration. The target can make an Intelligencesaving throw at the end of each of its turns, endingthe effect on itself on a success.",
       source: 'XGTE'
@@ -12291,6 +12320,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '90 feet',
       components: 'V',
+      materials: '',
       duration: 'Instantaneous',
       level: '3',
       school: 'Conjuration',
@@ -12315,6 +12345,7 @@ export const allSpells = [
       castingTime: '1 minute',
       range: 'Touch',
       components: 'V, S',
+      materials: '',
       duration: '8 hours',
       text: "You touch one Tiny, nonmagical object that isn't at—tached to another object or a surface and isn't beingcarried by another creature. The target animates andsprouts little arms and legs, becoming a creature underyour control until the spell ends or the creature drops to0 hit points. See the stat block for its statistics.<br>As a bonus action, you can mentally command thecreature if it is within 120 feet of you. (Ifyou controlmultiple creatures with this spell, you can command anyor all of them at the same time, issuing the same com—mand to each one.) You decide what action the creaturewill take and where it will move during its next turn, oryou can issue a simple, general command, such as tofetch a key, stand watch, or stack some books. If you is—sue no commands, the servant does nothing other thandefend itself against hostile creatures. Once given anorder, the servant continues to follow that order until itstask is complete.<br>When the creature drops to 0 hit points, it reverts toits original form, and any remaining damage carriesover to that form.<b>At Higher Levels.</b> When you cast this spell using aspell slot of 4th level or higher, you can animate two additionalobjects for each slot level above 3rd.",
       source: 'XGTE'
@@ -12338,6 +12369,7 @@ export const allSpells = [
       level: 0,
       range: '60 feet',
       components: 'V, S',
+      materials: '',
       duration: 'Instantaneous',
       text: "You point at one creature you can see within range,and the sound of a dolorous bell fills the air around itfor a moment. The target must succeed on a Wisdomsaving throw or take 1d8 necrotic damage. If the targetis missing any of its hit points, it instead takes 1d] 2 ne—crotic damage.<br>The spell's damage increases by one die when youreach 5th level (2d8 or 2(112), 11th level (3d8 or 3d12),and 17th level (4d8 or 4dl2).",
       source: 'XGTE'
@@ -12436,6 +12468,7 @@ export const allSpells = [
       castingTime: '1 action',
       range: '120 feet',
       components: 'V, S',
+      materials: '',
       duration: 'Concentration, up to 1 minute',
       text: 'You call out to the spirits of nature to rouse themagainst your enemies. Choose a point you can seewithin range. The spirits cause. trees, rocks, and grassesin a 60-foot cube centered on that point to become animateduntil the spell ends.<br>Grasses and Undergrowth. Any area of ground in thecube that is covered by grass or undergrowth is difficultterrain for your enemies.<br>Trees. At the start of each of your turns, each of yourenemies within 10 feet of any tree in the cube must suc—ceed on a Dexterity saving throw or take 4d6 slashingdamage from whipping branches.<br>Roots and Vines. At the end of each of your turns, onecreature of your choice that is on the ground in the cubemust succeed on a Strength saving throw or becomerestrained until the spell ends. A restrained creaturecan use an action to make a Strength (Athletics) checkagainst your spell save DC, ending the effect on itself ona success.<br>Rocks. As a bonus action on your turn, you can causea loose rock in the cube to launch at a creature you cansee in the cube. Make a ranged spell attack against thetarget. On a hit, the target takes 3d8 nonmagical bludgeoningdamage, and it must succeed on a Strengthsaving throw or fall prone.',
       source: 'XGTE'
@@ -12459,6 +12492,7 @@ export const allSpells = [
       castingTime: '1 bonus action',
       range: 'Self',
       components: 'V',
+      materials: '',
       duration: 'Concentration, up to 1 minute',
       text: "You move like the wind. Until the spell ends, your movementdoesn't provoke opportunity attacks.<br>Once before the spell ends, you can give yourself ad—vantage on one weapon attack roll on your turn. That attackdeals an extra 1d8 force damage on a hit. Whetheryou hit or miss, your walking speed increases by 30 feetuntil the end of that turn.",
       source: 'XGTE'

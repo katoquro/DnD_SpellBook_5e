@@ -1,7 +1,6 @@
 const path = require('path')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const StylelintPlugin = require('stylelint-webpack-plugin')
 
 module.exports = {
   mode: 'production',
@@ -80,11 +79,5 @@ module.exports = {
       template: './src/index.html',
       buildDate: new Date().toISOString()
     }),
-    // new StylelintPlugin({
-    //   files: '**/*.(less|css)',
-    //   context: './src/style',
-    //   lintDirtyModulesOnly: true,
-    //   failOnError: false,
-    // }),
   ]
 }

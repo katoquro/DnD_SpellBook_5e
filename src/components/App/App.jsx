@@ -1,8 +1,5 @@
 import { component } from 'vue-tsx-support'
-import { sourceList } from '../../data/sourceList'
-import { oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from '../../data/schoolList'
-import { allSpells } from '../../data/allSpells'
-import { classSpells } from '../../data/ClassSpells'
+import { allSpells, sourceList, classSpells, oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from '../../data/SpellDb'
 import FilterBar from '../FilterBar'
 import CenterContent from '../CenterContent'
 import Modal from '../Modal'
@@ -148,10 +145,10 @@ export const Store = {
     aSort: oSort,
     aItems: allSpells,
     oClassSpells: classSpells,
-    sLang: 'ru',
-    sView: 'card',
+    sLang: 'ru', // reused in new components
+    sView: 'card', // reused in new components
     sSort: 'levelAlpha',
-    sClass: '',
+    sClass: '', // reused in new components
     sSubClass: '',
     sSubSubClass: '',
     sSearch: '',
@@ -165,9 +162,6 @@ export const Store = {
     aLockedItems: [],
     aSelectedItems: [],
     aSelectedLockedItems: [],
-    sTextSizeDefault: '',
-    sCardwidth: '',
-    sCardWidthDefault: '2.5in',
 
     oConfig: {},
     bSchoolsOpend: false,
@@ -177,14 +171,67 @@ export const Store = {
     bAppIsReady: false,
     bRitualOnly: false,
     bAllClassSpells: false,
-    bEditMode: false,
+    bEditMode: false, // reused in new components
 
     bModalWinShow: false,
 
     bDebug: false,
 
-    bIos: false
+    bIos: false,
+
+    // new components State bellow
+    spellCardWidth: 250,
   },
+
+  hideCard (id) {
+    if (this.state.aSelectedItems.length > 0) {
+      this.state.aSelectedItems.forEach((sId) => {
+        if (this.state.aSelectedItems.indexOf(sId) > -1) {
+          this.state.aHiddenItems.push(sId)
+        }
+      })
+      this.selectAll(false)
+    } else {
+      if (this.state.aHiddenItems.indexOf(id) < 0) {
+        this.state.aHiddenItems.push(id)
+      }
+    }
+  },
+
+  lockCard (id) {
+    if (this.state.aSelectedItems.length > 0) {
+      this.state.aSelectedItems.forEach((sId) => {
+        if (this.state.aSelectedItems.indexOf(sId) > -1) {
+          this.state.aLockedItems.push(sId)
+        }
+      })
+      this.selectAll(false)
+    } else {
+      if (this.state.aLockedItems.indexOf(id) < 0) {
+        this.state.aLockedItems.push(id)
+      }
+    }
+    this.setConfig('locked', this.state.aLockedItems)
+  },
+
+  unlockCard (id) {
+    if (this.state.aSelectedLockedItems.length > 0) {
+      this.state.aSelectedLockedItems.forEach((sId) => {
+        const nInd = this.state.aLockedItems.indexOf(sId)
+        if (nInd > -1) {
+          this.state.aLockedItems.splice(nInd, 1)
+        }
+      })
+    } else {
+      const nInd = this.state.aLockedItems.indexOf(id)
+      if (nInd > -1) {
+        this.state.aLockedItems.splice(nInd, 1)
+      }
+    }
+    this.setConfig('locked', this.state.aLockedItems)
+  },
+
+  // new components methods above
   collectCastingTime () {
     const oTmp = {}
     this.state.aItems.forEach(el => {
@@ -353,54 +400,6 @@ export const Store = {
     this.setConfig('castingTimeOpend', bStat)
   },
 
-  lockCard (oCard) {
-    if (this.state.aSelectedItems.length > 0) {
-      this.state.aSelectedItems.forEach((sId) => {
-        if (this.state.aSelectedItems.indexOf(sId) > -1) {
-          this.state.aLockedItems.push(sId)
-        }
-      })
-      this.selectAll(false)
-    } else {
-      const id = oCard.id
-      if (this.state.aLockedItems.indexOf(id) < 0) {
-        this.state.aLockedItems.push(id)
-      }
-    }
-    this.setConfig('locked', this.state.aLockedItems)
-  },
-  unlockCard (oCard) {
-    if (this.state.aSelectedLockedItems.length > 0) {
-      this.state.aSelectedLockedItems.forEach(function (sId) {
-        const nInd = this.state.aLockedItems.indexOf(sId)
-        if (nInd > -1) {
-          this.state.aLockedItems.splice(nInd, 1)
-        }
-      }.bind(this))
-    } else {
-      const id = oCard.id
-      const nInd = this.state.aLockedItems.indexOf(id)
-      if (nInd > -1) {
-        this.state.aLockedItems.splice(nInd, 1)
-      }
-    }
-    this.setConfig('locked', this.state.aLockedItems)
-  },
-  hideCard (oCard) {
-    if (this.state.aSelectedItems.length > 0) {
-      this.state.aSelectedItems.forEach(function (sId) {
-        if (this.state.aSelectedItems.indexOf(sId) > -1) {
-          this.state.aHiddenItems.push(sId)
-        }
-      }.bind(this))
-      this.selectAll(false)
-    } else {
-      const id = oCard.id
-      if (this.state.aHiddenItems.indexOf(id) < 0) {
-        this.state.aHiddenItems.push(id)
-      }
-    }
-  },
   unhideCard (sId) {
     const nInd = this.state.aHiddenItems.indexOf(sId)
     if (nInd > -1) {
@@ -434,7 +433,7 @@ export const Store = {
     }
   },
   selectAll: function (bStat) {
-    if (this.state.aSelectedItems.length > 0 || bStat === false) {
+    if (this.state.aSelectedItems.length > 0 || false === bStat) {
       this.state.aSelectedItems = []
       this.state.aSelectedLockedItems = []
     } else {
@@ -741,7 +740,7 @@ export const Store = {
   },
 
   sOtherLang () {
-    return (this.state.sLang === 'ru') ? 'en' : 'ru'
+    return ('ru' === this.state.sLang) ? 'en' : 'ru'
   },
   aSrcList () {
     const a = []
@@ -750,7 +749,7 @@ export const Store = {
         a.push({
           key: key,
           title: this.state.aSources[key].text.en.title + '<br>' + this.state.aSources[key].text.ru.title,
-          subtitle: this.state.aSources[key].official === true ? '' : 'Homebrew /Самопал',
+          subtitle: true === this.state.aSources[key].official ? '' : 'Homebrew /Самопал',
           official: this.state.aSources[key].official,
           checked: this.state.aSources[key].checked
         })
@@ -997,7 +996,7 @@ export const Store = {
           // this.aSrcSelected.indexOf(oItem.en.source)>-1 && // old filter for sources
           this.aSchoolSelected().indexOf(oItem.en.school.toLowerCase().trim()) > -1 /**/ &&
           (
-            this.aCastingTimeSelected().length === 0 ||
+            0 === this.aCastingTimeSelected().length ||
               this.aCastingTimeSelected().indexOf(oItem.en.castingTime.toLowerCase().trim()) > -1
           ) &&
           (
@@ -1056,7 +1055,7 @@ export const Store = {
         console.log(err)
       }
     }.bind(this)).sort(function (a, b) {
-      if (this.state.sSort === 'alpha') {
+      if ('alpha' === this.state.sSort) {
         if (a.name.toLowerCase().trim() < b.name.toLowerCase().trim()) {
           return -1
         }
@@ -1116,7 +1115,7 @@ export const Store = {
       }
       return o
     }.bind(this)).sort(function (a, b) {
-      if (this.state.sSort === 'alpha') {
+      if ('alpha' === this.state.sSort) {
         if (a.name.toLowerCase().trim() < b.name.toLowerCase().trim()) {
           return -1
         }

@@ -160,14 +160,12 @@ export const classSpells = {
       'Psychic scream'
 
     ]
-
   },
   Cleric: {
     title: {
       en: 'Cleric',
       ru: 'Жрец'
     },
-    color: '',
     spells: [
 
       'Guidance',
