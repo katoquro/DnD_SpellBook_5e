@@ -26,6 +26,10 @@ export const nonPrintingStyle = css`
   }
 `
 
+export const NonPrintable = styled('div')`
+  ${nonPrintingStyle}
+`
+
 export const FlexWrap = styled('div', { column: Boolean, basis: String, grow: Number })`
   display: flex;
   flex-wrap: wrap;
@@ -35,16 +39,6 @@ export const FlexWrap = styled('div', { column: Boolean, basis: String, grow: Nu
 `
 
 // TODO katoquro: 31/05/2021 all bellow move to components
-
-export const SpellContainerStyled = styled('div', { spaced: Boolean })`
-  display: flex; 
-  flex-wrap: wrap; 
-  justify-content: ${p => p.spaced ? 'space-evenly' : 'unset'};
-  
-  @media print {
-    display: block;
-  }
-`
 
 export const InfoTextStyled = styled.div`
   padding: 0.7em 1.3em;

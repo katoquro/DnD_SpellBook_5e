@@ -1,13 +1,13 @@
 import { component } from 'vue-tsx-support'
 import { allSpells, sourceList, classSpells, oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from '../../data/SpellDb'
-import FilterBar from '../FilterBar'
-import CenterContent from '../CenterContent'
-import Modal from '../Modal'
+import FilterBar from '@app/components/FilterBar'
+import SpellLayout from '@app/layouts/SpellLayout/SpellLayout'
+import Modal from '@app/components/Modal'
 
 import saveAs from 'file-saver'
-import { GLOBAL_LISTENER } from '../../GlobalListener'
+import { GLOBAL_LISTENER } from '@app/GlobalListener'
 import { AppStyled } from './styled'
-import AppInfoModalContent from '../AppInfoModalContent'
+import AppInfoModalContent from '@app/components/AppInfoModalContent'
 
 function randd (min, max) {
   return Math.floor(arguments.length > 1 ? (max - min + 1) * Math.random() + min : (min + 1) * Math.random())
@@ -167,7 +167,6 @@ export const Store = {
     bSchoolsOpend: false,
     bSourcesOpend: false,
     bCastingTimeOpend: false,
-    bCardsAreVisible: false,
     bAppIsReady: false,
     bRitualOnly: false,
     bAllClassSpells: false,
@@ -601,14 +600,8 @@ export const Store = {
     return false
   },
 
-  showCards () {
-    this.state.bCardsAreVisible = true
-  },
-
   showAllItems () {
     this.closeModWin()
-    this.showCards()
-    this.setConfig('infoIsRead', true)
   },
 
   setConfig (prop, val) {
@@ -1157,11 +1150,6 @@ export default component({
     Store.loadConfigData()
     Store.collectCastingTime()
 
-    const bInfoIsRead = Store.getConfig('infoIsRead')
-    if (bInfoIsRead) {
-      Store.showCards()
-    }
-
     Store.getHash()
 
     Store.updateHash()
@@ -1176,7 +1164,7 @@ export default component({
 
     return <AppStyled>
       <FilterBar />
-      <CenterContent ref="CenterContent" />
+      <SpellLayout ref="CenterContent" />
       <Modal
           closeFunc={Store.closeModWin.bind(Store)}
           show={Store.state.bModalWinShow}>
