@@ -1,6 +1,6 @@
 import { VNode } from 'vue'
 import { component, modifiers as m } from 'vue-tsx-support'
-import SearchField from './SearchField'
+import SearchField from '@app/components/SideBar/SearchFiled/SearchField'
 import CustomSelect from './CustomSelect'
 import Hiddenitem from './Hiddenitem'
 import CheckButton from './CheckButton'
@@ -28,14 +28,7 @@ export default component({
                 </a>
             </div>
             <div class='mediaWidth'>
-                <SearchField
-                    id="NameInput"
-                    title="Название"
-                    value={vue.state.sSearch}
-                    ios={vue.state.bIos}
-                    v-on:input={vue.onSearchName.bind(vue)}
-                    v-on:searchrndom={vue.getRandomItem.bind(vue)}
-                />
+                <SearchField />
             </div>
 
             <div class='mediaWidth'>

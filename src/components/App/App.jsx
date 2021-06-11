@@ -17,35 +17,6 @@ function isDebug () {
   return window.location.href.toLowerCase().indexOf('debug=true') > -1
 }
 
-function isIos () {
-  if (window.location.href.toLowerCase().indexOf('ios=true') > -1) {
-    return true
-  }
-
-  if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-    return true
-  }
-
-  const iDevices = [
-    'iPad Simulator',
-    'iPhone Simulator',
-    'iPod Simulator',
-    'iPad',
-    'iPhone',
-    'iPod'
-  ]
-
-  if (navigator.platform) {
-    while (iDevices.length) {
-      if (navigator.platform === iDevices.pop()) {
-        return true
-      }
-    }
-  }
-
-  return false
-}
-
 export const Store = {
   state: {
     aSources: sourceList,
@@ -176,8 +147,6 @@ export const Store = {
 
     bDebug: false,
 
-    bIos: false,
-
     // new components State bellow
     spellCardWidth: 250,
   },
@@ -253,16 +222,12 @@ export const Store = {
     }
   },
   onClassChange (sKey) {
-    this.showAllItems()
-
     this.state.sClass = sKey
     this.setConfig('class', sKey)
     this.onSubClassChange('')
     this.updateHash()
   },
   onSubClassChange (sKey) {
-    this.showAllItems()
-
     this.state.sSubClass = sKey
     this.setConfig('subclass', sKey)
     this.onSubSubClassChange('')
@@ -270,105 +235,70 @@ export const Store = {
     this.updateHash()
   },
   onSubSubClassChange (sKey) {
-    this.showAllItems()
-
     this.state.sSubSubClass = sKey
     this.setConfig('subsubclass', sKey)
 
     this.updateHash()
   },
   onLevelStartChange (sKey) {
-    this.showAllItems()
-
     this.state.sLevelStartSelected = String(this.state.nLevelStart = sKey)
     this.setConfig('ls', sKey)
 
     this.updateHash()
   },
   onLevelEndChange (sKey) {
-    this.showAllItems()
-
     this.state.sLevelEndSelected = String(this.state.nLevelEnd = sKey)
     this.setConfig('le', sKey)
 
     this.updateHash()
   },
   onSourceChange (sKey) {
-    this.showAllItems()
-
     this.state.aSources[sKey].checked = !this.state.aSources[sKey].checked
     this.updateHash()
   },
   onCastingTimeChange (sKey) {
-    this.showAllItems()
-
     this.state.aCastingTime[sKey].checked = !this.state.aCastingTime[sKey].checked
-    // this.$recompute('aCastingTimeSelected');
-    // this.$forceUpdate();
     this.updateHash()
   },
   onSchoolChange (sKey) {
-    this.showAllItems()
-
     this.state.aSchools[sKey].checked = !this.state.aSchools[sKey].checked
     this.updateHash()
   },
   onLanguageChange (sKey) {
-    this.showAllItems()
-
     this.state.sLang = sKey
     this.setConfig('lang', sKey)
 
     this.updateHash()
   },
   onViewChange (sKey) {
-    this.showAllItems()
-
     this.state.sView = sKey
     this.setConfig('view', sKey)
 
     this.updateHash()
   },
   onSortChange (sKey) {
-    this.showAllItems()
-
     this.state.sSort = sKey
     this.updateHash()
     this.setConfig('sort', sKey)
   },
 
   onSearchName (sValue) {
-    if (this.state.timeout) {
-      clearTimeout(this.state.timeout)
-    }
-
-    this.state.timeout = setTimeout(() => {
-      if (this.state.bDebug) {
-        alert('Введенное значение: \r\n' + sValue)
-      }
-      this.showAllItems()
-
-      this.state.sSearch = sValue.trim()
-      this.updateHash()
-    }, 500)
+    this.state.sSearch = sValue.trim()
+    this.updateHash()
   },
 
   getRandomItem () {
-    this.showAllItems()
+    const filteredSpells = this.aItemsList()
 
     this.state.sSearch = ''
-    this.state.sSearch = this.aItemsList()[randd(0, this.aItemsList().length - 1)].name
+    this.state.sSearch = filteredSpells[randd(0, filteredSpells.length - 1)].name
     this.updateHash()
   },
   onAllClassSpellsPress () {
-    this.showAllItems()
-
     this.state.bAllClassSpells = !this.state.bAllClassSpells
     this.updateHash()
   },
   onRitualsPress () {
-    this.showAllItems()
-
     this.state.bRitualOnly = !this.state.bRitualOnly
     this.updateHash()
   },
@@ -598,10 +528,6 @@ export const Store = {
   print () {
     window.print()
     return false
-  },
-
-  showAllItems () {
-    this.closeModWin()
   },
 
   setConfig (prop, val) {
@@ -1157,7 +1083,6 @@ export default component({
     Store.state.bAppIsReady = true
 
     Store.state.bDebug = isDebug()
-    Store.state.bIos = isIos()
   },
   render (h) {
     GLOBAL_LISTENER.CtrlA(Store.selectAll.bind(Store))

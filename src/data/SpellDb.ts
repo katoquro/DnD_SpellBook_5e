@@ -10,10 +10,11 @@ export type Lang = UiLang | 'ru_of'
 
 class L7dString {
   static logDebounce = 5
+
   /**
    * @param localization if value is null or undefined default lang 'en' will be used
    */
-  constructor (readonly localization: Record<Lang, string|undefined>) {
+  constructor (readonly localization: Record<Lang, string | undefined>) {
   }
 
   /**
@@ -34,7 +35,7 @@ class L7dString {
     return l7dString
   }
 
-  toString=():string => {
+  toString = (): string => {
     if (L7dString.logDebounce > 0) {
       console.warn('Usage of L7dString without lang was detected. Fallback to EN: ' + JSON.stringify(this.localization))
       L7dString.logDebounce--
@@ -113,7 +114,7 @@ class SpellDb {
   }
 
   private buildUiL10n (): Map<string, L7dString> {
-    const l7dStrings : [string, L7dString][] = []
+    const l7dStrings: [string, L7dString][] = []
     const typeLessDict = (oDict as Record<string, any>)
     for (const key in typeLessDict) {
       const en = typeLessDict[key].en.title

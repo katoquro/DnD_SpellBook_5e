@@ -26,6 +26,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/vue-fontawesome": "2.0.2",
+    "@types/debounce": "^1.2.0",
     "@types/file-saver": "^2.0.2",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
@@ -55,6 +56,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "debounce": "^1.2.1",
     "file-saver": "^2.0.5",
     "vue": "^2.6.12",
     "vue-styled-components": "^1.6.0"
