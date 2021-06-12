@@ -1,5 +1,15 @@
 import { component } from 'vue-tsx-support'
-import { allSpells, sourceList, classSpells, oDict, oLanguages, oLevelsText, oSort, oView, schoolList } from '../../data/SpellDb'
+import {
+  allSpells,
+  classSpells,
+  oDict,
+  oLanguages,
+  oLevelsText,
+  oSort,
+  oView,
+  schoolList,
+  sourceList
+} from '@app/data/SpellDb'
 import FilterBar from '@app/components/FilterBar'
 import SpellLayout from '@app/layouts/SpellLayout/SpellLayout'
 import Modal from '@app/components/Modal'
@@ -9,11 +19,11 @@ import { GLOBAL_LISTENER } from '@app/GlobalListener'
 import { AppStyled } from './styled'
 import AppInfoModalContent from '@app/components/AppInfoModalContent'
 
-function randd (min, max) {
+function randd(min, max) {
   return Math.floor(arguments.length > 1 ? (max - min + 1) * Math.random() + min : (min + 1) * Math.random())
 }
 
-function isDebug () {
+function isDebug() {
   return window.location.href.toLowerCase().indexOf('debug=true') > -1
 }
 
@@ -151,7 +161,7 @@ export const Store = {
     spellCardWidth: 250,
   },
 
-  hideCard (id) {
+  hideCard(id) {
     if (this.state.aSelectedItems.length > 0) {
       this.state.aSelectedItems.forEach((sId) => {
         if (this.state.aSelectedItems.indexOf(sId) > -1) {
@@ -166,7 +176,7 @@ export const Store = {
     }
   },
 
-  lockCard (id) {
+  lockCard(id) {
     if (this.state.aSelectedItems.length > 0) {
       this.state.aSelectedItems.forEach((sId) => {
         if (this.state.aSelectedItems.indexOf(sId) > -1) {
@@ -182,7 +192,7 @@ export const Store = {
     this.setConfig('locked', this.state.aLockedItems)
   },
 
-  unlockCard (id) {
+  unlockCard(id) {
     if (this.state.aSelectedLockedItems.length > 0) {
       this.state.aSelectedLockedItems.forEach((sId) => {
         const nInd = this.state.aLockedItems.indexOf(sId)
@@ -200,7 +210,7 @@ export const Store = {
   },
 
   // new components methods above
-  collectCastingTime () {
+  collectCastingTime() {
     const oTmp = {}
     this.state.aItems.forEach(el => {
       oTmp[el.en.castingTime] = el.ru.castingTime
@@ -221,89 +231,89 @@ export const Store = {
       }
     }
   },
-  onClassChange (sKey) {
+  onClassChange(sKey) {
     this.state.sClass = sKey
     this.setConfig('class', sKey)
     this.onSubClassChange('')
     this.updateHash()
   },
-  onSubClassChange (sKey) {
+  onSubClassChange(sKey) {
     this.state.sSubClass = sKey
     this.setConfig('subclass', sKey)
     this.onSubSubClassChange('')
 
     this.updateHash()
   },
-  onSubSubClassChange (sKey) {
+  onSubSubClassChange(sKey) {
     this.state.sSubSubClass = sKey
     this.setConfig('subsubclass', sKey)
 
     this.updateHash()
   },
-  onLevelStartChange (sKey) {
+  onLevelStartChange(sKey) {
     this.state.sLevelStartSelected = String(this.state.nLevelStart = sKey)
     this.setConfig('ls', sKey)
 
     this.updateHash()
   },
-  onLevelEndChange (sKey) {
+  onLevelEndChange(sKey) {
     this.state.sLevelEndSelected = String(this.state.nLevelEnd = sKey)
     this.setConfig('le', sKey)
 
     this.updateHash()
   },
-  onSourceChange (sKey) {
+  onSourceChange(sKey) {
     this.state.aSources[sKey].checked = !this.state.aSources[sKey].checked
     this.updateHash()
   },
-  onCastingTimeChange (sKey) {
+  onCastingTimeChange(sKey) {
     this.state.aCastingTime[sKey].checked = !this.state.aCastingTime[sKey].checked
     this.updateHash()
   },
-  onSchoolChange (sKey) {
+  onSchoolChange(sKey) {
     this.state.aSchools[sKey].checked = !this.state.aSchools[sKey].checked
     this.updateHash()
   },
-  onLanguageChange (sKey) {
+  onLanguageChange(sKey) {
     this.state.sLang = sKey
     this.setConfig('lang', sKey)
 
     this.updateHash()
   },
-  onViewChange (sKey) {
+  onViewChange(sKey) {
     this.state.sView = sKey
     this.setConfig('view', sKey)
 
     this.updateHash()
   },
-  onSortChange (sKey) {
+  onSortChange(sKey) {
     this.state.sSort = sKey
     this.updateHash()
     this.setConfig('sort', sKey)
   },
 
-  onSearchName (sValue) {
+  onSearchName(sValue) {
     this.state.sSearch = sValue.trim()
     this.updateHash()
   },
 
-  getRandomItem () {
+  getRandomItem() {
     const filteredSpells = this.aItemsList()
 
     this.state.sSearch = ''
     this.state.sSearch = filteredSpells[randd(0, filteredSpells.length - 1)].name
     this.updateHash()
   },
-  onAllClassSpellsPress () {
+  onAllClassSpellsPress() {
     this.state.bAllClassSpells = !this.state.bAllClassSpells
     this.updateHash()
   },
-  onRitualsPress () {
+  onRitualsPress() {
     this.state.bRitualOnly = !this.state.bRitualOnly
     this.updateHash()
   },
 
-  autosizeAllText (component) {
+  autosizeAllText(component) {
     const aCards = component.$root.$refs.App.$refs.CenterContent.$data.cache.map((it) => it.componentInstance)
     const oTimer = setInterval(function () {
       if (aCards.length > 0) {
@@ -319,31 +329,31 @@ export const Store = {
     }, 1)
   },
 
-  onSchoolsToggled (bStat) {
+  onSchoolsToggled(bStat) {
     this.setConfig('schoolsOpend', bStat)
   },
-  onSourcesToggled (bStat) {
+  onSourcesToggled(bStat) {
     this.setConfig('sourcesOpend', bStat)
   },
-  onCastingTimeToggled (bStat) {
+  onCastingTimeToggled(bStat) {
     this.setConfig('castingTimeOpend', bStat)
   },
 
-  unhideCard (sId) {
+  unhideCard(sId) {
     const nInd = this.state.aHiddenItems.indexOf(sId)
     if (nInd > -1) {
       this.state.aHiddenItems.splice(nInd, 1)
     }
   },
-  unlockAll () {
+  unlockAll() {
     this.state.aLockedItems = []
     this.setConfig('locked', this.state.aLockedItems)
   },
-  unhideAll () {
+  unhideAll() {
     this.state.aHiddenItems = []
   },
 
-  selectCard (oCard) {
+  selectCard(oCard) {
     const id = oCard.id
     const nInd = this.state.aSelectedItems.indexOf(id)
     if (nInd > -1) {
@@ -352,7 +362,7 @@ export const Store = {
       this.state.aSelectedItems.push(id)
     }
   },
-  selectLockedCard (oCard) {
+  selectLockedCard(oCard) {
     const id = oCard.id
     const nInd = this.state.aSelectedLockedItems.indexOf(id)
     if (nInd > -1) {
@@ -370,7 +380,7 @@ export const Store = {
     }
   },
 
-  makeCardWidthLess (component) {
+  makeCardWidthLess(component) {
     let aCards = component.$root.$refs.App.$refs.CenterContent.$data.cache.map((it) => it.componentInstance)
 
     if (this.state.aSelectedLockedItems.length > 0 || this.state.aSelectedItems.length > 0) {
@@ -380,7 +390,7 @@ export const Store = {
       oCard.onCardWidthMin()
     })
   },
-  makeCardWidthMore (component) {
+  makeCardWidthMore(component) {
     let aCards = component.$root.$refs.App.$refs.CenterContent.$data.cache.map((it) => it.componentInstance)
 
     if (this.state.aSelectedLockedItems.length > 0 || this.state.aSelectedItems.length > 0) {
@@ -390,7 +400,7 @@ export const Store = {
       oCard.onCardWidthMax()
     })
   },
-  makeCardWidthNorm (component) {
+  makeCardWidthNorm(component) {
     let aCards = component.$root.$refs.App.$refs.CenterContent.$data.cache.map((it) => it.componentInstance)
 
     if (this.state.aSelectedLockedItems.length > 0 || this.state.aSelectedItems.length > 0) {
@@ -401,7 +411,7 @@ export const Store = {
     })
   },
 
-  updateHash () {
+  updateHash() {
     const aHash = []
     if (this.state.sSearch.length > 0) {
       aHash.push('q=' + this.state.sSearch.trim())
@@ -448,11 +458,11 @@ export const Store = {
       this.removeHash()
     }
   },
-  removeHash () {
+  removeHash() {
     history.pushState('', document.title, window.location.pathname + window.location.search)
     return false
   },
-  getHash () {
+  getHash() {
     let sHash = window.location.hash.slice(1) // /archive#q=Item_name
     sHash = decodeURIComponent(sHash).replace(/_/g, ' ')
     const oHash = {}
@@ -519,24 +529,24 @@ export const Store = {
     }
   },
 
-  showInfo () {
+  showInfo() {
     this.state.bModalWinShow = true
   },
-  closeModWin () {
+  closeModWin() {
     this.state.bModalWinShow = false
   },
-  print () {
+  print() {
     window.print()
     return false
   },
 
-  setConfig (prop, val) {
+  setConfig(prop, val) {
     if (prop && val !== undefined && this.state.oConfig) {
       this.state.oConfig[prop] = val
       localStorage.setItem('feat_config', JSON.stringify(this.state.oConfig))
     }
   },
-  getConfig (prop) {
+  getConfig(prop) {
     this.state.oConfig = JSON.parse(localStorage.getItem('feat_config')) || {}
     if (prop !== undefined) {
       return localStorage.getItem('feat_config') ? this.state.oConfig[prop] : null
@@ -544,7 +554,7 @@ export const Store = {
     return ''
   },
 
-  loadConfigData () {
+  loadConfigData() {
     const sTmpLang = this.getConfig('lang')
     if (sTmpLang) {
       this.state.sLang = sTmpLang
@@ -571,7 +581,7 @@ export const Store = {
     }
   },
 
-  downloadDB () {
+  downloadDB() {
     const oDB = {}
     oDB.sourceList = this.state.aSources
     oDB.schoolList = this.state.aSchools
@@ -584,14 +594,14 @@ export const Store = {
     const blob = new Blob([sData], { type: 'text/plain;charset=utf-8' })
     saveAs(blob, filename + '.dtn')
   },
-  uploadDB () {
+  uploadDB() {
     document.getElementById('fileUploader').click()
   },
-  fileSelected (oEvent) {
+  fileSelected(oEvent) {
     this.handleLocalBDSelect(oEvent)
   },
 
-  handleLocalBDSelect (evt) {
+  handleLocalBDSelect(evt) {
     const files = evt.target.files // FileList object
 
     const reader = new FileReader()
@@ -605,12 +615,12 @@ export const Store = {
     // Read in the image file as a data URL.
     reader.readAsText(files[0])
   },
-  _completeDB (oMainDB, oFileDB) {
+  _completeDB(oMainDB, oFileDB) {
     for (const key in oFileDB) {
       oMainDB[key] = oFileDB[key]
     }
   },
-  parseLocalFile (sText) {
+  parseLocalFile(sText) {
     try {
       const oDB = JSON.parse(sText)
 
@@ -630,10 +640,10 @@ export const Store = {
     }
   },
 
-  onEditModePress () {
+  onEditModePress() {
     this.state.bEditMode = !this.state.bEditMode
   },
-  cancelCard (oData) {
+  cancelCard(oData) {
     const sId = oData.id
     const oItem = this.state.aItems.find(el => el.en.name.toLowerCase().replace(/\s+/, '') === sId.toLowerCase()
       .replace(/\s+/, ''))
@@ -645,7 +655,7 @@ export const Store = {
 
     return false
   },
-  saveCard (oData) {
+  saveCard(oData) {
     const sId = oData.id
     const sText = oData.text
 
@@ -658,10 +668,10 @@ export const Store = {
     return false
   },
 
-  sOtherLang () {
+  sOtherLang() {
     return ('ru' === this.state.sLang) ? 'en' : 'ru'
   },
-  aSrcList () {
+  aSrcList() {
     const a = []
     for (const key in this.state.aSources) {
       if (this.state.aSources[key].visible !== false) {
@@ -676,7 +686,7 @@ export const Store = {
     }
     return a.sort((a, b) => a.official ? -1 : 1)
   },
-  aCastingTimeList () {
+  aCastingTimeList() {
     const a = []
     for (const key in this.state.aCastingTime) {
       if (this.state.aCastingTime[key].visible !== false) {
@@ -690,12 +700,12 @@ export const Store = {
     return a
   },
 
-  aSrcSelected () {
+  aSrcSelected() {
     const aFiltered = this.aSrcList().filter(item => item.checked)
     return (aFiltered.length > 0) ? aFiltered.map(item => item.key) : this.aSrcList().map(item => item.key)
   },
 
-  aSchoolList () {
+  aSchoolList() {
     const a = []
     let i = 0
     for (const key in this.state.aSchools) {
@@ -711,17 +721,20 @@ export const Store = {
     return a
   },
 
-  aSchoolSelected () {
+  aSchoolSelected() {
     const aFiltered = this.aSchoolList().filter(item => item.checked)
-    return (aFiltered.length > 0) ? aFiltered.map(item => item.key.toLowerCase()) : this.aSchoolList().map(item => item.key.toLowerCase())
+    return (aFiltered.length > 0)
+      ? aFiltered.map(item => item.key.toLowerCase())
+      : this.aSchoolList()
+        .map(item => item.key.toLowerCase())
   },
 
-  aCastingTimeSelected () {
+  aCastingTimeSelected() {
     const aFiltered = this.aCastingTimeList().filter(item => item.checked)
     return (aFiltered.length > 0) ? aFiltered.map(item => item.key.toLowerCase()) : []
   },
 
-  aLanguageList () {
+  aLanguageList() {
     const a = []
     for (const key in this.state.aLanguages) {
       if (this.state.aLanguages[key].visible !== false) {
@@ -734,11 +747,11 @@ export const Store = {
     return a
   },
 
-  sLangSelected () {
+  sLangSelected() {
     return this.state.aLanguages[this.state.sLang].text[this.state.sLang].title
   },
 
-  aViewList () {
+  aViewList() {
     const a = []
     for (const key in this.state.aViews) {
       if (this.state.aViews[key].visible !== false) {
@@ -751,11 +764,11 @@ export const Store = {
     return a
   },
 
-  sViewSelected () {
+  sViewSelected() {
     return this.state.aViews[this.state.sView].text[this.state.sLang].title
   },
   /**/
-  aSortList () {
+  aSortList() {
     const a = []
     for (const key in this.state.aSort) {
       if (this.state.aSort[key].visible !== false) {
@@ -768,7 +781,7 @@ export const Store = {
     return a
   },
 
-  sSortSelected () {
+  sSortSelected() {
     if (!(this.state.aSort[this.state.sSort])) {
       this.state.sSort = Object.keys(this.state.aSort)[0]
     }
@@ -776,7 +789,7 @@ export const Store = {
   },
   /**/
 
-  aClassList () {
+  aClassList() {
     const aSclasses = [{
       key: '',
       title: '[ВСЕ]'
@@ -791,7 +804,7 @@ export const Store = {
 
     return aSclasses
   },
-  aSubClassList () {
+  aSubClassList() {
     const aSclasses = [{
       key: '',
       title: '[ПОДКЛАСС]'
@@ -825,7 +838,7 @@ export const Store = {
     return aSclasses
   },
 
-  aSubSubClassList () {
+  aSubSubClassList() {
     const aSclasses = [{
       key: '',
       title: '[ПОДПОДКЛАСС]'
@@ -844,32 +857,32 @@ export const Store = {
     return aSclasses
   },
 
-  sClassSelected () {
+  sClassSelected() {
     return this.state.sClass ? this.state.oClassSpells[this.state.sClass].title[this.state.sLang] : '[ВСЕ]'
   },
-  sSubClassSelected () {
+  sSubClassSelected() {
     return this.state.sSubClass ? this.state.oClassSpells[this.state.sClass].subclasses[this.state.sSubClass].title[this.state.sLang] : '[ПОДКЛАСС]'
   },
-  sSubSubClassSelected () {
+  sSubSubClassSelected() {
     return (this.state.sSubClass && this.state.sSubSubClass) ? this.state.oClassSpells[this.state.sClass].subclasses[this.state.sSubClass].subclasses[this.state.sSubSubClass].title[this.state.sLang] : '[ПОДПОДКЛАСС]'
   },
 
-  aLevelList () {
+  aLevelList() {
     return this.state.aLevels.map(item => ({
       key: item,
       title: item
     }))
   },
 
-  sNameInput () {
+  sNameInput() {
     return this.state.sSearch.toLowerCase()
   },
 
-  sClassTitle () {
+  sClassTitle() {
     return this.state.sClass ? this.state.oClassSpells[this.state.sClass].title[this.state.sLang] : ''
   },
 
-  aClassSpells () {
+  aClassSpells() {
     let aSpells = []
     if (this.state.sClass !== '') {
       if (this.state.bAllClassSpells) {
@@ -907,27 +920,27 @@ export const Store = {
     return aSpells
   },
 
-  aItemsList () {
+  aItemsList() {
     const aFiltered = this.aClassSpells().filter((oItem) => {
       return (
         this.aSrcSelected().filter(value => oItem.en.source.split(',').map(item => item.trim())
           .indexOf(value) !== -1).length &&
-          // this.aSrcSelected.indexOf(oItem.en.source)>-1 && // old filter for sources
-          this.aSchoolSelected().indexOf(oItem.en.school.toLowerCase().trim()) > -1 /**/ &&
-          (
-            0 === this.aCastingTimeSelected().length ||
-              this.aCastingTimeSelected().indexOf(oItem.en.castingTime.toLowerCase().trim()) > -1
-          ) &&
-          (
-            oItem.en.name.toLowerCase().indexOf(this.sNameInput()) > -1 ||
-              oItem.ru.name.toLowerCase().indexOf(this.sNameInput()) > -1 ||
-              (oItem.ru.nic && oItem.ru.nic.toLowerCase().indexOf(this.sNameInput()) > -1)
-          ) &&
-          ((this.state.bRitualOnly && oItem.en.ritual) || !this.state.bRitualOnly) &&
-          this.state.aHiddenItems.indexOf(oItem.en.name) < 0/**/ &&
-          this.state.nLevelStart <= this.state.nLevelEnd &&
-          this.state.nLevelStart <= Number(oItem.en.level) &&
-          this.state.nLevelEnd >= Number(oItem.en.level)
+            // this.aSrcSelected.indexOf(oItem.en.source)>-1 && // old filter for sources
+            this.aSchoolSelected().indexOf(oItem.en.school.toLowerCase().trim()) > -1 /**/ &&
+            (
+              0 === this.aCastingTimeSelected().length ||
+                this.aCastingTimeSelected().indexOf(oItem.en.castingTime.toLowerCase().trim()) > -1
+            ) &&
+            (
+              oItem.en.name.toLowerCase().indexOf(this.sNameInput()) > -1 ||
+                oItem.ru.name.toLowerCase().indexOf(this.sNameInput()) > -1 ||
+                (oItem.ru.nic && oItem.ru.nic.toLowerCase().indexOf(this.sNameInput()) > -1)
+            ) &&
+            ((this.state.bRitualOnly && oItem.en.ritual) || !this.state.bRitualOnly) &&
+            this.state.aHiddenItems.indexOf(oItem.en.name) < 0/**/ &&
+            this.state.nLevelStart <= this.state.nLevelEnd &&
+            this.state.nLevelStart <= Number(oItem.en.level) &&
+            this.state.nLevelEnd >= Number(oItem.en.level)
       )
     })
 
@@ -994,12 +1007,13 @@ export const Store = {
     }.bind(this))
   },
 
-  aLockedItemsList () {
+  aLockedItemsList() {
     const aFiltered = this.state.aItems.filter(function (oItem) {
       return this.state.aLockedItems.indexOf(oItem.en.name) > -1
     }.bind(this))
     return aFiltered.map(function (oItem) {
-      const sSrc = oItem.en.source.split(',').map(item => this.state.aSources[item.trim()].text[this.state.sLang].title)
+      const sSrc = oItem.en.source.split(',')
+        .map(item => this.state.aSources[item.trim()].text[this.state.sLang].title)
         .join(', ')
       const o = {
         id: oItem.en.name,
@@ -1054,7 +1068,7 @@ export const Store = {
     }.bind(this))
   },
 
-  aHiddenItemsList () {
+  aHiddenItemsList() {
     const aFiltered = this.state.aItems.filter(function (oItem) {
       return this.state.aHiddenItems.indexOf(oItem.en.name) > -1
     }.bind(this))
@@ -1072,7 +1086,7 @@ export const Store = {
 export default component({
   name: 'App',
 
-  mounted () {
+  mounted() {
     Store.loadConfigData()
     Store.collectCastingTime()
 
@@ -1084,17 +1098,19 @@ export default component({
 
     Store.state.bDebug = isDebug()
   },
-  render (h) {
+  render(h) {
     GLOBAL_LISTENER.CtrlA(Store.selectAll.bind(Store))
 
-    return <AppStyled>
-      <FilterBar />
-      <SpellLayout ref="CenterContent" />
-      <Modal
+    return (
+      <AppStyled>
+        <FilterBar />
+        <SpellLayout ref="CenterContent" />
+        <Modal
           closeFunc={Store.closeModWin.bind(Store)}
           show={Store.state.bModalWinShow}>
-        <AppInfoModalContent/>
-      </Modal>
-    </AppStyled>
+          <AppInfoModalContent />
+        </Modal>
+      </AppStyled>
+    )
   }
 })

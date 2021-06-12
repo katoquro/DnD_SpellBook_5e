@@ -1,6 +1,6 @@
 import styled, { css } from 'vue-styled-components'
 
-export const FONT_COLOR_LIGHT = '#fff'
+export const FONT_COLOR_LIGHT = 'hsl(0,0%,95%)'
 export const FONT_COLOR_GRAY = 'hsl(0,0%,60%)'
 export const FONT_COLOR_DARK = 'hsl(220,60%,10%)'
 export const BG_COLOR_LIGHT = 'hsl(0,0%,98%)'
@@ -30,7 +30,11 @@ export const NonPrintable = styled('div')`
   ${nonPrintingStyle}
 `
 
-export const FlexWrap = styled('div', { column: Boolean, basis: String, grow: Number })`
+export const FlexWrap = styled('div', {
+  column: Boolean,
+  basis: String,
+  grow: Number
+})`
   display: flex;
   flex-wrap: wrap;
   flex-direction: ${p => p.column ? 'column' : 'row'};

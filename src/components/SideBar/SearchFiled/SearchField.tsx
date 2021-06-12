@@ -4,32 +4,27 @@ import FaIcon from '@app/components/FaIcon'
 import { faDiceD20 } from '@fortawesome/free-solid-svg-icons'
 import { Store } from '@app/components/App/App'
 import { debounce } from 'debounce'
-import {
-  CrossBtnStyled,
-  FilterLabelStyled,
-  RandomSearchBtnStyled,
-  SearchInputStyled,
-  SearchInputWrapperStyled
-} from './styled'
+import { CrossBtnStyled, RandomSearchBtnStyled, SearchInputStyled, SearchInputWrapperStyled } from './styled'
+import { FilterItemStyled, FilterLabelStyled } from '@app/components/SideBar/styled'
 
 export default tsx.component({
   data: () => ({
     store: Store.state
   }),
   methods: {
-    onInput (value: string) {
+    onInput(value: string) {
       Store.onSearchName(value)
     },
-    onClean () {
+    onClean() {
       Store.onSearchName('')
     },
-    onRandomClick (event: MouseEvent) {
+    onRandomClick(event: MouseEvent) {
       event.preventDefault()
       Store.getRandomItem()
     }
   },
-  render (h): VNode {
-    return <div>
+  render(h): VNode {
+    return <FilterItemStyled>
       <FilterLabelStyled>Название:</FilterLabelStyled>
       <SearchInputWrapperStyled>
         <SearchInputStyled
@@ -43,6 +38,6 @@ export default tsx.component({
           <FaIcon icon={faDiceD20} />
         </RandomSearchBtnStyled>
       </SearchInputWrapperStyled>
-    </div>
+    </FilterItemStyled>
   }
 })

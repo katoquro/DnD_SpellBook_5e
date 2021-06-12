@@ -1,16 +1,11 @@
 import styled from 'vue-styled-components'
 import { FONT_COLOR_DARK, FONT_COLOR_LIGHT, OUTLINE_COLOR_DARK } from '@app/components/common-styled'
-
-export const BG_COLOR_BUTTON = 'hsl(0,0%,47%)'
-export const BG_COLOR_BUTTON_HOVER = 'hsl(0,0%,60%)'
-
-export const FilterLabelStyled = styled('span')`
-  font-weight: bold;
-`
+import { BG_COLOR_BUTTON, BG_COLOR_BUTTON_ACTIVE, BG_COLOR_BUTTON_HOVER } from '@app/components/SideBar/styled'
 
 export const SearchInputWrapperStyled = styled('div')`
   display: flex;
   position: relative;
+  flex-grow: 1;
 `
 
 export const CrossBtnStyled = styled('span')`
@@ -64,6 +59,6 @@ export const RandomSearchBtnStyled = styled('div')`
   }
 
   &:active {
-    background-color: ${BG_COLOR_BUTTON};
+    background-color: ${BG_COLOR_BUTTON_ACTIVE};
   }
 `
