@@ -63,11 +63,11 @@ export default component({
     }
 
     const label = this.title.length > 0
-      ? (<FilterLabelStyled>{this.title}:</FilterLabelStyled>)
+      ? <FilterLabelStyled>{this.title}:</FilterLabelStyled>
       : null
 
     return (
-      <FilterItemStyled>
+      <FilterItemStyled grow={1}>
         {label}
         <SelectOneDropDownStyled onClick={this.toggle}>
           <SelectBtnStyled>{this.selected}</SelectBtnStyled>

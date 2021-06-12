@@ -3,13 +3,15 @@ import { component, modifiers as m } from 'vue-tsx-support'
 import SearchField from '@app/components/SideBar/SearchFiled/SearchField'
 import SelectOneDropDown from '@app/components/SideBar/SelectOneDropDown/SelectOneDropDown'
 import Hiddenitem from '@app/components/Hiddenitem'
-import CheckButton from '@app/components/CheckButton'
+import CheckButton from '@app/components/SideBar/CheckButton/CheckButton'
 import Combobox from '@app/components/Combobox'
 import FaIcon from '@app/components/FaIcon'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons'
 import { faCompressArrowsAlt, faExpand, faExpandArrowsAlt, faPrint } from '@fortawesome/free-solid-svg-icons'
 import { Store } from './App/App'
+import { FilterItemStyled, FilterLabelStyled } from '@app/components/SideBar/styled'
+import { FlexWrap } from '@app/components/common-styled'
 
 export default component({
   name: 'FilterBar',
@@ -48,35 +50,30 @@ export default component({
         selectHandler={vue.onSubSubClassChange.bind(vue)}
       />
 
-      {vue.aSubClassList().length > 1
-        ? <CheckButton
-          id="AllSubClassCastsCheckbox"
-          title="Все заклинания класса"
-          tooltip="Все заклинания из этого справочника, которые могут применять представители класса, включая все архетипы"
-          checked={vue.state.bAllClassSpells}
-          v-on:press={vue.onAllClassSpellsPress.bind(vue)}
-        />
-        : null}
+      <CheckButton
+        title="Все заклинания класса"
+        tooltip="Все заклинания из этого справочника, которые могут применять представители класса, включая все архетипы"
+        show={vue.aSubClassList().length > 1}
+        checked={vue.state.bAllClassSpells}
+        changeHandler={vue.onAllClassSpellsPress.bind(vue)}
+      />
 
-      <div class='mediaWidth'>
-        <label class='filterLabel'>Уровень с/по</label>
-        <div class="row">
-          <div class="cell">
-            <SelectOneDropDown
-              selected={vue.state.sLevelStartSelected}
-              items={vue.aLevelList()}
-              selectHandler={vue.onLevelStartChange.bind(vue)}
-            />
-          </div>
-          <div class="cell">
-            <SelectOneDropDown
-              selected={vue.state.sLevelEndSelected}
-              items={vue.aLevelList()}
-              selectHandler={vue.onLevelEndChange.bind(vue)}
-            />
-          </div>
-        </div>
-      </div>
+      <FilterItemStyled column={true}>
+        <FilterLabelStyled>Уровень с/по</FilterLabelStyled>
+        <FlexWrap wrap={false} grow={1}>
+          <SelectOneDropDown
+            selected={vue.state.sLevelStartSelected}
+            items={vue.aLevelList()}
+            selectHandler={vue.onLevelStartChange.bind(vue)}
+          />
+          <div style={{ minWidth: '5px' }} />
+          <SelectOneDropDown
+            selected={vue.state.sLevelEndSelected}
+            items={vue.aLevelList()}
+            selectHandler={vue.onLevelEndChange.bind(vue)}
+          />
+        </FlexWrap>
+      </FilterItemStyled>
 
       <Combobox
         id="SchoolCombobox"
@@ -109,11 +106,10 @@ export default component({
       />
 
       <CheckButton
-        id="RitualCheckbox"
         title="Ритуальные заклинания"
         tooltip='Заклинания для совершения которых можно использовать ритуал (особые действия) и не тратить ячейку магии'
         checked={vue.state.bRitualOnly}
-        v-on:press={vue.onRitualsPress.bind(vue)}
+        changeHandler={vue.onRitualsPress.bind(vue)}
       />
 
       <div class='mediaWidth'>
@@ -185,11 +181,10 @@ export default component({
         Загрузить
       </button>
       <CheckButton
-        id="EditorCheckbox"
-        title="(В разработке) Редактирование"
+        title="Редактирование (soon)"
         tooltip="Переход в режим редактирования"
         checked={vue.state.bEditMode}
-        v-on:press={vue.onEditModePress.bind(vue)} />
+        changeHandler={vue.onEditModePress.bind(vue)} />
 
       {vue.aHiddenItemsList().length > 0
         ? (

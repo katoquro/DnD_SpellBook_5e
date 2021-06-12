@@ -32,11 +32,15 @@ export const NonPrintable = styled('div')`
 
 export const FlexWrap = styled('div', {
   column: Boolean,
+  wrap: {
+    type: Boolean,
+    default: true
+  },
   basis: String,
   grow: Number
 })`
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: ${p => p.wrap ? 'wrap' : 'nowrap'};;
   flex-direction: ${p => p.column ? 'column' : 'row'};
   flex-basis: ${p => p.basis ? p.basis : 'auto'};
   flex-grow: ${p => p.grow ? p.grow : 'unset'};
