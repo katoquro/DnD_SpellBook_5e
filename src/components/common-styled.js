@@ -40,6 +40,7 @@ export const FlexWrap = styled('div', {
   grow: Number
 })`
   display: flex;
+  justify-content: space-between;
   flex-wrap: ${p => p.wrap ? 'wrap' : 'nowrap'};;
   flex-direction: ${p => p.column ? 'column' : 'row'};
   flex-basis: ${p => p.basis ? p.basis : 'auto'};

@@ -3,6 +3,7 @@ import { FONT_COLOR_DARK, FONT_COLOR_LIGHT, OUTLINE_COLOR_DARK } from '@app/comp
 import { BG_COLOR_BUTTON, BG_COLOR_BUTTON_ACTIVE, BG_COLOR_BUTTON_HOVER } from '@app/components/SideBar/styled'
 
 export const SearchInputWrapperStyled = styled('div')`
+  color: ${FONT_COLOR_LIGHT};
   display: flex;
   position: relative;
   flex-grow: 1;

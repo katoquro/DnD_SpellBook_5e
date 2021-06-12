@@ -10,7 +10,7 @@ import {
   schoolList,
   sourceList
 } from '@app/data/SpellDb'
-import FilterBar from '@app/components/FilterBar'
+import SideBar from '@app/components/SideBar/SideBar'
 import SpellLayout from '@app/layouts/SpellLayout/SpellLayout'
 import Modal from '@app/components/Modal'
 
@@ -145,9 +145,6 @@ export const Store = {
     aSelectedLockedItems: [],
 
     oConfig: {},
-    bSchoolsOpend: false,
-    bSourcesOpend: false,
-    bCastingTimeOpend: false,
     bAppIsReady: false,
     bRitualOnly: false,
     bAllClassSpells: false,
@@ -327,16 +324,6 @@ export const Store = {
         clearInterval(oTimer)
       }
     }, 1)
-  },
-
-  onSchoolsToggled(bStat) {
-    this.setConfig('schoolsOpend', bStat)
-  },
-  onSourcesToggled(bStat) {
-    this.setConfig('sourcesOpend', bStat)
-  },
-  onCastingTimeToggled(bStat) {
-    this.setConfig('castingTimeOpend', bStat)
   },
 
   unhideCard(sId) {
@@ -568,16 +555,6 @@ export const Store = {
     const aTmpLocked = this.getConfig('locked')
     if (aTmpLocked) {
       this.state.aLockedItems = aTmpLocked
-    }
-
-    const bTmpSchoolsOpend = this.getConfig('schoolsOpend')
-    if (bTmpSchoolsOpend !== undefined) {
-      this.state.bSchoolsOpend = bTmpSchoolsOpend
-    }
-
-    const bTMPSourcesOpend = this.getConfig('sourcesOpend')
-    if (bTMPSourcesOpend !== undefined) {
-      this.state.bSourcesOpend = bTMPSourcesOpend
     }
   },
 
@@ -1103,7 +1080,7 @@ export default component({
 
     return (
       <AppStyled>
-        <FilterBar />
+        <SideBar />
         <SpellLayout ref="CenterContent" />
         <Modal
           closeFunc={Store.closeModWin.bind(Store)}

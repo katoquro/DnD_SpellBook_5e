@@ -9,7 +9,6 @@ import {
 import { BG_COLOR_LIGHT, FONT_COLOR_DARK, FONT_COLOR_LIGHT } from '@app/components/common-styled'
 
 export const SelectOneDropDownStyled = styled('div')`
-
   background: ${BG_COLOR_BUTTON};
   padding: 0;
   display: block;
