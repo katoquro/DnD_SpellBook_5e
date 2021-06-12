@@ -46,12 +46,3 @@ export const FlexWrap = styled('div', {
   flex-basis: ${p => p.basis ? p.basis : 'auto'};
   flex-grow: ${p => p.grow ? p.grow : 'unset'};
 `
-
-// TODO katoquro: 31/05/2021 all bellow move to components
-
-export const InfoTextStyled = styled.div`
-  padding: 0.7em 1.3em;
-  color: #222;
-  font-weight: 600;
-  max-width: 90rem;
-`

@@ -12,12 +12,11 @@ import {
 } from '@app/data/SpellDb'
 import SideBar from '@app/components/SideBar/SideBar'
 import SpellLayout from '@app/layouts/SpellLayout/SpellLayout'
-import Modal from '@app/components/Modal'
+import HelpModal from '@app/components/HelpModal/HelpModal'
 
 import saveAs from 'file-saver'
 import { GLOBAL_LISTENER } from '@app/GlobalListener'
 import { AppStyled } from './styled'
-import AppInfoModalContent from '@app/components/AppInfoModalContent'
 
 function randd(min, max) {
   return Math.floor(arguments.length > 1 ? (max - min + 1) * Math.random() + min : (min + 1) * Math.random())
@@ -1082,11 +1081,7 @@ export default component({
       <AppStyled>
         <SideBar />
         <SpellLayout ref="CenterContent" />
-        <Modal
-          closeFunc={Store.closeModWin.bind(Store)}
-          show={Store.state.bModalWinShow}>
-          <AppInfoModalContent />
-        </Modal>
+        <HelpModal />
       </AppStyled>
     )
   }

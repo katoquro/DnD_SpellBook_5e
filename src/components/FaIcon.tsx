@@ -16,7 +16,7 @@ export default component({
     }
   },
 
-  render (h): VNode {
+  render(h): VNode {
     const icon = this.icon as IconDefinition
     if (!iconsCache.has(icon.iconName)) {
       library.add(icon)
@@ -24,6 +24,6 @@ export default component({
     }
 
     // @ts-ignore
-    return <FontAwesomeIcon icon={[icon.prefix, icon.iconName]} />
+    return <FontAwesomeIcon icon={[icon.prefix, icon.iconName]} aria-hidden="true" />
   }
 })

@@ -29,7 +29,7 @@ export default component({
 
   render(h):VNode {
     return <FilterBtnStyled onClick={m.stop(this.unhide)}>
-      <FaIcon icon={faEye} aria-hidden="true"/>
+      <FaIcon icon={faEye} />
       {this.title}<br/>({this.tooltip})
     </FilterBtnStyled>
   }

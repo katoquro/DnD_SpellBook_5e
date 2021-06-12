@@ -14,7 +14,7 @@ export default component({
       default: ''
     },
   },
-  render (h): VNode {
+  render(h): VNode {
     const spell = spellDb.findSpell(this.id)
 
     const lang = Store.state.sLang as Lang
@@ -26,14 +26,14 @@ export default component({
         <SpellButtonStyled
           title={spellDb.getUiString('spell__unlock_btn', lang)}
           onClick={m.stop(() => Store.unlockCard(spell.id))}>
-          <FaIcon icon={faUnlock} aria-hidden="true" />
+          <FaIcon icon={faUnlock} />
         </SpellButtonStyled>
         )
       : (
         <SpellButtonStyled
           title={spellDb.getUiString('spell__lock_btn', lang)}
           onClick={m.stop(() => Store.lockCard(spell.id))}>
-          <FaIcon icon={faLock} aria-hidden="true" />
+          <FaIcon icon={faLock} />
         </SpellButtonStyled>
         )
   }

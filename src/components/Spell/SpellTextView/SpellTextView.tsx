@@ -35,11 +35,11 @@ export default component({
     store: Store.state,
   }),
   methods: {
-    onTextChange () {
+    onTextChange() {
       alert('Is not supported yet :(')
     }
   },
-  render (h): VNode {
+  render(h): VNode {
     const spell = spellDb.findSpell(this.id)
 
     const lang = this.store.sLang as Lang
@@ -64,7 +64,7 @@ export default component({
             <SpellButtonStyled
               title={spellDb.getUiString('spell__hide_btn', lang)}
               onClick={m.stop(() => Store.hideCard(spell.id))}>
-              <FaIcon icon={faEyeSlash} aria-hidden="true" />
+              <FaIcon icon={faEyeSlash} />
             </SpellButtonStyled>
           </SpellControlsRowStyled>
           <FlexWrap>
