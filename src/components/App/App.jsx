@@ -883,7 +883,7 @@ export const Store = {
             aSpells = aSpells.concat(this.state.oClassSpells[this.state.sClass].subclasses[this.state.sSubClass].spells)
           }
           if (this.state.oClassSpells[this.state.sClass].subclasses[this.state.sSubClass].subclasses && this.state.sSubSubClass && this.state.oClassSpells[this.state.sClass].subclasses[this.state.sSubClass].subclasses[this.state.sSubSubClass]) {
-            aSpells = aSpells.concat(this.state.oClassSpeflls[this.state.sClass].subclasses[this.state.sSubClass].subclasses[this.state.sSubSubClass].spells)
+            aSpells = aSpells.concat(this.state.oClassSpells[this.state.sClass].subclasses[this.state.sSubClass].subclasses[this.state.sSubSubClass].spells)
           }
         }
       }

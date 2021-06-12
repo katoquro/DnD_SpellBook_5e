@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import './style/style.less'
+import './style/global-styles'
 
 import App, { Store } from './components/App/App'
 
@@ -9,7 +9,7 @@ export default new Vue({
   data: {
     state: Store.state
   },
-  render (h) {
+  render(h) {
     return <App ref="App"/>
   }
 })
