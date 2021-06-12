@@ -1,4 +1,4 @@
-import { VNode } from 'vue'
+import Vue, { VNode } from 'vue'
 import { component, modifiers as m } from 'vue-tsx-support'
 import { Store } from '@app/components/App/App'
 import { Lang, spellDb } from '@app/data/SpellDb'
@@ -17,8 +17,11 @@ import {
 import SpellLockButton from '@app/components/Spell/SpellLockButton/SpellLockButton'
 import { SpellButtonStyled, SpellControlsRowStyled } from '@app/components/Spell/styled'
 import { levelToL7dString, parseSourcesToL7dSting } from '@app/components/Spell/Spell'
+import { debounce } from 'debounce'
 
-// TODO katoquro: 30/05/2021 select, adjust text
+// TODO katoquro: 30/05/2021 select
+
+const SMALLEST_FONT_SIZE = 5
 
 export default component({
   props: {
@@ -30,10 +33,12 @@ export default component({
   data: () => ({
     cardFontSize: 12,
     store: Store.state,
+    broker: Store.broker,
+    lastAdjustFontMsg: 0
   }),
   methods: {
     decreaseTextSize() {
-      if (this.cardFontSize > 5) {
+      if (this.cardFontSize > SMALLEST_FONT_SIZE) {
         this.cardFontSize -= 1
       }
     },
@@ -44,9 +49,27 @@ export default component({
     },
     onTextChange() {
       alert('Is not supported yet :(')
+    },
+    messageProcessor() {
+      if (this.broker.adjustFontMsg > this.lastAdjustFontMsg && this.$el) {
+        const oEl = (this.$refs.SpellCardTextRef as Vue).$el as HTMLElement
+
+        let mayBeReduced = false
+        if (oEl.scrollHeight > oEl.offsetHeight && this.cardFontSize > SMALLEST_FONT_SIZE) {
+          debounce(this.decreaseTextSize, 50)()
+          mayBeReduced = true
+        }
+
+        if (!mayBeReduced) {
+          this.lastAdjustFontMsg = this.broker.adjustFontMsg
+          this.increaseTextSize()
+        }
+      }
     }
   },
   render(h): VNode {
+    this.messageProcessor()
+
     const spell = spellDb.findSpell(this.id)
 
     const lang = this.store.sLang as Lang
@@ -57,15 +80,15 @@ export default component({
 
     return (
       <SpellCardStyled spellClass={spellClass} spellCardWidth={spellCardWidth}>
-         <SpellCardContentStyled>
+        <SpellCardContentStyled>
 
           <SpellControlsRowStyled position='top'>
-            <SpellLockButton id={spell.id}/>
+            <SpellLockButton id={spell.id} />
             <SpellButtonStyled
               title={spellDb.getUiString('spell__hide_btn', lang)}
               onClick={m.stop(() => Store.hideCard(spell.id))}>
               <FaIcon icon={faEyeSlash} />
-           </SpellButtonStyled>
+            </SpellButtonStyled>
           </SpellControlsRowStyled>
           <SpellCardTitleStyled title={spell.name.getL7d('en')} spellClass={spellClass} contenteditable={editMode}>
             {spell.name.getL7d(lang)} {ritual}
@@ -94,6 +117,7 @@ export default component({
             {spell.materials.getL7d(lang)}
           </SpellCardMaterialsStyled>
           <SpellCardTextStyled fontSize={this.cardFontSize} contenteditable={editMode}
+            ref="SpellCardTextRef"
             domPropsInnerHTML={spell.text.getL7d(lang)}
           />
 
@@ -133,7 +157,7 @@ export default component({
             </span>
           </SpellCardFooterStyled>
 
-         </SpellCardContentStyled>
+        </SpellCardContentStyled>
       </SpellCardStyled>
     )
   }

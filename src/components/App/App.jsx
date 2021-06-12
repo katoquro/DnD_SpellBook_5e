@@ -27,6 +27,9 @@ function isDebug() {
 }
 
 export const Store = {
+  broker: {
+    adjustFontMsg: 0
+  },
   state: {
     aSources: sourceList,
     aSchools: schoolList,
@@ -309,20 +312,8 @@ export const Store = {
     this.updateHash()
   },
 
-  autosizeAllText(component) {
-    const aCards = component.$root.$refs.App.$refs.CenterContent.$data.cache.map((it) => it.componentInstance)
-    const oTimer = setInterval(function () {
-      if (aCards.length > 0) {
-        for (let i = 0; i < aCards.length; i++) {
-          const bResult = aCards[i].autosizeText()
-          if (!bResult) {
-            aCards.splice(i, 1)
-          }
-        }
-      } else {
-        clearInterval(oTimer)
-      }
-    }, 1)
+  autosizeAllText() {
+    this.broker.adjustFontMsg = new Date().getTime()
   },
 
   unhideCard(sId) {
@@ -366,35 +357,14 @@ export const Store = {
     }
   },
 
-  makeCardWidthLess(component) {
-    let aCards = component.$root.$refs.App.$refs.CenterContent.$data.cache.map((it) => it.componentInstance)
-
-    if (this.state.aSelectedLockedItems.length > 0 || this.state.aSelectedItems.length > 0) {
-      aCards = aCards.filter(el => this.state.aSelectedLockedItems.indexOf(el.id) > -1 || this.state.aSelectedItems.indexOf(el.id) > -1)
-    }
-    aCards.forEach(function (oCard) {
-      oCard.onCardWidthMin()
-    })
+  makeCardWidthLess() {
+    this.state.spellCardWidth -= 10
   },
-  makeCardWidthMore(component) {
-    let aCards = component.$root.$refs.App.$refs.CenterContent.$data.cache.map((it) => it.componentInstance)
-
-    if (this.state.aSelectedLockedItems.length > 0 || this.state.aSelectedItems.length > 0) {
-      aCards = aCards.filter(el => this.state.aSelectedLockedItems.indexOf(el.id) > -1 || this.state.aSelectedItems.indexOf(el.id) > -1)
-    }
-    aCards.forEach(function (oCard) {
-      oCard.onCardWidthMax()
-    })
+  makeCardWidthMore() {
+    this.state.spellCardWidth += 10
   },
-  makeCardWidthNorm(component) {
-    let aCards = component.$root.$refs.App.$refs.CenterContent.$data.cache.map((it) => it.componentInstance)
-
-    if (this.state.aSelectedLockedItems.length > 0 || this.state.aSelectedItems.length > 0) {
-      aCards = aCards.filter(el => this.state.aSelectedLockedItems.indexOf(el.id) > -1 || this.state.aSelectedItems.indexOf(el.id) > -1)
-    }
-    aCards.forEach(function (oCard) {
-      oCard.setCardWidth(240)
-    })
+  makeCardWidthNorm() {
+    this.state.spellCardWidth = 250
   },
 
   updateHash() {
@@ -1080,7 +1050,7 @@ export default component({
     return (
       <AppStyled>
         <SideBar />
-        <SpellLayout ref="CenterContent" />
+        <SpellLayout />
         <HelpModal />
       </AppStyled>
     )
