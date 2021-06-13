@@ -28,7 +28,9 @@ function isDebug() {
 
 export const Store = {
   broker: {
-    adjustFontMsg: 0
+    adjustFontMsg: 0,
+    selectAllMsg: 0,
+    dropAllSelectionMsg: 0
   },
   state: {
     aSources: sourceList,
@@ -143,8 +145,6 @@ export const Store = {
 
     aHiddenItems: [],
     aLockedItems: [],
-    aSelectedItems: [],
-    aSelectedLockedItems: [],
 
     oConfig: {},
     bAppIsReady: false,
@@ -161,49 +161,22 @@ export const Store = {
   },
 
   hideCard(id) {
-    if (this.state.aSelectedItems.length > 0) {
-      this.state.aSelectedItems.forEach((sId) => {
-        if (this.state.aSelectedItems.indexOf(sId) > -1) {
-          this.state.aHiddenItems.push(sId)
-        }
-      })
-      this.selectAll(false)
-    } else {
-      if (this.state.aHiddenItems.indexOf(id) < 0) {
-        this.state.aHiddenItems.push(id)
-      }
+    if (this.state.aHiddenItems.indexOf(id) < 0) {
+      this.state.aHiddenItems.push(id)
     }
   },
 
   lockCard(id) {
-    if (this.state.aSelectedItems.length > 0) {
-      this.state.aSelectedItems.forEach((sId) => {
-        if (this.state.aSelectedItems.indexOf(sId) > -1) {
-          this.state.aLockedItems.push(sId)
-        }
-      })
-      this.selectAll(false)
-    } else {
-      if (this.state.aLockedItems.indexOf(id) < 0) {
-        this.state.aLockedItems.push(id)
-      }
+    if (this.state.aLockedItems.indexOf(id) < 0) {
+      this.state.aLockedItems.push(id)
     }
     this.setConfig('locked', this.state.aLockedItems)
   },
 
   unlockCard(id) {
-    if (this.state.aSelectedLockedItems.length > 0) {
-      this.state.aSelectedLockedItems.forEach((sId) => {
-        const nInd = this.state.aLockedItems.indexOf(sId)
-        if (nInd > -1) {
-          this.state.aLockedItems.splice(nInd, 1)
-        }
-      })
-    } else {
-      const nInd = this.state.aLockedItems.indexOf(id)
-      if (nInd > -1) {
-        this.state.aLockedItems.splice(nInd, 1)
-      }
+    const nInd = this.state.aLockedItems.indexOf(id)
+    if (nInd > -1) {
+      this.state.aLockedItems.splice(nInd, 1)
     }
     this.setConfig('locked', this.state.aLockedItems)
   },
@@ -330,31 +303,8 @@ export const Store = {
     this.state.aHiddenItems = []
   },
 
-  selectCard(oCard) {
-    const id = oCard.id
-    const nInd = this.state.aSelectedItems.indexOf(id)
-    if (nInd > -1) {
-      this.state.aSelectedItems.splice(nInd, 1)
-    } else {
-      this.state.aSelectedItems.push(id)
-    }
-  },
-  selectLockedCard(oCard) {
-    const id = oCard.id
-    const nInd = this.state.aSelectedLockedItems.indexOf(id)
-    if (nInd > -1) {
-      this.state.aSelectedLockedItems.splice(nInd, 1)
-    } else {
-      this.state.aSelectedLockedItems.push(id)
-    }
-  },
-  selectAll: function (bStat) {
-    if (this.state.aSelectedItems.length > 0 || false === bStat) {
-      this.state.aSelectedItems = []
-      this.state.aSelectedLockedItems = []
-    } else {
-      this.state.aSelectedItems = this.aItemsList().map(item => item.id)
-    }
+  selectAll() {
+    this.broker.selectAllMsg = new Date().getTime()
   },
 
   makeCardWidthLess() {
@@ -869,24 +819,27 @@ export const Store = {
   aItemsList() {
     const aFiltered = this.aClassSpells().filter((oItem) => {
       return (
-        this.aSrcSelected().filter(value => oItem.en.source.split(',').map(item => item.trim())
-          .indexOf(value) !== -1).length &&
-            // this.aSrcSelected.indexOf(oItem.en.source)>-1 && // old filter for sources
-            this.aSchoolSelected().indexOf(oItem.en.school.toLowerCase().trim()) > -1 /**/ &&
-            (
-              0 === this.aCastingTimeSelected().length ||
-                this.aCastingTimeSelected().indexOf(oItem.en.castingTime.toLowerCase().trim()) > -1
-            ) &&
-            (
-              oItem.en.name.toLowerCase().indexOf(this.sNameInput()) > -1 ||
-                oItem.ru.name.toLowerCase().indexOf(this.sNameInput()) > -1 ||
-                (oItem.ru.nic && oItem.ru.nic.toLowerCase().indexOf(this.sNameInput()) > -1)
-            ) &&
-            ((this.state.bRitualOnly && oItem.en.ritual) || !this.state.bRitualOnly) &&
-            this.state.aHiddenItems.indexOf(oItem.en.name) < 0/**/ &&
-            this.state.nLevelStart <= this.state.nLevelEnd &&
-            this.state.nLevelStart <= Number(oItem.en.level) &&
-            this.state.nLevelEnd >= Number(oItem.en.level)
+        (
+          this.aSrcSelected()
+            .filter(value => oItem.en.source.split(',').map(item => item.trim()).indexOf(value) !== -1).length
+        ) &&
+        this.aSchoolSelected().indexOf(oItem.en.school.toLowerCase().trim()) > -1 &&
+        (
+          0 === this.aCastingTimeSelected().length ||
+          this.aCastingTimeSelected().indexOf(oItem.en.castingTime.toLowerCase().trim()) > -1
+        ) &&
+        (
+          oItem.en.name.toLowerCase().indexOf(this.sNameInput()) > -1 ||
+          oItem.ru.name.toLowerCase().indexOf(this.sNameInput()) > -1 ||
+          (oItem.ru.nic && oItem.ru.nic.toLowerCase().indexOf(this.sNameInput()) > -1)
+        ) &&
+        (
+          (this.state.bRitualOnly && oItem.en.ritual) || !this.state.bRitualOnly
+        ) &&
+        this.state.aHiddenItems.indexOf(oItem.en.name) < 0 &&
+        this.state.nLevelStart <= this.state.nLevelEnd &&
+        this.state.nLevelStart <= Number(oItem.en.level) &&
+        this.state.nLevelEnd >= Number(oItem.en.level)
       )
     })
 
@@ -921,7 +874,6 @@ export const Store = {
           color: this.state.sClass,
           view: this.state.sView,
           locked: this.state.aLockedItems.indexOf(oItem.en.name) > -1,
-          selected: this.state.aSelectedItems.indexOf(oItem.en.name) > -1,
 
           editable: this.state.bEditMode
         }
@@ -987,7 +939,6 @@ export const Store = {
         color: this.state.sClass,
         view: this.state.sView,
         locked: this.state.aLockedItems.indexOf(oItem.en.name) > -1,
-        selected: this.state.aSelectedLockedItems.indexOf(oItem.en.name) > -1
       }
       if (oItem[this.state.sLang].pre || oItem.en.pre) {
         o.pre = oItem[this.state.sLang].pre || oItem.en.pre

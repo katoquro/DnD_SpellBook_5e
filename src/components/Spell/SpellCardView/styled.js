@@ -1,4 +1,4 @@
-import styled from 'vue-styled-components'
+import styled, { css } from 'vue-styled-components'
 import {
   BG_COLOR_LIGHT,
   cardClassColors,
@@ -7,24 +7,38 @@ import {
   OUTLINE_COLOR_LIGHT
 } from '@app/components/common-styled'
 
-function scrollbars (size) {
-  return `
-  &::-webkit-scrollbar {
-    width: ${size}px;
-    height: ${size}px;
-  }
+function scrollbars(size) {
+  return css`
+    &::-webkit-scrollbar {
+      width: ${size}px;
+      height: ${size}px;
+    }
 
-  &::-webkit-scrollbar-thumb {
-    background: #777;
-  }
+    &::-webkit-scrollbar-thumb {
+      background: #777;
+    }
 
-  &::-webkit-scrollbar-track {
-    background: #ddd;
-  }
+    &::-webkit-scrollbar-track {
+      background: #ddd;
+    }
   `
 }
 
-export const SpellCardStyled = styled('div', { spellClass: String, spellCardWidth: Number })`
+const selectionBorderStyle = css`
+  transform: scale(0.97);
+  outline: 5px ${OUTLINE_COLOR_LIGHT} solid;
+  transition: outline 0.2s;
+
+  &:hover {
+    outline-color: ${OUTLINE_COLOR_DARK};
+  }
+`
+
+export const SpellCardStyled = styled('div', {
+  spellClass: String,
+  spellCardWidth: Number,
+  selected: Boolean
+})`
   page-break-inside: avoid;
   width: ${props => props.spellCardWidth}px;
   border: 9px solid ${props => cardClassColors[props.spellClass]};
@@ -35,15 +49,7 @@ export const SpellCardStyled = styled('div', { spellClass: String, spellCardWidt
   position: relative;
   margin: 1px;
 
-  &.selected {
-    transform: scale(0.94);
-    outline: 5px ${OUTLINE_COLOR_LIGHT} solid;
-    transition: outline 0.2s;
-
-    &:hover {
-      outline-color: ${OUTLINE_COLOR_DARK};
-    }
-  }
+  ${p => p.selected ? selectionBorderStyle : ''}
 `
 
 export const SpellCardContentStyled = styled('div')`
@@ -85,7 +91,7 @@ export const SpellCardCellStyled = styled('div', { spellClass: String })`
   border: 1px solid ${props => cardClassColors[props.spellClass]};
   float: left;
   width: 50%;
-  
+
   div {
     text-transform: uppercase;
     text-align: center;
@@ -99,7 +105,7 @@ export const SpellCardTextStyled = styled('div', { fontSize: Number })`
   overflow-y: auto;
   flex-shrink: 99;
   line-height: normal;
-  
+
   ${scrollbars(5)}
 `
 

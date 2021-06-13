@@ -19,22 +19,25 @@ import { SpellButtonStyled, SpellControlsRowStyled } from '@app/components/Spell
 import { levelToL7dString, parseSourcesToL7dSting } from '@app/components/Spell/Spell'
 import { debounce } from 'debounce'
 
-// TODO katoquro: 30/05/2021 select
-
 const SMALLEST_FONT_SIZE = 5
 
 export default component({
   props: {
     id: {
       type: String,
-      default: ''
+      required: true
     },
   },
   data: () => ({
-    cardFontSize: 12,
     store: Store.state,
+
+    cardFontSize: 12,
+    selected: false,
+
     broker: Store.broker,
-    lastAdjustFontMsg: 0
+    lastAdjustFontMsg: 0,
+    lastSelectAllMsg: 0,
+    lastDropAllSelectionMsg: 0
   }),
   methods: {
     decreaseTextSize() {
@@ -51,6 +54,14 @@ export default component({
       alert('Is not supported yet :(')
     },
     messageProcessor() {
+      if (this.broker.selectAllMsg > this.lastSelectAllMsg) {
+        this.selected = true
+      }
+
+      if (this.broker.dropAllSelectionMsg > this.lastDropAllSelectionMsg) {
+        this.selected = false
+      }
+
       if (this.broker.adjustFontMsg > this.lastAdjustFontMsg && this.$el) {
         const oEl = (this.$refs.SpellCardTextRef as Vue).$el as HTMLElement
 
@@ -67,6 +78,7 @@ export default component({
       }
     }
   },
+
   render(h): VNode {
     this.messageProcessor()
 
@@ -79,7 +91,7 @@ export default component({
     const spellCardWidth = this.store.spellCardWidth
 
     return (
-      <SpellCardStyled spellClass={spellClass} spellCardWidth={spellCardWidth}>
+      <SpellCardStyled spellClass={spellClass} spellCardWidth={spellCardWidth} selected={this.selected}>
         <SpellCardContentStyled>
 
           <SpellControlsRowStyled position='top'>
