@@ -5,7 +5,7 @@ injectGlobal`
   html {
     height: 100%;
   }
-  
+
   body {
     margin: 0;
     width: 100%;
@@ -19,6 +19,14 @@ injectGlobal`
 
     /*prevent scroll to allocate width in webkit browsers*/
     overflow-y: overlay;
+
+    @media print {
+      background: #fff none;
+      margin: 0;
+      padding: 0;
+
+      -webkit-print-color-adjust: exact;
+    }
   }
 
   .bg-image {
@@ -37,6 +45,9 @@ injectGlobal`
   }
 
   @page {
-    margin: 1.14cm 0.9cm 0.9cm;
+    size: landscape;
+    
+    // based on printing area A4 https://id.canon/en/support/8200392300
+    margin: 0.7cm 1.8cm;
   }
 `

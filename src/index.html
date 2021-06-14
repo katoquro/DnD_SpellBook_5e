@@ -30,6 +30,8 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
+
+
         }
 
         .loading-text {
@@ -49,10 +51,16 @@
             text-shadow: -2px -2px #4c4c4c;
         }
 
+        @media print {
+            .bg-image {
+                display: none;
+            }
+        }
+
     </style>
 </head>
 <body data-build-date="<%= htmlWebpackPlugin.options.buildDate %>">
-<div class="bg-image noprint" aria-hidden="true"></div>
+<div class="bg-image" aria-hidden="true"></div>
 
 <div id="VueApp">
     <div class="loading-text">

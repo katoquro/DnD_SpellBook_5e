@@ -49,7 +49,9 @@ export const SpellCardStyled = styled('div', {
   position: relative;
   margin: 1px;
 
-  ${p => p.selected ? selectionBorderStyle : ''}
+  ${p => p.selected ? selectionBorderStyle : ''} @media print {
+    float: left;
+  }
 `
 
 export const SpellCardContentStyled = styled('div')`

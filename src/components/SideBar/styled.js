@@ -1,5 +1,5 @@
 import styled from 'vue-styled-components'
-import { FlexWrap, FONT_COLOR_LIGHT } from '@app/components/common-styled'
+import { FlexWrap, FONT_COLOR_LIGHT, nonPrintingStyle } from '@app/components/common-styled'
 
 export const BG_COLOR_BUTTON = 'hsl(0,0%,47%)'
 export const BG_COLOR_BUTTON_HOVER = 'hsl(0,0%,60%)'
@@ -20,10 +20,12 @@ export const SideBarStyled = styled('div')`
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
-  
-  background: hsl(0,0%,0%,40%);
-  
+
+  background: hsl(0, 0%, 0%, 40%);
+
   z-index: 9;
+
+  ${nonPrintingStyle}
 `
 
 export const FilterLabelStyled = styled('span')`
@@ -46,7 +48,7 @@ export const FilterBtnStyled = styled('a')`
   text-align: center;
   font-size: 100%;
   margin: 1px;
-  
+
   &:hover {
     background: ${BG_COLOR_BUTTON_HOVER};
   }
